@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+    <title>DataDyne.org - <%= @title || "We get data." -%></title>
+    <%= stylesheet_link_tag 'datadyne' %>
+  </head>
+  <body>
+    <div id="center">
+      <div id="frame">
+        <div id="header">
+          <h1>DataDyne.org</h1>
+          <h2>We get data.</h2>
+        </div>
+        <div id="sidebar">
+          <div id="menu">                  
+            <ul>
+              <li class="leaf"><a class="active" title="Home" href="http://datadyne.org?q=home">Home</a></li>
+              <li class="leaf"><a title="About" href="http://datadyne.org?q=about">About</a></li>
+              <li class="leaf"><a title="Information about the EpiSurveyor project" href="http://datadyne.org?q=episurveyor/home">EpiSurveyor</a></li>
+              <li class="leaf"><a title="Services" href="http://datadyne.org?q=services">Services</a></li>
+              <li class="leaf"><a title="Partners" href="http://datadyne.org?q=partners">Partners</a></li>
+              <li class="leaf"><a title="Images of our work, our colleagues, our friends" href="http://datadyne.org?q=image">Images</a></li>
+              <li class="leaf"><a title="Contact" href="http://datadyne.org?q=contact">Contact</a></li>
+              <li class="leaf"><a title="Recommended Reading" href="http://datadyne.org?q=reading">Reading</a></li>
+            </ul>
+          </div>
+          <a href="http://datadyne.org?q=image"><img alt="Tsunami Victim" src="http://datadyne.org/files/images/SumatraPatient.sidebar.jpg" id="rotate"/></a>  
+          <div>
+            <h2 class="title">Download</h2>
+            <p><img width="50" vspace="0" hspace="0" border="0" align="right" alt="No Data Entry" src="http://datadyne.org/files/images/nodataentry-grey.gif"/><small><a href="http://datadyne.org?q=episurveyor/howtogetit">Click here</a> to to download the latest version of our EpiSurveyor software.</small></p>
+          </div>
+          <div>
+            <h2 class="title">Recommended Reading</h2>
+            <p><small><a target="_blank" href="http://www.nytimes.com/2008/08/31/technology/31novel.html"><img width="130" src="http://graphics8.nytimes.com/images/2008/08/31/business/31novel.xlarge1.jpg"/><strong>Many Eyes</strong><br/>
+               Read the New York Times article on Martin Wattenberg's new Many Eyes data analysis website.</a></small></p>
+          </div>
+          <div>
+            <h2 class="title">Recommended Video</h2>
+            <p><small><a target="_blank" href="http://www.ted.com/index.php/talks/view/id/92">Hans Rosling speaks on data and development at the TED conference. Not to be missed!</a></small></p>
+          </div>
+          <div>
+            <h2 class="title">Extranet</h2>
+            <p><small><a target="_blank" href="http://datadyne.grouphub.com/clients">Current clients and partners click here to access our project management extranet.</a></small></p>
+          </div>
+        </div>
+        <div id="content">
+          <%= render :partial => 'shared/toolbar' -%>
+          <div id="notice"><%= flash[:notice] || flash[:error] %></div>  
+          <%= yield %>      
+        </div>  
+        <div id="footer">
+          &copy;2005-2009 DataDyne.org, All Rights Reserved		
+        </div>
+      </div>  
+    </div>  
+  </body>
+</html>

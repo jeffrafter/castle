@@ -1,0 +1,7 @@
+<div id="toolbar">
+  <% if signed_in? -%>
+    Hello, <%= current_user.email %>! <%= link_to 'Sign out', logout_path %>
+  <% else -%>
+    Please <%= link_to 'Sign in', login_path %>
+  <% end -%>
+</div>

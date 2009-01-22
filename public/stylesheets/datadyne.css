@@ -1,0 +1,103 @@
+body {
+  background:#999999 url(/images/body2.jpg) repeat scroll 0 0;
+  font-family:"Verdana","Arial","Helvetica",sans-serif;
+  font-size:9pt;
+  margin:0;
+  padding:0;
+  margin-bottom:50px;
+  text-align:center;
+  color:#3D3D3D;
+}
+p {
+  line-height:140%;
+}
+img {
+  border: 0;
+}
+#center {
+  position:absolute;
+  left:50%;
+  width:800px;
+  margin:20px auto 50px;
+  margin-left:-400px;
+  padding-bottom:50px;
+}  
+#frame {
+  background-color:#F2F2F2;
+  border:1px solid #666666;
+  text-align:left;
+}
+#header {
+  height:157px;
+  background:#999999 url(/images/mast.jpg) repeat scroll 0 0;
+  border-bottom:1px solid #666666;
+}
+#header h1, #header h2 {
+  display:none;
+}
+#sidebar {
+  float:left;
+  background:#CCCCCC none repeat scroll 0 0;
+  border-right:1px solid #999999;
+  margin:0;
+  padding:0;
+  width:140px;
+}
+#sidebar h2 {
+  color:#333333;
+  font-size:0.9em;
+}
+#sidebar div {
+  margin:8px 0;
+  padding:0 6px;
+}
+#menu {
+  margin:0 !important;
+  padding:0 !important;
+}
+#menu ul {
+  list-style-image:none !important;
+  list-style-position:outside !important;
+  list-style-type:none !important;
+  margin:0;
+  padding:0;
+}
+#menu ul li {
+  list-style-image:none !important;
+  list-style-type:none !important;
+  margin: 0;
+  padding: 0;
+}
+#menu ul li a:hover {
+  background-color:#EEEEEE;
+}
+#menu ul li a {
+  border-bottom:1px solid #999999;
+  color:#990000;
+  display:block;
+  letter-spacing:1px;
+  margin:0;
+  padding:5px 5px 5px 10px;
+  text-decoration:none !important;
+  text-transform:uppercase;
+}
+#content {
+  float:left;
+  padding:10px;
+}
+#footer {
+  background-color:#75A1D0;
+  border:1px solid #666666;
+  clear:both;
+  color:white;
+  font-size:0.8em;
+  padding:2px;
+  text-align:center;
+  margin-bottom:15px;  
+}
+.text_field label {
+  display:block;
+}
+.submit_field {
+  margin-top:10px;
+}
