@@ -47,7 +47,7 @@
         </div>
         <div id="content">
           <%= render :partial => 'shared/toolbar' -%>
-          <div id="notice"><%= flash[:notice] || flash[:error] %></div>  
+          <div id="notice"><%= [flash[:notice], flash[:error], flash[:failure], flash[:success]].compact.join(" ") %></div>  
           <%= yield %>      
         </div>  
         <div id="footer">

@@ -95,7 +95,7 @@ img {
   text-align:center;
   margin-bottom:15px;  
 }
-.text_field label {
+.text_field label, .password_field label, .select_field label, .textarea_field label {
   display:block;
 }
 .submit_field {
