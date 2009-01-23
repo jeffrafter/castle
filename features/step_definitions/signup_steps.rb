@@ -21,7 +21,7 @@ end
 
 Then /^an email with the subject "(.*)" should be sent to me$/ do |subject|
   assert_sent_email do |email|
-    @user.blank? || email.to.include?(@user.email)
+    @user.blank? || email.to.include?(me.email)
     email.subject =~ /#{subject}/i
   end
 end
