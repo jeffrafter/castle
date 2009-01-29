@@ -1,0 +1,26 @@
+<h1>Listing keywords</h1>
+
+<table>
+  <tr>
+    <th>Word</th>
+    <th>Description</th>
+    <th>Language</th>
+    <th>Channel</th>
+  </tr>
+
+<% for keyword in @keywords %>
+  <tr>
+    <td><%=h keyword.word %></td>
+    <td><%=h keyword.description %></td>
+    <td><%=h keyword.language %></td>
+    <td><%=h keyword.channel_id %></td>
+    <td><%= link_to 'Show', keyword %></td>
+    <td><%= link_to 'Edit', edit_keyword_path(keyword) %></td>
+    <td><%= link_to 'Destroy', keyword, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New keyword', new_keyword_path %>

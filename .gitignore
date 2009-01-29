@@ -1,5 +1,6 @@
 .DS_Store
 config/database.yml
+*.sqlite3
 doc
 notes
 backup

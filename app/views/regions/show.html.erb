@@ -1,0 +1,23 @@
+<p>
+  <b>Name:</b>
+  <%=h @region.name %>
+</p>
+
+<p>
+  <b>Country:</b>
+  <%=h @region.country %>
+</p>
+
+<p>
+  <b>Language:</b>
+  <%=h @region.language %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @region.active %>
+</p>
+
+
+<%= link_to 'Edit', edit_region_path(@region) %> |
+<%= link_to 'Back', regions_path %>

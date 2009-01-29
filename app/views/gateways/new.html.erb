@@ -1,0 +1,35 @@
+<h1>New gateway</h1>
+
+<% form_for(@gateway) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :number %><br />
+    <%= f.text_field :number %>
+  </p>
+  <p>
+    <%= f.label :short_code %><br />
+    <%= f.text_field :short_code %>
+  </p>
+  <p>
+    <%= f.label :country_code %><br />
+    <%= f.text_field :country_code %>
+  </p>
+  <p>
+    <%= f.label :area_code %><br />
+    <%= f.text_field :area_code %>
+  </p>
+  <p>
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </p>
+  <p>
+    <%= f.label :region_id %><br />
+    <%= f.text_field :region_id %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', gateways_path %>

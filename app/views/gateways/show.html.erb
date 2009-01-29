@@ -1,0 +1,33 @@
+<p>
+  <b>Number:</b>
+  <%=h @gateway.number %>
+</p>
+
+<p>
+  <b>Short code:</b>
+  <%=h @gateway.short_code %>
+</p>
+
+<p>
+  <b>Country code:</b>
+  <%=h @gateway.country_code %>
+</p>
+
+<p>
+  <b>Area code:</b>
+  <%=h @gateway.area_code %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @gateway.active %>
+</p>
+
+<p>
+  <b>Region:</b>
+  <%=h @gateway.region_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_gateway_path(@gateway) %> |
+<%= link_to 'Back', gateways_path %>

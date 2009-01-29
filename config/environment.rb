@@ -13,5 +13,7 @@ Rails::Initializer.run do |config|
   }
 end
 
+require 'resource_controller'
+
 DO_NOT_REPLY = "donotreply@example.com" 
 PROJECT_NAME = "News for Cell Phones"

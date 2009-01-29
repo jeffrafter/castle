@@ -1,0 +1,68 @@
+<p>
+  <b>Title:</b>
+  <%=h @entry.title %>
+</p>
+
+<p>
+  <b>Summary:</b>
+  <%=h @entry.summary %>
+</p>
+
+<p>
+  <b>Link:</b>
+  <%=h @entry.link %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%=h @entry.author %>
+</p>
+
+<p>
+  <b>Contributor:</b>
+  <%=h @entry.contributor %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @entry.description %>
+</p>
+
+<p>
+  <b>Content:</b>
+  <%=h @entry.content %>
+</p>
+
+<p>
+  <b>Category:</b>
+  <%=h @entry.category %>
+</p>
+
+<p>
+  <b>Uuid:</b>
+  <%=h @entry.uuid %>
+</p>
+
+<p>
+  <b>Published at:</b>
+  <%=h @entry.published_at %>
+</p>
+
+<p>
+  <b>Updated at:</b>
+  <%=h @entry.updated_at %>
+</p>
+
+<p>
+  <b>Expires at:</b>
+  <%=h @entry.expires_at %>
+</p>
+
+<p>
+  <b>Channel:</b>
+  <%=h @entry.channel_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_entry_path(@entry) %> |
+<%= link_to 'Back', entries_path %>

@@ -1,0 +1,44 @@
+<h1>Listing entries</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Summary</th>
+    <th>Link</th>
+    <th>Author</th>
+    <th>Contributor</th>
+    <th>Description</th>
+    <th>Content</th>
+    <th>Category</th>
+    <th>Uuid</th>
+    <th>Published at</th>
+    <th>Updated at</th>
+    <th>Expires at</th>
+    <th>Channel</th>
+  </tr>
+
+<% for entry in @entries %>
+  <tr>
+    <td><%=h entry.title %></td>
+    <td><%=h entry.summary %></td>
+    <td><%=h entry.link %></td>
+    <td><%=h entry.author %></td>
+    <td><%=h entry.contributor %></td>
+    <td><%=h entry.description %></td>
+    <td><%=h entry.content %></td>
+    <td><%=h entry.category %></td>
+    <td><%=h entry.uuid %></td>
+    <td><%=h entry.published_at %></td>
+    <td><%=h entry.updated_at %></td>
+    <td><%=h entry.expires_at %></td>
+    <td><%=h entry.channel_id %></td>
+    <td><%= link_to 'Show', entry %></td>
+    <td><%= link_to 'Edit', edit_entry_path(entry) %></td>
+    <td><%= link_to 'Destroy', entry, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New entry', new_entry_path %>

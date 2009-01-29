@@ -1,0 +1,36 @@
+<h1>Listing channels</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Subtitle</th>
+    <th>Link</th>
+    <th>Description</th>
+    <th>Author</th>
+    <th>Interval</th>
+    <th>Updated at</th>
+    <th>Active</th>
+    <th>Region</th>
+  </tr>
+
+<% for channel in @channels %>
+  <tr>
+    <td><%=h channel.title %></td>
+    <td><%=h channel.subtitle %></td>
+    <td><%=h channel.link %></td>
+    <td><%=h channel.description %></td>
+    <td><%=h channel.author %></td>
+    <td><%=h channel.interval %></td>
+    <td><%=h channel.updated_at %></td>
+    <td><%=h channel.active %></td>
+    <td><%=h channel.region_id %></td>
+    <td><%= link_to 'Show', channel %></td>
+    <td><%= link_to 'Edit', edit_channel_path(channel) %></td>
+    <td><%= link_to 'Destroy', channel, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New channel', new_channel_path %>

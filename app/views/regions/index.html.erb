@@ -1,0 +1,26 @@
+<h1>Listing regions</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Country</th>
+    <th>Language</th>
+    <th>Active</th>
+  </tr>
+
+<% for region in @regions %>
+  <tr>
+    <td><%=h region.name %></td>
+    <td><%=h region.country %></td>
+    <td><%=h region.language %></td>
+    <td><%=h region.active %></td>
+    <td><%= link_to 'Show', region %></td>
+    <td><%= link_to 'Edit', edit_region_path(region) %></td>
+    <td><%= link_to 'Destroy', region, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New region', new_region_path %>

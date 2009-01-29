@@ -1,0 +1,48 @@
+<p>
+  <b>Title:</b>
+  <%=h @channel.title %>
+</p>
+
+<p>
+  <b>Subtitle:</b>
+  <%=h @channel.subtitle %>
+</p>
+
+<p>
+  <b>Link:</b>
+  <%=h @channel.link %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @channel.description %>
+</p>
+
+<p>
+  <b>Author:</b>
+  <%=h @channel.author %>
+</p>
+
+<p>
+  <b>Interval:</b>
+  <%=h @channel.interval %>
+</p>
+
+<p>
+  <b>Updated at:</b>
+  <%=h @channel.updated_at %>
+</p>
+
+<p>
+  <b>Active:</b>
+  <%=h @channel.active %>
+</p>
+
+<p>
+  <b>Region:</b>
+  <%=h @channel.region_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_channel_path(@channel) %> |
+<%= link_to 'Back', channels_path %>

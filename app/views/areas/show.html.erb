@@ -1,0 +1,23 @@
+<p>
+  <b>Name:</b>
+  <%=h @area.name %>
+</p>
+
+<p>
+  <b>Country code:</b>
+  <%=h @area.country_code %>
+</p>
+
+<p>
+  <b>Area code:</b>
+  <%=h @area.area_code %>
+</p>
+
+<p>
+  <b>Region:</b>
+  <%=h @area.region_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_area_path(@area) %> |
+<%= link_to 'Back', areas_path %>
