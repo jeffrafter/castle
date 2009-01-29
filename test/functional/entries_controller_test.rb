@@ -1,47 +1,50 @@
 require 'test_helper'
 
 class EntriesControllerTest < ActionController::TestCase
-=begin
-  test "should get index" do
-    get :index
-    assert_response :success
-    assert_not_nil assigns(:entries)
-  end
+  context "Given a created record" do
+    setup do
+      @entry = Factory(:entry)
+    end    
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create entry" do
-    assert_difference('Entry.count') do
-      post :create, :entry => { }
+    should "should get index" do
+      get :index
+      assert_response :success
+      assert_not_nil assigns(:entries)
     end
 
-    assert_redirected_to entry_path(assigns(:entry))
-  end
-
-  test "should show entry" do
-    get :show, :id => entries(:one).id
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, :id => entries(:one).id
-    assert_response :success
-  end
-
-  test "should update entry" do
-    put :update, :id => entries(:one).id, :entry => { }
-    assert_redirected_to entry_path(assigns(:entry))
-  end
-
-  test "should destroy entry" do
-    assert_difference('Entry.count', -1) do
-      delete :destroy, :id => entries(:one).id
+    should "should get new" do
+      get :new
+      assert_response :success
     end
 
-    assert_redirected_to entries_path
+    should "should create entry" do
+      @channel = Factory(:channel)
+      assert_difference('Entry.count') do
+        post :create, :entry => { :link => 'http://xkcd.com/595', :channel_id => @channel.id }
+      end
+      assert_redirected_to entry_path(assigns(:entry))
+    end
+
+    should "should show entry" do
+      get :show, :id => @entry.id
+      assert_response :success
+    end
+
+    should "should get edit" do
+      get :edit, :id => @entry.id
+      assert_response :success
+    end
+
+    should "should update entry" do
+      put :update, :id => @entry.id, :entry => { }
+      assert_redirected_to entry_path(assigns(:entry))
+    end
+
+    should "should destroy entry" do
+      assert_difference('Entry.count', -1) do
+        delete :destroy, :id => @entry.id
+      end
+      assert_redirected_to entries_path
+    end
   end
-=end  
 end
