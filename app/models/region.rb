@@ -1,5 +1,5 @@
 class Region < ActiveRecord::Base
-  named_scope :enabled, :conditions => 'active = 1'
+  named_scope :enabled, :conditions => ['active = ?', true]
   has_many :areas
   has_many :gateways
   has_many :channels

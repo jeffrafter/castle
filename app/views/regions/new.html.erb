@@ -2,7 +2,6 @@
 
 <% form_for(@region) do |f| %>
   <%= f.error_messages %>
-
   <p>
     <%= f.label :name %><br />
     <%= f.text_field :name %>
@@ -14,10 +13,6 @@
   <p>
     <%= f.label :language %><br />
     <%= f.text_field :language %>
-  </p>
-  <p>
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
   </p>
   <p>
     <%= f.submit "Create" %>

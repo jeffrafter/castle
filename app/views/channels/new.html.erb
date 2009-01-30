@@ -2,7 +2,6 @@
 
 <% form_for(@channel) do |f| %>
   <%= f.error_messages %>
-
   <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
@@ -28,16 +27,8 @@
     <%= f.text_field :interval %>
   </p>
   <p>
-    <%= f.label :updated_at %><br />
-    <%= f.datetime_select :updated_at %>
-  </p>
-  <p>
-    <%= f.label :active %><br />
-    <%= f.check_box :active %>
-  </p>
-  <p>
     <%= f.label :region_id %><br />
-    <%= f.text_field :region_id %>
+    <%= f.collection_select :region_id, Region.enabled, :id, :name  %>
   </p>
   <p>
     <%= f.submit "Create" %>
