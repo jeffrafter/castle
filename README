@@ -1,5 +1,27 @@
-== RSS Aggregation of News over Cell phones ==
+== Knight Foundation RSS And News on Cell Phones (RANC) by DataDyne
 
-Current adminstration and portal website for management of regions and
-content channels for SMS. This will also act as the cache for user subscriptions
-and content.
+Adminstration and portal website for management of regions and content channels 
+for SMS. This will also act as the cache for user subscriptions and content.
+
+There are more than 3 Billion mobile phone subscribers in the world (2008) and
+many, if not all have access to a simple stateless prototol called SMS. Only
+1.5 Billion people have used the Internet (2008) meaning that there is a large
+population which is connected but cannot use the Internet. Bridging the gap
+with SMS will make available vast functionality and services that were 
+previously not usable.
+
+This project is composed of a simple gateway (proxy) that feeds commands to 
+a remote server for translation and management.
+
+== Dependencies
+
+The controllers are simplified using a few gems:
+
+  jeffrafter-resource_controller
+  jeffrafter-clearance
+  
+For testing you will need:
+
+  thoughtbot-factory_girl
+  thoughtbot-shoulda
+  mocha
