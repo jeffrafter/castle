@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 7) do
+ActiveRecord::Schema.define(:version => 8) do
 
   create_table "areas", :force => true do |t|
     t.string   "name",         :null => false
@@ -88,6 +88,13 @@ ActiveRecord::Schema.define(:version => 7) do
   add_index "keywords", ["channel_id"], :name => "index_keywords_on_channel_id"
   add_index "keywords", ["word", "language"], :name => "index_keywords_on_word_and_language"
 
+  create_table "messages", :force => true do |t|
+    t.string   "message"
+    t.string   "number"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "regions", :force => true do |t|
     t.string   "name",                         :null => false
     t.string   "country",                      :null => false
@@ -102,17 +109,24 @@ ActiveRecord::Schema.define(:version => 7) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.boolean  "email_confirmed",                         :default => false, :null => false
+    t.boolean  "email_confirmed",                          :default => false, :null => false
     t.string   "encrypted_password",        :limit => 40
     t.string   "salt",                      :limit => 40
+    t.string   "token",                     :limit => 128
+    t.datetime "token_expires_at"
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
-    t.boolean  "confirmed",                               :default => false, :null => false
+    t.string   "number"
+    t.boolean  "number_confirmed",                         :default => false, :null => false
+    t.boolean  "active",                                   :default => true,  :null => false
   end
 
   add_index "users", ["email", "encrypted_password"], :name => "index_users_on_email_and_encrypted_password"
   add_index "users", ["email"], :name => "index_users_on_email"
   add_index "users", ["id", "salt"], :name => "index_users_on_id_and_salt"
+  add_index "users", ["id", "token"], :name => "index_users_on_id_and_token"
+  add_index "users", ["number"], :name => "index_users_on_number"
   add_index "users", ["remember_token"], :name => "index_users_on_remember_token"
+  add_index "users", ["token"], :name => "index_users_on_token"
 
 end

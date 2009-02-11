@@ -1,5 +1,5 @@
 When /^I confirm my email$/ do
-  get "/users/#{@user.id}/confirmation/new?salt=#{@user.salt}"
+  get "/users/#{@user.id}/confirmation/new?token=#{@user.token}"
 end
 
 When /^I go to the forgot password page$/ do

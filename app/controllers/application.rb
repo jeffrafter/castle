@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   helper :all
-  protect_from_forgery
   include Clearance::App::Controllers::ApplicationController
-  before_filter :authenticate
+  rescue_from ActiveRecord::RecordNotFound do |e| render :text => e.message, :status => :not_found; end
+  rescue_from Exception do |e| render :text => e.message, :status => :error; end
+#  protect_from_forgery
+#  before_filter :authenticate
 end

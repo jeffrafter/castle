@@ -47,8 +47,7 @@ Feature: Signup in
     Given a confirmed user with the email "francine@hullaballoo.com" with password "doughnuts" exists
     When I confirm my email
     Then I should be redirected to "/"
-    And I should see "Confirmed email and signed in"
-    And I should be signed in
+    And I should not be signed in
 
   Scenario: User forgot password
     Given a confirmed user with the email "francine@hullaballoo.com" with password "doughnuts" exists
