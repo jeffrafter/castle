@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 8) do
+ActiveRecord::Schema.define(:version => 9) do
 
   create_table "areas", :force => true do |t|
     t.string   "name",         :null => false
@@ -66,15 +66,31 @@ ActiveRecord::Schema.define(:version => 8) do
     t.integer  "country_code"
     t.integer  "area_code"
     t.boolean  "active"
-    t.integer  "region_id",    :null => false
+    t.string   "api_key",            :limit => 128
+    t.datetime "api_key_expires_at"
+    t.integer  "region_id",                         :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+  add_index "gateways", ["api_key", "api_key_expires_at"], :name => "index_gateways_on_api_key_and_api_key_expires_at"
   add_index "gateways", ["country_code", "area_code"], :name => "index_gateways_on_country_code_and_area_code"
   add_index "gateways", ["number"], :name => "index_gateways_on_number"
   add_index "gateways", ["region_id"], :name => "index_gateways_on_region_id"
   add_index "gateways", ["short_code"], :name => "index_gateways_on_short_code"
+
+  create_table "inbox", :force => true do |t|
+    t.string   "text"
+    t.string   "number"
+    t.integer  "reply_to"
+    t.integer  "gateway_id"
+    t.string   "receiver"
+    t.datetime "sent_at"
+    t.datetime "processed_at"
+    t.boolean  "handled"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "keywords", :force => true do |t|
     t.string   "word",        :null => false
@@ -88,9 +104,15 @@ ActiveRecord::Schema.define(:version => 8) do
   add_index "keywords", ["channel_id"], :name => "index_keywords_on_channel_id"
   add_index "keywords", ["word", "language"], :name => "index_keywords_on_word_and_language"
 
-  create_table "messages", :force => true do |t|
-    t.string   "message"
+  create_table "outbox", :force => true do |t|
+    t.string   "text"
     t.string   "number"
+    t.integer  "reply_to"
+    t.integer  "gateway_id"
+    t.boolean  "sent"
+    t.datetime "sent_at"
+    t.boolean  "receipt"
+    t.datetime "received_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

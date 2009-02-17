@@ -1,5 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
-  map.resources :messages
+  map.resources :inbox, :as => 'inbox'
+  map.resources :outbox, :as => 'outbox'
   map.resources :entries
   map.resources :channels
   map.resources :keywords
@@ -12,7 +13,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resource :session, :collection => {:verify => :get}
   map.resources :passwords
 
-  map.api '/api', :controller => 'commands', :action => 'create'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
