@@ -6,5 +6,5 @@ class KeywordTest < ActiveSupport::TestCase
   end
   
   should_belong_to :channel
-  should_require_attributes :word, :language, :channel  
+  should_validate_presence_of :word, :language, :channel  
 end

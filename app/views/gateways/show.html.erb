@@ -25,7 +25,12 @@
 
 <p>
   <b>Region:</b>
-  <%=h @gateway.region_id %>
+  <%=h @gateway.region.name %>
+</p>
+
+<p style="overflow:auto">
+  <b>Key:</b>
+  <%=h @gateway.api_key %>
 </p>
 
 

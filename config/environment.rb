@@ -11,6 +11,7 @@ Rails::Initializer.run do |config|
     :session_key => '_admin_session',
     :secret      => 'e1532a15f8aa3f7cd70e9d423761432fb3cf94a9e787227942e3d8bdd38d3c3e74787e7d5194829f32d5e313337703d9069c9c719bb68a2c51de19f176025e8f'
   }
+  config.gem "mislav-will_paginate", :lib => "will_paginate"
 end
 
 DO_NOT_REPLY = "donotreply@example.com" 

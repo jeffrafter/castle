@@ -1,105 +1,45 @@
+require 'active_record_validations_extension'
+
 class User < ActiveRecord::Base
-#  include Clearance::App::Models::User
+  include Clearance::App::Models::User
+  clear_validations
+  validates_presence_of :password, :if => :password_required?
+  validates_confirmation_of :password, :if => :password_required?
+  validates_presence_of :email, :if => :email_required?
+  validates_uniqueness_of :email, :case_sensitive => false, :if => :email_required?
+  validates_format_of :email, :with => %r{.+@.+\..+}, :if => :email_required?
 
-  attr_accessible :email, :password, :password_confirmation
-  attr_accessible :number
-  attr_accessor :password, :password_confirmation
-
-#  validates_presence_of     :email
-#  validates_presence_of     :password, :if => :password_required?
-#  validates_confirmation_of :password, :if => :password_required?
-#  validates_uniqueness_of   :email, :case_sensitive => false
-#  validates_format_of       :email, :with => %r{.+@.+\..+}
-
-  before_save :initialize_salt, :encrypt_password, :initialize_token, :downcase_email
-
-  def self.authenticate(email, password)
-    user = find(:first, :conditions => ['LOWER(email) = ?', email.to_s.downcase])
-    user && user.authenticated?(password) ? user : nil
-  end
-
-  def authenticated?(password)
-    encrypted_password == encrypt(password)
-  end
-
-  def encrypt(string)
-    generate_hash("--#{salt}--#{string}--")
-  end
-
-  def remember?
-    token_expires_at && Time.now.utc < token_expires_at
-  end
-
-  def remember_me!
-    remember_me_until 2.weeks.from_now.utc
-  end
-
-  def remember_me_until(time)
-    self.token_expires_at = time
-    self.token            = encrypt("--#{token_expires_at}--#{password}--")
-    save(false)                
-  end
-
-  def forget_me!
-    clear_token
-    save(false)
-  end
-
-  def confirm_email!
-    self.email_confirmed  = true
-    self.token            = nil
-    save(false)
-  end
+  attr_accessible :number, :gateway_id
   
-  def forgot_password!
-    generate_token
-    save(false)
-  end
+  has_many :conversations
+  has_many :subscriptions
+  has_many :deliveries
   
-  def update_password(attrs)
-    clear_token
-    returning update_attributes(attrs) do |r|
-      reload unless r
-    end                                          
-  end
-
-  protected
-  
-  def generate_hash(string)
-    Digest::SHA512.hexdigest(string)
-  end
-
-  def initialize_salt
-    if new_record?
-      self.salt = generate_hash("--#{Time.now.utc.to_s}--#{password}--")
-    end
-  end
-
-  def encrypt_password
-    return if password.blank?
-    self.encrypted_password = encrypt(password)
-  end
-  
-  def generate_token
-    self.token = encrypt("--#{Time.now.utc.to_s}--#{password}--")
-    self.token_expires_at = nil              
-  end
-  
-  def clear_token
-    self.token            = nil
-    self.token_expires_at = nil            
-  end
-  
-  def initialize_token
-    generate_token if new_record?
-  end
-
   def password_required?
-    encrypted_password.blank? || !password.blank?
+    number.blank? && (encrypted_password.blank? || !password.blank?)
   end
   
-  def downcase_email
-    self.email = email.to_s.downcase
+  def email_required?
+    number.blank? || email.present?
   end
-
+  
+  def validate
+    self.number = Number.validate(self.number) if self.number
+  rescue InvalidPhoneNumberError
+    errors.add(:number, 'is not a valid phone number for this region')
+  end
+  
+  def subscribe(channel_id)
+    subscriptions.find_or_create_by_channel_id(channel_id)
+  end
+  
+  def unsubscribe(channel_id)
+    subscriptions.find_by_channel_id(channel_id).destroy rescue nil
+  end
+  
+  def tell(text)
+    raise "This user has no gateway, message could not be sent" unless gateway_id
+    Outbox.create(:gateway_id => gateway_id, :number => number, :text => text)
+  end
+  
 end

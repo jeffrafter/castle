@@ -1,9 +1,12 @@
 class Inbox < ActiveRecord::Base
   set_table_name 'inbox'  
-  before_create :verify_number
+  belongs_to :gateway
+  validates_presence_of :number, :gateway, :text
   
-  def verify_number
-    self.number = Number.validate(self.number)
+  def validate
+    self.number = Number.validate(self.number) unless self.number.blank?
+  rescue InvalidPhoneNumberError
+    self.errors.add(:number, 'is not a valid number')  
   end
   
 end

@@ -1,0 +1,24 @@
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :subtitle %><br />
+    <%= f.text_field :subtitle %>
+  </p>
+  <p>
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </p>
+  <p>
+    <%= f.label :keywords %><br />
+    <%= f.text_field :keywords %>
+  </p>
+  <p>
+    <%= f.label :region_id %><br />
+    <%= f.collection_select :region_id, Region.enabled.all, :id, :name  %>
+  </p>
+  <p>
+    <%= f.label :active %><br />
+    <%= f.check_box :active %>
+  </p>

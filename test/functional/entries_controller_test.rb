@@ -7,41 +7,41 @@ class EntriesControllerTest < ActionController::TestCase
     end    
 
     signed_in_user_context do
-      should "should get index" do
+      should "get index" do
         get :index
         assert_response :success
         assert_not_nil assigns(:entries)
       end
 
-      should "should get new" do
+      should "get new" do
         get :new
         assert_response :success
       end
 
-      should "should create entry" do
-        @channel = Factory(:channel)
+      should "create entry" do
+        @feed = Factory(:feed)
         assert_difference('Entry.count') do
-          post :create, :entry => { :link => 'http://xkcd.com/595', :channel_id => @channel.id }
+          post :create, :entry => { :url => 'http://xkcd.com/595', :feed_id => @feed.id }
         end
         assert_redirected_to entry_path(assigns(:entry))
       end
 
-      should "should show entry" do
+      should "show entry" do
         get :show, :id => @entry.id
         assert_response :success
       end
 
-      should "should get edit" do
+      should "get edit" do
         get :edit, :id => @entry.id
         assert_response :success
       end
 
-      should "should update entry" do
+      should "update entry" do
         put :update, :id => @entry.id, :entry => { }
         assert_redirected_to entry_path(assigns(:entry))
       end
 
-      should "should destroy entry" do
+      should "destroy entry" do
         assert_difference('Entry.count', -1) do
           delete :destroy, :id => @entry.id
         end

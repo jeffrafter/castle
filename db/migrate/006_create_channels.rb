@@ -3,18 +3,15 @@ class CreateChannels < ActiveRecord::Migration
     create_table :channels do |t|
       t.string :title
       t.string :subtitle
-      t.string :link, :null => false
+      t.string :keywords
       t.text :description
-      t.string :author
-      t.integer :interval
-      t.datetime :updated_at
+      t.datetime :modified_at
       t.boolean :active, :default => true, :null => false
       t.integer :region_id, :null => false
       t.timestamps
     end
 
-    add_index :channels, [:region_id, :active]
-    add_index :channels, :link
+    add_index :channels, [:region_id, :active, :modified_at]
   end
 
   def self.down

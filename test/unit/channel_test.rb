@@ -5,6 +5,7 @@ class ChannelTest < ActiveSupport::TestCase
     @channel = Factory(:channel)
   end
 
-  should_require_attributes :link
+  should_have_named_scope :enabled, :conditions => ['active = ?', true]
   should_belong_to :region
+  should_have_many :feeds
 end

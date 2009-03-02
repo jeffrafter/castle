@@ -3,9 +3,6 @@
 <table>
   <tr>
     <th>Number</th>
-    <th>Short code</th>
-    <th>Country code</th>
-    <th>Area code</th>
     <th>Active</th>
     <th>Region</th>
   </tr>
@@ -13,11 +10,8 @@
 <% for gateway in @gateways %>
   <tr>
     <td><%=h gateway.number %></td>
-    <td><%=h gateway.short_code %></td>
-    <td><%=h gateway.country_code %></td>
-    <td><%=h gateway.area_code %></td>
     <td><%=h gateway.active %></td>
-    <td><%=h gateway.region_id %></td>
+    <td><%=h gateway.region.name %></td>
     <td><%= link_to 'Show', gateway %></td>
     <td><%= link_to 'Edit', edit_gateway_path(gateway) %></td>
     <td><%= link_to 'Destroy', gateway, :confirm => 'Are you sure?', :method => :delete %></td>

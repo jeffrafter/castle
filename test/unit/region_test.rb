@@ -5,8 +5,9 @@ class RegionTest < ActiveSupport::TestCase
     @region = Factory(:region)
   end
   
-  should_require_attributes :name, :country, :language
-  should_require_unique_attributes :name, :scoped_to => :language
+  should_have_named_scope :enabled, :conditions => ['active = ?', true]
+  should_validate_presence_of :name, :country, :language
+  should_validate_uniqueness_of :name, :scoped_to => :language
   should_have_many :areas
   should_have_many :channels
   should_have_many :gateways

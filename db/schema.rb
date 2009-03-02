@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 9) do
+ActiveRecord::Schema.define(:version => 12) do
 
   create_table "areas", :force => true do |t|
     t.string   "name",         :null => false
@@ -27,38 +27,78 @@ ActiveRecord::Schema.define(:version => 9) do
   create_table "channels", :force => true do |t|
     t.string   "title"
     t.string   "subtitle"
-    t.string   "link",                          :null => false
+    t.string   "keywords"
     t.text     "description"
-    t.string   "author"
-    t.integer  "interval"
-    t.datetime "updated_at"
+    t.datetime "modified_at"
     t.boolean  "active",      :default => true, :null => false
     t.integer  "region_id",                     :null => false
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "channels", ["link"], :name => "index_channels_on_link"
-  add_index "channels", ["region_id", "active"], :name => "index_channels_on_region_id_and_active"
+  add_index "channels", ["region_id", "active", "modified_at"], :name => "index_channels_on_region_id_and_active_and_modified_at"
+
+  create_table "conversation_messages", :force => true do |t|
+    t.integer "conversation_id"
+    t.integer "inbox_id"
+  end
+
+  create_table "conversations", :force => true do |t|
+    t.integer  "handler_id"
+    t.integer  "user_id"
+    t.string   "state"
+    t.datetime "completed_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "deliveries", :force => true do |t|
+    t.integer  "entry_id"
+    t.integer  "channel_id"
+    t.integer  "user_id"
+    t.boolean  "read",       :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "entries", :force => true do |t|
     t.string   "title"
-    t.string   "summary"
-    t.string   "link"
+    t.string   "url"
     t.string   "author"
-    t.string   "contributor"
-    t.text     "description"
+    t.string   "summary"
+    t.string   "message"
+    t.string   "checksum"
     t.text     "content"
-    t.string   "category"
-    t.string   "uuid"
+    t.string   "categories"
     t.datetime "published_at"
-    t.datetime "updated_at"
-    t.datetime "expires_at"
-    t.integer  "channel_id",   :null => false
+    t.integer  "feed_id",                         :null => false
+    t.boolean  "processed",    :default => false, :null => false
     t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
-  add_index "entries", ["channel_id", "updated_at"], :name => "index_entries_on_channel_id_and_updated_at"
-  add_index "entries", ["channel_id"], :name => "index_entries_on_channel_id"
+  add_index "entries", ["feed_id", "published_at"], :name => "index_entries_on_feed_id_and_published_at"
+  add_index "entries", ["feed_id"], :name => "index_entries_on_feed_id"
+
+  create_table "feeds", :force => true do |t|
+    t.integer  "channel_id",                      :null => false
+    t.string   "feed_url"
+    t.string   "url"
+    t.string   "etag"
+    t.string   "title"
+    t.string   "subtitle"
+    t.text     "description"
+    t.datetime "last_modified"
+    t.string   "checksum"
+    t.integer  "interval",      :default => 10,   :null => false
+    t.datetime "stale_at"
+    t.boolean  "active",        :default => true, :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "feeds", ["channel_id", "active"], :name => "index_feeds_on_channel_id_and_active"
+  add_index "feeds", ["feed_url"], :name => "index_feeds_on_feed_url"
 
   create_table "gateways", :force => true do |t|
     t.string   "number"
@@ -129,6 +169,15 @@ ActiveRecord::Schema.define(:version => 9) do
   add_index "regions", ["country"], :name => "index_regions_on_country"
   add_index "regions", ["name"], :name => "index_regions_on_name"
 
+  create_table "subscriptions", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "channel_id"
+    t.integer  "number_per_day", :default => 5
+    t.boolean  "want_all",       :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "users", :force => true do |t|
     t.string   "email"
     t.boolean  "email_confirmed",                          :default => false, :null => false
@@ -140,6 +189,7 @@ ActiveRecord::Schema.define(:version => 9) do
     t.datetime "remember_token_expires_at"
     t.string   "number"
     t.boolean  "number_confirmed",                         :default => false, :null => false
+    t.integer  "gateway_id"
     t.boolean  "active",                                   :default => true,  :null => false
   end
 

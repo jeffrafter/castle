@@ -25,3 +25,9 @@ For testing you will need:
   thoughtbot-factory_girl
   thoughtbot-shoulda
   mocha
+  
+  
+== Future
+
+Need better localization
+Users are tied to their initial gateway, might be better as region specific 

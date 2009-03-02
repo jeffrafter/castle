@@ -1,0 +1,52 @@
+<p>
+  <b>Title:</b>
+  <%=h @feed.title %>
+</p>
+
+<p>
+  <b>Subtitle:</b>
+  <%=h @feed.subtitle %>
+</p>
+
+<p>
+  <b>Feed:</b>
+  <%=link_to @feed.feed_url, @feed.feed_url, :target => '_blank' %>
+</p>
+
+<p>
+  <b>Website:</b>
+  <%=link_to @feed.url, @feed.url, :target => '_blank'%>
+</p>
+
+<p>
+  <b>Tag:</b>
+  <%=h @feed.etag %>
+</p>
+
+<p>
+  <%=h @feed.description %>
+</p>
+
+<div style="border-top:1px dotted silver">
+  <ul class="entries">
+    <% @entries.each do |entry| %>
+      <li class="<%= cycle("even","odd") -%>" >
+        <h3><%= link_to entry.title, entry %></h3>
+        <p><%=h entry.content || entry.summary %></p>
+        <p><strong><%=h entry.author %></strong> <%= entry.published_at %></p>
+      </li>
+    <% end %>
+    <% if @entries.blank? %>
+      <li>There are no entries available for this feed.</li>
+    <% end %>
+  </ul>  
+  <%= will_paginate @entries %>
+  <div style="float:right">
+    <%= link_to 'New Entry', new_entry_path(:feed_id => @feed.id) %>
+  </div>
+</div>
+
+<div style="clear:both;border-top:1px dotted silver;padding-top:10px;margin-top:10px;">
+<%= link_to 'Edit Feed', edit_feed_path(@feed) %> |
+<%= link_to 'Back', feeds_path %>
+</div>

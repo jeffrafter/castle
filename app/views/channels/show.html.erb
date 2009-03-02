@@ -9,28 +9,8 @@
 </p>
 
 <p>
-  <b>Link:</b>
-  <%=h @channel.link %>
-</p>
-
-<p>
-  <b>Description:</b>
-  <%=h @channel.description %>
-</p>
-
-<p>
-  <b>Author:</b>
-  <%=h @channel.author %>
-</p>
-
-<p>
-  <b>Interval:</b>
-  <%=h @channel.interval %>
-</p>
-
-<p>
-  <b>Updated at:</b>
-  <%=h @channel.updated_at %>
+  <b>Keywords:</b>
+  <%=h @channel.keywords %>
 </p>
 
 <p>
@@ -39,10 +19,26 @@
 </p>
 
 <p>
-  <b>Region:</b>
-  <%=h @channel.region_id %>
+  <%=h @channel.description %>
 </p>
 
+<table>
+  <% for feed in @channel.feeds %>
+    <tr>
+      <td valign="top">
+        <%=link_to feed.title, feed %><br/>
+        <%=h feed.feed_url %></td>
+      <td valign="top"><%= link_to 'Show', feed %></td>
+      <td valign="top"><%= link_to 'Edit', edit_channel_path(feed) %></td>
+      <td valign="top"><%= link_to 'Destroy', feed, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+  <% if @channel.feeds.blank? %>
+    <tr><td colspan="4">There are no feeds for this channel. <%=link_to 'Add one', new_feed_path(:channel_id => @channel.id) %></td></tr>
+  <% end %>
+</table>
 
-<%= link_to 'Edit', edit_channel_path(@channel) %> |
+<div style="border-top:1px dotted silver;padding-top:10px;margin-top:10px;">
+<%= link_to 'Edit Channel', edit_channel_path(@channel) %> |
 <%= link_to 'Back', channels_path %>
+</div>

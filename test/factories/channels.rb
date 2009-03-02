@@ -3,11 +3,8 @@ Factory.sequence :channel do |n|
 end
 
 Factory.define :channel, :class => 'channel' do |channel|
-  channel.title        { Factory.next :region }
+  channel.title        { Factory.next :channel }
   channel.subtitle     { "Yellow submarine" }
-  channel.link         { "http://xkcd.com/atom.xml" }
   channel.description  { "Something about the cool" }
-  channel.author       { "The Yellow Dart" }
-  channel.interval     { 42 }
-  channel.region       {|region| region.association(:region) }
+  channel.region       {|channel| channel.association(:region) }
 end

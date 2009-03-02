@@ -1,4 +1,5 @@
 class Channel < ActiveRecord::Base
+  named_scope :enabled, :conditions => ['active = ?', true]
   belongs_to :region
-  validates_presence_of :link, :region
+  has_many :feeds
 end

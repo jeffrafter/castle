@@ -8,6 +8,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :areas
   map.resources :regions
   map.resources :commands
+  map.resources :feeds
 
   map.resources :users, :has_one => [:password, :confirmation]
   map.resource :session, :collection => {:verify => :get}

@@ -5,7 +5,7 @@ class EntryTest < ActiveSupport::TestCase
     @entry = Factory(:entry)
   end
   
-  should_require_attributes :channel
-  should_require_unique_attributes :link
-  should_belong_to :channel
+  should_validate_presence_of :feed
+  should_validate_uniqueness_of :url
+  should_belong_to :feed
 end

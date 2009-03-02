@@ -17,7 +17,7 @@
   </p>
   <p>
     <%= f.label :channel_id %><br />
-    <%= f.text_field :channel_id %>
+    <%= f.collection_select :channel_id, Channel.all, :id, :title  %>
   </p>
   <p>
     <%= f.submit "Update" %>
