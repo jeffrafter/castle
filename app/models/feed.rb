@@ -63,7 +63,13 @@ private
 
   def process(items)
     # Process all of the items in order after the last known item 
-    last_entry = items.find_index {|entry| entry.checksum == self.checksum } if self.checksum
+    last_entry = nil
+    items.each_with_index{|entry,index|
+      if entry.checksum == self.checksum
+        last_entry = index
+        break
+      end
+    } if self.checksum
     items = items[last_entry + 1, entries.size] if last_entry
     items.each {|entry| store(entry) }
   end    

@@ -43,16 +43,14 @@ EOF
 
     desc "Create cron tasks for application"
     task :cron do
-      if Capistrano::CLI.ui.ask("Create cron jobs? (y/n): ") == 'y'
-        run "cd #{release_path} && whenever --write-crontab"
-      end  
+      run "cd #{release_path} && whenever --write-crontab"
     end  
 
     desc "Symlink shared configurations to current"
     task :localize, :roles => [:app] do
-      %w[database.yml].each do |f|
-        run "ln -nsf #{shared_path}/config/#{f} #{current_path}/config/#{f}"
-      end
+      run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
+      run "ln -nsf #{shared_path}/log/cron_tab.log #{current_path}/log/cron_tab.log"
+      run "ln -nsf #{shared_path}/log/cron_tab.log #{release_path}/log/cron_tab.log"
     end 		      
 
   end  
