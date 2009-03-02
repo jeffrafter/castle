@@ -41,7 +41,7 @@
     <% end %>
   </ul>  
   <%= will_paginate @entries %>
-  <div style="float:right">
+  <div style="float:right;padding-bottom:10px;">
     <%= link_to 'New Entry', new_entry_path(:feed_id => @feed.id) %>
   </div>
 </div>

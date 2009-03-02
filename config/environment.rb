@@ -14,5 +14,8 @@ Rails::Initializer.run do |config|
   config.gem "mislav-will_paginate", :lib => "will_paginate"
 end
 
-DO_NOT_REPLY = "donotreply@example.com" 
+DO_NOT_REPLY = "donotreply@datadyne.socialrange.org" 
 PROJECT_NAME = "News for Cell Phones"
+
+# For cron tasks
+require 'whenever'

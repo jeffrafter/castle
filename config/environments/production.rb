@@ -22,3 +22,6 @@ config.action_controller.perform_caching             = true
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+
+# This host is what is inserted in the confirmation email
+HOST = 'datadyne.socialrange.org'

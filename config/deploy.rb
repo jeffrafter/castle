@@ -41,23 +41,11 @@ EOF
 		  end		
     end
 
-    desc "Create cron tasks for success testing, report caching and database backups"
+    desc "Create cron tasks for application"
     task :cron do
-=begin
       if Capistrano::CLI.ui.ask("Create cron jobs? (y/n): ") == 'y'
-     		cron_configuration =<<-EOF
-# m h  dom mon dow   command
-0 18 * * mon-fri mysqldump -u root relayrelay > #{shared_path}/backup/relayrelay.sql; /usr/local/bin/rsnapshot daily
-0 18 * * sat /usr/local/bin/rsnapshot weekly
-EOF
-        run "mkdir -p #{shared_path}/backup"
-        run "echo 'Current cron configuration'"
-        run "crontab -l; echo ---"
-        put cron_configuration, "#{shared_path}/scripts/cron"
-        # Note this overwrites the cron configuration for the deploy user every time, if you have other crontabs you have to do more work
-        run "cat #{shared_path}/scripts/cron | crontab -"        
+        run "cd #{release_path} && whenever --write-crontab"
       end  
-=end      
     end  
 
     desc "Symlink shared configurations to current"
