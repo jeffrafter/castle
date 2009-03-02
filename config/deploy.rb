@@ -75,5 +75,5 @@ end
 after "deploy", "deploy:cleanup"
 after "deploy:migrations", "deploy:cleanup"
 after "deploy:setup", "init:config:database"
-after "deploy:setup", "init:config:cron"
+after "deploy:symlink", "init:config:cron"
 after "deploy:symlink", "init:config:localize"
