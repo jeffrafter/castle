@@ -1,5 +1,6 @@
 set :cron_log, "log/cron_log.log"
 
-every 2.minutes do
+every 15.minutes do
   rake 'feeds:fetch'
+  rake 'feeds:deliver'
 end  
