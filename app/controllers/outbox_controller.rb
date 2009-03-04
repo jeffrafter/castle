@@ -1,5 +1,6 @@
 class OutboxController < ApplicationController
   before_filter :find_gateway
+  skip_before_filter :authenticate
   
   def index
     since = Time.parse(params[:since]) rescue nil

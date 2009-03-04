@@ -1,5 +1,6 @@
 class InboxController < ApplicationController
   before_filter :find_gateway
+  skip_before_filter :authenticate
   rescue_from Exception do |e| render :text => e.message, :status => :error; end
   
   def create

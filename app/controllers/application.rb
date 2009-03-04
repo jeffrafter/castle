@@ -12,8 +12,7 @@ class ApplicationController < ActionController::Base
     @gateway = Gateway.find_by_api_key(params[:api_key])
     raise InvalidApiKeyError.new('Invalid API key') unless @gateway
   end
-  
-  
-#  protect_from_forgery
-#  before_filter :authenticate
+    
+  protect_from_forgery
+  before_filter :authenticate
 end

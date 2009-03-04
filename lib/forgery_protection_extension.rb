@@ -1,5 +1,4 @@
 ActionController::RequestForgeryProtection.module_eval do
-=begin
   alias :original_verify_authenticity_token :verify_authenticity_token
 
 
@@ -9,7 +8,7 @@ ActionController::RequestForgeryProtection.module_eval do
   def verify_authenticity_token(*args)    
     if controller.params[:api_key] && controller.params[:format] == 'xml'      
       key = controller.params[:api_key]
-      conditions = ['api_key = ? AND api_key_expires_at < ?', key, Time.now]
+      conditions = ['api_key = ? AND (api_key_expires_at < ? OR api_key_expires_at IS NULL)', key, Time.now]
       user = User.first(:conditions => conditions)                 
       controller.sign_in_user(user) if user
       raise(ActionController::InvalidAuthenticityToken) unless user
@@ -17,6 +16,5 @@ ActionController::RequestForgeryProtection.module_eval do
       original_verify_authenticity_token(*args)       
     end 
   end
-=end    
 end
 
