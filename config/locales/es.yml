@@ -1,0 +1,9 @@
+es:
+  "yes": "sí"
+  "no": "no"
+  unknown_command: "¿Qué quieres decir?"
+  invite: "Ustedes han sido invitados a unirse a la Fundación Knight Ranc de noticias del servidor de SMS. Por favor, confirme que está interesado respondiendo con 'sí'"
+  join: "Gracias por acompañarnos. Para obtener ayuda, envíe un mensaje de texto con la palabra 'ayuda'
+  help: "Comandos: canales, añadir, eliminar, lista, más, menos, invitar, ayuda"
+  channels: "Canales: \ n"
+  subscriptions: "Suscripciones: \ n"

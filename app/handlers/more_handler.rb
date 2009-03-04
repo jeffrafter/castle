@@ -3,9 +3,13 @@ module Message
     def run
       @command = Command.parse(self.message)
       return unless @command.command == :more
-      arg = @command.args.first.chomp
-      keyword = Keyword.find_by_word(arg)
-      subscription = self.user.subscriptions.find_by_channel_id(keyword.channel_id)
+      arg = '%' + @command.args.first.chomp + '%'
+      channel = Channel.first(:conditions => ['keywords like ?', arg])
+      unless channel
+        # that channel does not exist
+        halt
+      end      
+      subscription = self.user.subscriptions.find_by_channel_id(channel.id)
       subscription.more if subscription
       halt
     end

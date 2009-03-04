@@ -6,7 +6,7 @@ module Message
       channels = self.gateway.region.channels
       i = 0
       text = I18n.t(:channels)
-      text += channels.map{|c| "#{i += 1}) #{c.title} (#{c.keywords.first.word})" }.join("\n ")
+      text += channels.map{|c| "#{i += 1}) #{c.title} (#{c.keywords})" }.join("\n ")
       reply text
       halt
     end

@@ -9,5 +9,5 @@ HANDLERS = [
   Message::ListHandler,
   Message::MoreHandler,
   Message::LessHandler,
-  Message::CarsHandler
+  Message::LocaleHandler
 ]
