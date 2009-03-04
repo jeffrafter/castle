@@ -5,7 +5,12 @@ module Message
       return unless @command.command == :invite
       return unless @command.args.size == 1
       number = @command.args.first.chomp
-      number = Number.validate(number)
+      begin
+        number = Number.validate(number)
+      rescue
+        reply I18n.t(:invalid_number)
+        halt
+      end  
       invite number, self.gateway.id
       halt
     end

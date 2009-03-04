@@ -3,6 +3,6 @@ class Region < ActiveRecord::Base
   has_many :areas
   has_many :gateways
   has_many :channels
-  validates_presence_of :name, :country, :language
-  validates_uniqueness_of :name, :case_sensitive => false, :scope => :language
+  validates_presence_of :name, :country
+  validates_uniqueness_of :name, :case_sensitive => false
 end

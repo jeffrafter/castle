@@ -31,6 +31,7 @@ module Message
   private
 
     def handle_user
+      I18n.locale = @user.locale
       handle_new_user unless @user
       handle_deactivated_user unless @user.active?
       handle_user_confirmation unless @user && @user.number_confirmed?
@@ -46,8 +47,8 @@ module Message
     end
 
     def handle_user_confirmation
-      if @message.text.chomp.downcase == i18n.t(:yes)
-        reply i18n.t(:join)
+      if @message.text.chomp.downcase == I18n.t(:yes)
+        reply I18n.t(:join)
         @user.number_confirmed = true
         @user.save!
       end  
@@ -72,7 +73,7 @@ module Message
     end
     
     def handle_unknown
-      reply i18n.t(:unknown_command)
+      reply I18n.t(:unknown_command)
       halt
     end  
 

@@ -3,7 +3,9 @@ en:
   "no": "no"
   unknown_command: "What do you mean?"
   invite: "You have been invited to join the Knight Foundation RANC SMS news Server. Please confirm you are interested by replying with 'yes'"
+  invalid_number: "Sorry that number isn't valid"
   join: "Thanks for joining. To get help, send a message with the text 'help'"
   help: "Commands: channels, add, remove, list, more, less, invite, help"
   channels: "Channels:\n "
   subscriptions: "Subscriptions:\n "
+  
