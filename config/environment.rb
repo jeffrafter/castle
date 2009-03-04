@@ -6,6 +6,8 @@ require File.join(File.dirname(__FILE__), 'boot')
 require 'clearance'
 
 Rails::Initializer.run do |config|
+#  config.i18n.load_path = Dir[File.join(RAILS_ROOT, 'config', 'locales', '*.{rb,yml}')]
+#  config.i18n.default_locale = :en
   config.time_zone = 'UTC'
   config.action_controller.session = {
     :session_key => '_admin_session',

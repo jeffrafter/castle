@@ -46,8 +46,8 @@ module Message
     end
 
     def handle_user_confirmation
-      if @message.text.chomp.downcase == 'yes'
-        reply 'Thanks for joining. To get help, send a message with the text "help"'
+      if @message.text.chomp.downcase == i18n.t(:yes)
+        reply i18n.t(:join)
         @user.number_confirmed = true
         @user.save!
       end  
@@ -72,7 +72,7 @@ module Message
     end
     
     def handle_unknown
-      reply 'What do you mean?'
+      reply i18n.t(:unknown_command)
       halt
     end  
 

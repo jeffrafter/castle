@@ -5,7 +5,7 @@ module Message
       return unless @command.command == :channels
       channels = self.gateway.region.channels
       i = 0
-      text = "Channels:\n "
+      text = I18n.t(:channels)
       text += channels.map{|c| "#{i += 1}) #{c.title} (#{c.keywords.first.word})" }.join("\n ")
       reply text
       halt

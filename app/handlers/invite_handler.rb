@@ -11,8 +11,8 @@ module Message
     end
   
     def invite(number, gateway_id)
-      if User.create(:number => number, :gateway_id => gateway_id) 
-        say 'You have been invited to join the Knight Foundation RANC SMS news Server. Please confirm you are interested by replying with "yes"', number
+      if User.create(:number => number, :gateway_id => gateway_id, :locale => self.gateway.locale) 
+        say I18n.t(:invite, :locale => self.gateway.locale), number
       end  
     end
   end

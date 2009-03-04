@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :case_sensitive => false, :if => :email_required?
   validates_format_of :email, :with => %r{.+@.+\..+}, :if => :email_required?
 
-  attr_accessible :number, :gateway_id
+  attr_accessible :number, :gateway_id, :locale
   
   has_many :conversations
   has_many :subscriptions

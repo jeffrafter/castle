@@ -31,3 +31,4 @@ For testing you will need:
 
 Need better localization
 Users are tied to their initial gateway, might be better as region specific 
+If a user reaches quota max, then asks for more, it won't give them archived messages, only more new messages going forward

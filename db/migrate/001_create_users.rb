@@ -12,6 +12,7 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :number
       t.boolean  :number_confirmed, :default => false, :null => false      
       t.integer  :gateway_id
+      t.string   :locale
       t.boolean  :active, :default => true, :null => false
     end
 

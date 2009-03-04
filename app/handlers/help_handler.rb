@@ -3,7 +3,7 @@ module Message
     def run
       @command = Command.parse(self.message)
       return unless @command.command == :help
-      reply 'Commands: channels, add, remove, list, more, less, invite, help'
+      reply I18n.t(:help)
       halt
     end
   end

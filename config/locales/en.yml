@@ -1,5 +1,9 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
+  "yes": "yes"
+  "no": "no"
+  unknown_command: "What do you mean?"
+  invite: "You have been invited to join the Knight Foundation RANC SMS news Server. Please confirm you are interested by replying with 'yes'"
+  join: "Thanks for joining. To get help, send a message with the text 'help'"
+  help: "Commands: channels, add, remove, list, more, less, invite, help"
+  channels: "Channels:\n "
+  subscriptions: "Subscriptions:\n "
