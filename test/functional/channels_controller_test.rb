@@ -21,7 +21,7 @@ class ChannelsControllerTest < ActionController::TestCase
       should "create channel" do
         @region = Factory(:region)
         assert_difference('Channel.count') do
-          post :create, :channel => { :region_id => @region.id }
+          post :create, :channel => { :region_id => @region.id, :keywords => 'sphinx' }
         end
         assert_redirected_to channel_path(assigns(:channel))
       end

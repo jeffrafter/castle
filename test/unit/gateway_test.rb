@@ -6,6 +6,6 @@ class GatewayTest < ActiveSupport::TestCase
   end
   
   should_have_named_scope :enabled, :conditions => ['active = ?', true]
-  should_validate_presence_of :number, :region
+  should_validate_presence_of :number, :region, :locale
   should_belong_to :region
 end
