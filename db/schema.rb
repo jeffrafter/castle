@@ -108,7 +108,8 @@ ActiveRecord::Schema.define(:version => 12) do
     t.boolean  "active"
     t.string   "api_key",            :limit => 128
     t.datetime "api_key_expires_at"
-    t.integer  "region_id",                         :null => false
+    t.integer  "region_id",                                           :null => false
+    t.string   "locale",                            :default => "en", :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -160,7 +161,6 @@ ActiveRecord::Schema.define(:version => 12) do
   create_table "regions", :force => true do |t|
     t.string   "name",                         :null => false
     t.string   "country",                      :null => false
-    t.string   "language",                     :null => false
     t.boolean  "active",     :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -190,6 +190,7 @@ ActiveRecord::Schema.define(:version => 12) do
     t.string   "number"
     t.boolean  "number_confirmed",                         :default => false, :null => false
     t.integer  "gateway_id"
+    t.string   "locale"
     t.boolean  "active",                                   :default => true,  :null => false
   end
 

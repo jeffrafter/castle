@@ -31,7 +31,7 @@ module Message
   private
 
     def handle_user
-      I18n.locale = @user.locale
+      I18n.locale = @user.locale if @user
       handle_new_user unless @user
       handle_deactivated_user unless @user.active?
       handle_user_confirmation unless @user && @user.number_confirmed?

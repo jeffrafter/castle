@@ -12,5 +12,6 @@ Factory.define :gateway, :class => 'gateway' do |gateway|
   gateway.short_code   { 12345 }
   gateway.country_code { 56 }
   gateway.area_code    { 35 }
+  gateway.locale       { "en" }
   gateway.region       {|region| region.association(:region) }
 end
