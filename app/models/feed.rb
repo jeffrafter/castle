@@ -31,11 +31,12 @@ class Feed < ActiveRecord::Base
     
   def fetch
     self.stale_at = Time.now + self.interval.minutes
-    feed = Feedzirra::Feed.fetch_and_parse(self.feed_url, 
-      :if_modified_since => self.last_modified,
-      :if_none_match => self.etag,
-      :on_success => method(:success),
-      :on_failure => method(:failure))
+    options = {:on_success => method(:success), :on_failure => method(:failure)}
+#    options[:if_modified_since] = self.last_modified if self.last_modified
+#    options[:if_none_match] = self.etag if self.etag      
+    feed = Feedzirra::Feed.fetch_and_parse(self.feed_url, options)
+  rescue Exception => e
+    puts "Failure fetching feed: #{e.message}"    
   end
 
 private
@@ -51,6 +52,7 @@ private
   end          
 
   def success(url, feed)
+    puts "Successfully parsed feed"
     feed.sanitize_entries!
     self.etag = feed.etag
     self.last_modified = feed.last_modified        
@@ -58,7 +60,8 @@ private
     save
   end  
   
-  def failure(url, feed)
+  def failure(*params)
+    puts "No updates available or failed to parse: #{params.to_yaml}"
   end
 
   def process(items)

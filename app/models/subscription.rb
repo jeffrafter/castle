@@ -14,6 +14,7 @@ class Subscription < ActiveRecord::Base
   def more
     self.number_per_day += 5
     self.save
+    Delivery.deliver_to(self)
   end
   
   def less

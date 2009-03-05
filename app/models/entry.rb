@@ -5,7 +5,7 @@ class Entry < ActiveRecord::Base
   named_scope :unprocessed, :conditions => ['processed = ?', false], :include => :feed
   
   def before_save
-    text = "[#{title}] #{summary || content}"
+    text = "\"#{title}\" #{summary || content}"
     text = text[0..140]
     self.message = text
   end

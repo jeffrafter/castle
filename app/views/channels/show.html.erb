@@ -29,7 +29,7 @@
         <%=link_to feed.title, feed %><br/>
         <%=h feed.feed_url %></td>
       <td valign="top"><%= link_to 'Show', feed %></td>
-      <td valign="top"><%= link_to 'Edit', edit_channel_path(feed) %></td>
+      <td valign="top"><%= link_to 'Edit', edit_feed_path(feed) %></td>
       <td valign="top"><%= link_to 'Destroy', feed, :confirm => 'Are you sure?', :method => :delete %></td>
     </tr>
   <% end %>

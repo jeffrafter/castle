@@ -30,7 +30,10 @@ class User < ActiveRecord::Base
   end
   
   def subscribe(channel_id)
-    subscriptions.find_or_create_by_channel_id(channel_id)
+    subscription = subscriptions.find_by_channel_id(channel_id)
+    return if subscription
+    subscription = subscriptions.create(:channel_id => channel_id)
+    Delivery.deliver_to(subscription)
   end
   
   def unsubscribe(channel_id)
