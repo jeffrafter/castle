@@ -16,8 +16,10 @@ namespace :feeds do
     require File.join(RAILS_ROOT, 'config', 'environment')
 
 # Way slow version right?
+    t = Time.now
     subscriptions = Subscription.all
     subscriptions.each {|sub| Delivery.deliver_to(sub) }
+    puts "Delivered to all subscriptions #{Time.now - t} elapsed"
     
 =begin
     subscriptions = Subscription.needy  

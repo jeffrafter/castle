@@ -30,7 +30,7 @@ class Delivery < ActiveRecord::Base
       :limit => need, 
       :include => :feed, 
       :joins => "LEFT OUTER JOIN deliveries ON deliveries.entry_id = entries.id AND deliveries.user_id = #{subscription.user_id}", 
-      :conditions => ['feeds.channel_id = ? AND deliveries.id IS NULL AND entries.created_at > ?', subscription.channel_id, Date.today],
+      :conditions => ['feeds.channel_id = ? AND deliveries.id IS NULL', subscription.channel_id],
       :order => 'entries.created_at DESC')
 
     # Even though we grabbed the most recent we still want to send them in order  
