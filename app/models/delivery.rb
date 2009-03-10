@@ -24,8 +24,8 @@ class Delivery < ActiveRecord::Base
     return unless need > 0
 
     # Now that we know how many they need, try to find that many for this 
-    # channel that have not already been delivered to this user and are 
-    # from today and make them the most recent
+    # channel that have not already been delivered to this user and make them 
+    # the most recent
     entries = Entry.all(
       :limit => need, 
       :include => :feed, 
