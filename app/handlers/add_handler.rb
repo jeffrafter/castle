@@ -12,8 +12,6 @@ module Message
         return unless add_subscriptions(self.message[:text].split(/\s+/), available_channels)
       end
       halt
-    rescue Exception => e
-      raise "#{e.message} #{e.backtrace}"
     end
     
     def add_subscriptions(args, available_channels)
@@ -27,7 +25,7 @@ module Message
       requested_channels.compact!    
       requested_channels.each {|channel|
         self.user.subscribe(channel.id)
-        reply "You have been subscribed to #{channel.title}, to remove this channel reply with 'remove #{channel.title}'." 
+        reply I18n.t(:subscribed, :title => "#{channel.title}", :keyword => "#{channel.title.downcase}")  + '. ' + self.user.subscriptions_text
       }
       !requested_channels.blank?
     end

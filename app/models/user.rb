@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
       I18n.t(:not_subscribed)
     elsif   
       index = 0
-      text = I18n.t(:subscribed) + ' '
+      text = I18n.t(:subscriptions) + ' '
       text += self.subscriptions.user.map{|s| "[#{index += 1}] #{s.channel.title}"}.join(" ")
     end  
   end
@@ -31,7 +31,8 @@ class User < ActiveRecord::Base
     return "" if available.blank?
     index = 0
     text = I18n.t(:available_channels) + ' ' 
-    text += available.map{|c| "[#{index += 1}] #{c.title}"}.join(" ")
+    text += available.map{|c| "[#{index += 1}] #{c.title}"}.join(" ") + '; '
+    text += I18n.t(:how_to_subscribe)
   end
   
   def password_required?
