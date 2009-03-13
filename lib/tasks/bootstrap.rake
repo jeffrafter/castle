@@ -10,7 +10,7 @@ namespace :db do
       c = r.channels.create(:title => 'World', :keywords => 'world')
       f = c.feeds.create(:feed_url => 'http://news.google.com/news?ned=us&topic=w&output=rss')  
       u = User.create(
-        :number => '9519020972', 
+        :number => '6507991415', 
         :email => 'njero@njero.com', 
         :password => 'njero', 
         :confirm_password => 'njero',
