@@ -7,7 +7,7 @@ module Message
       @command = Command.parse(self.message)
       available_channels = self.gateway.region.channels.available(self.user.id)
       if @command.command == :add
-        return unless add_subscriptions(args, available_channels)
+        return unless add_subscriptions(@command.args, available_channels)
       else
         return unless add_subscriptions(self.message[:text].split(/\s+/), available_channels)
       end
