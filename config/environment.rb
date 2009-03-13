@@ -19,3 +19,6 @@ PROJECT_NAME = "News for Cell Phones"
 
 # For cron tasks
 require 'whenever'
+
+# Simple string compacter
+class String; def compact; self.gsub(/^\s*|\s*$/, '').gsub(/\s+/, ' '); end; end

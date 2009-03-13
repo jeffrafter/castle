@@ -47,7 +47,7 @@ module Message
     end
 
     def handle_user_confirmation
-      if @message.text.chomp.downcase == I18n.t(:yes)
+      if @message.text.compact.downcase == I18n.t(:yes)
         reply I18n.t(:join) + ' ' + I18n.t(:help)
         reply @user.available_text
         @user.number_confirmed = true

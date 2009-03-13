@@ -3,9 +3,10 @@ module Message
     def run
       @command = Command.parse(self.message)
       return unless @command.command == :locale
-      arg = @command.args.first.chomp      
+      arg = @command.args.first.compact      
       self.user.locale = arg
       self.user.save
+      reply I18n.t(:locale, :language => arg)
       halt
     end
   end

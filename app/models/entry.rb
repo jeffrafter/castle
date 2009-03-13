@@ -15,7 +15,7 @@ class Entry < ActiveRecord::Base
   }} 
   
   def before_save
-    text = "\"#{title}\" #{summary || content}"
+    text = "\"#{title}\" #{[summary, content].join(' ')}".compact
     text = text[0..140]
     self.message = text
   end

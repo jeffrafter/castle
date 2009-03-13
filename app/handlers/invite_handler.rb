@@ -4,7 +4,7 @@ module Message
       @command = Command.parse(self.message)
       return unless @command.command == :invite
       return unless @command.args.size == 1
-      number = @command.args.first.chomp
+      number = @command.args.first.compact
       begin
         number = Number.validate(number)
       rescue

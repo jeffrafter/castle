@@ -22,16 +22,16 @@ class User < ActiveRecord::Base
     elsif   
       index = 0
       text = I18n.t(:subscriptions) + ' '
-      text += self.subscriptions.user.map{|s| "[#{index += 1}] #{s.channel.title}"}.join(" ")
+      text += self.subscriptions.user.map{|s| "#{s.channel.title}"}.join(", ")
     end  
   end
-  
+
   def available_text
     available = self.gateway.region.channels.available(self.id)
     return "" if available.blank?
     index = 0
-    text = I18n.t(:available_channels) + ' ' 
-    text += available.map{|c| "[#{index += 1}] #{c.title}"}.join(" ") + '; '
+    text = I18n.t(:channels) + ' '
+    text += available.map{|c| "#{c.title}"}.join(", ") + '. '
     text += I18n.t(:how_to_subscribe)
   end
   

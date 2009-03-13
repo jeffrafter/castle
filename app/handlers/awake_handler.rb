@@ -2,15 +2,15 @@ module Message
   class AwakeHandler < AbstractHandler
     def run
       @command = Command.parse(self.message)
-      return unless @command.command == :awake
-      hour = @command.args.first.chomp
+      return unless @command.command == :awake || @command.command == :wake
+      hour = @command.args.first.compact
       hour = hour.to_i
       if (hour > 0)
         self.user.awake = hour
         self.user.save!
-        reply "Thanks, we will not send any news messages until #{hour}"      
+        reply I18n.t(:wake, :time => "%02d:00" % hour)
       else
-        reply "Please enter a number from 1 to 24"
+        reply I18n.t(:how_to_wake)
       end  
       halt
     end

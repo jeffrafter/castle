@@ -3,14 +3,14 @@ module Message
     def run
       @command = Command.parse(self.message)
       return unless @command.command == :sleep
-      hour = @command.args.first.chomp
+      hour = @command.args.first.compact
       hour = hour.to_i
-      if (hour > 0)
+      if (hour > 0 && hour < 25)
         self.user.sleep = hour
         self.user.save!
-        reply "Thanks, we will not send any news messages after #{hour}"      
+        reply I18n.t(:sleep, :time => "%02d:00" % hour)
       else
-        reply "Please enter a number from 1 to 24"
+        reply I18n.t(:how_to_sleep)
       end  
       halt
     end
