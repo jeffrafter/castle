@@ -37,4 +37,3 @@ Feature: Subscribing
     Then I should be subscribed to 'sports' 
     And I should receive a confirmation
     And I should receive 5 deliveries
-    

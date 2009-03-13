@@ -19,5 +19,5 @@ Then /^I should\s?((?:not)?) be authorized$/ do |present|
 end
 
 Then /^I should\s?((?:not)?) be signed in$/ do |present|
-  assert_equal controller.signed_in?, present.blank?
+  assert_equal(controller.signed_in?, present.blank?) if controller
 end

@@ -46,7 +46,7 @@ Feature: Signup in
   Scenario: User already confirmed
     Given a confirmed user with the email "francine@hullaballoo.com" with password "doughnuts" exists
     When I confirm my email
-    Then I should be redirected to "/"
+    Then I should be forbidden
     And I should not be signed in
 
   Scenario: User forgot password
@@ -55,5 +55,5 @@ Feature: Signup in
     And I fill in "Email" with "francine@hullaballoo.com"
     And I press "Reset Password"
     Then an email with the subject "change your password" should be sent to me
-    And I should see "Details for changing your password have been sent"
+    And I should see "It contains instructions for changing your password"
     And I should not be signed in

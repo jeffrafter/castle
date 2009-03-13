@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 12) do
+ActiveRecord::Schema.define(:version => 13) do
 
   create_table "areas", :force => true do |t|
     t.string   "name",         :null => false
@@ -155,6 +155,13 @@ ActiveRecord::Schema.define(:version => 12) do
     t.datetime "sent_at"
     t.boolean  "receipt"
     t.datetime "received_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "ratings", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "entry_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

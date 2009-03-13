@@ -1,5 +1,9 @@
 When /^I confirm my email$/ do
-  get "/users/#{@user.id}/confirmation/new?token=#{@user.token}"
+  begin
+    get "/users/#{@user.id}/confirmation/new?token=#{@user.token}"
+  rescue
+    @forbidden = true
+  end  
 end
 
 When /^I go to the forgot password page$/ do
@@ -17,6 +21,10 @@ end
 
 Then /^I should\s?((?:not)?) be registered$/ do |present|
   assert_nil User.find_by_email("francine@yoyoma.com")
+end
+
+Then /^I should be forbidden$/ do
+  assert @forbidden
 end
 
 Then /^an email with the subject "(.*)" should be sent to me$/ do |subject|
