@@ -9,5 +9,7 @@ HANDLERS = [
   Message::MoreHandler,
   Message::LessHandler,
   Message::LocaleHandler,
+  Message::SleepHandler,
+  Message::AwakeHandler,
   Message::AddHandler
 ]
