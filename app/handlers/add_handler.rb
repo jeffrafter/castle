@@ -25,7 +25,7 @@ module Message
       requested_channels.compact!    
       requested_channels.each {|channel|
         self.user.subscribe(channel.id)
-        reply I18n.t(:subscribed, :title => "#{channel.title}", :keyword => "#{channel.title.downcase}")  + '. ' + self.user.subscriptions_text
+        reply I18n.t(:subscribed, :title => "#{channel.title}", :keyword => "#{channel.title.downcase}")  + ' ' + self.user.subscriptions_text
       }
       !requested_channels.blank?
     end

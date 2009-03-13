@@ -10,7 +10,7 @@ module Message
         halt
       end      
       self.user.unsubscribe(channel.id)
-      reply I18n.t :unsubscribed, :title => "#{channel.title}", :keyword => "#{channel.title.downcase}" + ' ' + self.user.subscriptions_text
+      reply I18n.t(:unsubscribed, :title => "#{channel.title}", :keyword => "#{channel.title.downcase}") + ' ' + self.user.subscriptions_text
       halt
     end
   end

@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   def quiet_hours?
     hour = Time.now.hour + self.timezone_offset
     hour = 24 + hour if hour < 0
-    self.awake < hour && hour < self.sleep
+    self.awake > hour || hour > self.sleep
   end
   
 end
