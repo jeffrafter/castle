@@ -11,4 +11,6 @@ class UserTest < Test::Unit::TestCase
       assert @user.errors.on(:email).blank?
     end
   end
+  
+  should "test subscriptions text"
 end

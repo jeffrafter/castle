@@ -22,7 +22,7 @@ namespace :feeds do
     puts "Delivered to all subscriptions #{Time.now - t} elapsed"
     
 =begin
-    subscriptions = Subscription.needy  
+    subscriptions = Subscription.n eedy  <= n eedy is disabled
     subscriptions.each {|subscription| subscription.delivery_count = subscription.delivery_count.to_i}
     entries = Entry.unprocessed.all
     entries.each  do |entry|       

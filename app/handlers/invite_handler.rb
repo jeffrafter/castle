@@ -16,6 +16,9 @@ module Message
     end
   
     def invite(number, gateway_id, locale, timezone_offset)
+      if self.user && self.user.number != number
+        reply I18n.t(:invited) + " #{number}"
+      end
       if User.create(
         :number => number, 
         :gateway_id => gateway_id, 

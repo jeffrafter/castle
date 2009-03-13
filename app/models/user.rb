@@ -14,6 +14,25 @@ class User < ActiveRecord::Base
   has_many :conversations
   has_many :subscriptions
   has_many :deliveries
+  belongs_to :gateway
+
+  def subscriptions_text
+    if (self.subscriptions.user.blank?)
+      I18n.t(:not_subscribed)
+    elsif   
+      index = 0
+      text = I18n.t(:subscribed) + ' '
+      text += self.subscriptions.user.map{|s| "[#{index += 1}] #{s.channel.title}"}.join(" ")
+    end  
+  end
+  
+  def available_text
+    available = self.gateway.region.channels.available(self.id)
+    return "" if available.blank?
+    index = 0
+    text = I18n.t(:available_channels) + ' ' 
+    text += available.map{|c| "[#{index += 1}] #{c.title}"}.join(" ")
+  end
   
   def password_required?
     number.blank? && (encrypted_password.blank? || !password.blank?)

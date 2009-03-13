@@ -10,6 +10,7 @@ module Message
         halt
       end      
       self.user.unsubscribe(channel.id)
+      reply "You are no longer subscribed to #{channel.title}, to add this channel reply with 'add #{channel.title}'." 
       halt
     end
   end

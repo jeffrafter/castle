@@ -11,4 +11,6 @@ class RegionTest < ActiveSupport::TestCase
   should_have_many :areas
   should_have_many :channels
   should_have_many :gateways
+  
+  should "test channels text"
 end

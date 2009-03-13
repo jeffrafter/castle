@@ -48,7 +48,7 @@ module Message
 
     def handle_user_confirmation
       if @message.text.chomp.downcase == I18n.t(:yes)
-        reply I18n.t(:join)
+        reply I18n.t(:join) + ' ' + I18n.t(:help) + '; ' + @user.available_text
         @user.number_confirmed = true
         @user.save!
       end  
@@ -73,7 +73,7 @@ module Message
     end
     
     def handle_unknown
-      reply I18n.t(:unknown_command)
+      reply "#{I18n.t(:unknown_command)} #{I18n.t(:help)}; " + ["#{self.user.subscriptions_text}", "#{self.user.available_text}"].join("; ")
       halt
     end  
 

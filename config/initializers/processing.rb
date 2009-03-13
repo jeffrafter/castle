@@ -4,10 +4,10 @@ HANDLERS = [
   Message::InviteHandler, 
   Message::HelpHandler, 
   Message::ChannelsHandler,
-  Message::AddHandler,
   Message::RemoveHandler,
   Message::ListHandler,
   Message::MoreHandler,
   Message::LessHandler,
-  Message::LocaleHandler
+  Message::LocaleHandler,
+  Message::AddHandler
 ]
