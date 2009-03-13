@@ -7,7 +7,7 @@ class Entry < ActiveRecord::Base
   # Most recent entries for this channel and user that have not already been delivered 
   # TODO make this query only grab the latest since the last received item
   named_scope :available, lambda {|user_id, channel_id, limit| {
-    :limit => :need,
+    :limit => limit,
     :include => :feed, 
     :joins => "LEFT OUTER JOIN deliveries ON deliveries.entry_id = entries.id AND deliveries.user_id = #{user_id}", 
     :conditions => ['feeds.channel_id = ? AND deliveries.id IS NULL', channel_id],
