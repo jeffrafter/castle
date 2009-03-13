@@ -1,4 +1,6 @@
 class SmsController < ApplicationController
+  has_sms_fu
+
   def index
   end
 

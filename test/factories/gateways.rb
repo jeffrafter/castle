@@ -7,11 +7,12 @@ Factory.sequence :api_key do |n|
 end
 
 Factory.define :gateway, :class => 'gateway' do |gateway|
-  gateway.number       { Factory.next :gateway }
-  gateway.api_key      { Factory.next :api_key }
-  gateway.short_code   { 12345 }
-  gateway.country_code { 56 }
-  gateway.area_code    { 35 }
-  gateway.locale       { "en" }
-  gateway.region       {|region| region.association(:region) }
+  gateway.number          { Factory.next :gateway }
+  gateway.api_key         { Factory.next :api_key }
+  gateway.short_code      { 12345 }
+  gateway.country_code    { 56 }
+  gateway.area_code       { 35 }
+  gateway.timezone_offset { -8 }
+  gateway.locale          { "en" }
+  gateway.region          {|region| region.association(:region) }
 end

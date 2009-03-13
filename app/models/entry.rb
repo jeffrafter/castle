@@ -3,10 +3,21 @@ class Entry < ActiveRecord::Base
   validates_presence_of :feed
   validates_uniqueness_of :url
   named_scope :unprocessed, :conditions => ['processed = ?', false], :include => :feed
+
+  # Most recent entries for this channel and user that have not already been delivered 
+  # TODO make this query only grab the latest since the last received item
+  named_scope :available, lambda {|user_id, channel_id, limit| {
+    :limit => :need,
+    :include => :feed, 
+    :joins => "LEFT OUTER JOIN deliveries ON deliveries.entry_id = entries.id AND deliveries.user_id = #{user_id}", 
+    :conditions => ['feeds.channel_id = ? AND deliveries.id IS NULL', channel_id],
+    :order => 'entries.created_at DESC'       
+  }} 
   
   def before_save
     text = "\"#{title}\" #{summary || content}"
     text = text[0..140]
     self.message = text
   end
+  
 end

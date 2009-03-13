@@ -21,7 +21,7 @@ class GatewaysControllerTest < ActionController::TestCase
       should "should create gateway" do
         @region = Factory(:region)
         assert_difference('Gateway.count') do
-          post :create, :gateway => { :number => '+123456789', :region_id => @region.id }
+          post :create, :gateway => { :number => '+123456789', :region_id => @region.id, :timezone_offset => -8 }
         end
         assert_redirected_to gateway_path(assigns(:gateway))
       end

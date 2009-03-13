@@ -110,6 +110,7 @@ ActiveRecord::Schema.define(:version => 12) do
     t.datetime "api_key_expires_at"
     t.integer  "region_id",                                           :null => false
     t.string   "locale",                            :default => "en", :null => false
+    t.integer  "timezone_offset",                                     :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -190,6 +191,9 @@ ActiveRecord::Schema.define(:version => 12) do
     t.string   "number"
     t.boolean  "number_confirmed",                         :default => false, :null => false
     t.integer  "gateway_id"
+    t.integer  "timezone_offset",                          :default => 0,     :null => false
+    t.integer  "awake",                                    :default => 8,     :null => false
+    t.integer  "sleep",                                    :default => 22,    :null => false
     t.string   "locale"
     t.boolean  "active",                                   :default => true,  :null => false
   end

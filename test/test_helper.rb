@@ -10,7 +10,6 @@ Dir[File.join(RAILS_ROOT, 'test', 'factories', '**', '*')].each {|f| require f }
 class Test::Unit::TestCase
   self.use_transactional_fixtures = true
   self.use_instantiated_fixtures  = false
-  include Clearance::Test::TestHelper
   
   def should_send_message_to(number, matcher = nil, &block)
     count = Outbox.count

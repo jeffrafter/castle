@@ -5,15 +5,13 @@ RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
 require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
-#  config.i18n.load_path = Dir[File.join(RAILS_ROOT, 'config', 'locales', '*.{rb,yml}')]
-#  config.i18n.default_locale = :en
   config.time_zone = 'UTC'
   config.action_controller.session = {
     :session_key => '_admin_session',
     :secret      => 'e1532a15f8aa3f7cd70e9d423761432fb3cf94a9e787227942e3d8bdd38d3c3e74787e7d5194829f32d5e313337703d9069c9c719bb68a2c51de19f176025e8f'
   }
   config.gem "mislav-will_paginate", :lib => "will_paginate"
-  config.gem "thoughtbot-clearance", :lib => "clearance"
+  config.gem "clearance", :lib => "clearance"
 end
 
 DO_NOT_REPLY = "donotreply@datadyne.socialrange.org" 

@@ -10,6 +10,7 @@ class CreateGateways < ActiveRecord::Migration
       t.datetime :api_key_expires_at
       t.integer  :region_id, :null => false
       t.string   :locale, :null => false, :default => 'en'
+      t.integer  :timezone_offset, :null => false
       t.timestamps
     end
 

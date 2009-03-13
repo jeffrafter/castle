@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :case_sensitive => false, :if => :email_required?
   validates_format_of :email, :with => %r{.+@.+\..+}, :if => :email_required?
 
-  attr_accessible :number, :gateway_id, :locale
+  attr_accessible :number, :gateway_id, :locale, :timezone_offset
   
   has_many :conversations
   has_many :subscriptions
@@ -43,6 +43,12 @@ class User < ActiveRecord::Base
   def tell(text)
     raise "This user has no gateway, message could not be sent" unless gateway_id
     Outbox.create(:gateway_id => gateway_id, :number => number, :text => text)
+  end
+  
+  def quiet_hours?
+    hour = Time.now.hour + self.timezone_offset
+    hour = 24 + hour if hour < 0
+    self.awake < hour && hour < self.sleep
   end
   
 end

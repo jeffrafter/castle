@@ -38,7 +38,7 @@ module Message
     end
     
     def handle_new_user
-      InviteHandler.new(self).invite(@message.number, @gateway.id)
+      InviteHandler.new(self).invite(@message.number, @gateway.id, @gateway.locale, @gateway.timezone_offset)
       halt
     end
 

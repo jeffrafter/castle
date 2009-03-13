@@ -12,6 +12,9 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :number
       t.boolean  :number_confirmed, :default => false, :null => false      
       t.integer  :gateway_id
+      t.integer  :timezone_offset, :default => 0, :null => false
+      t.integer  :awake, :default => 8, :null => false
+      t.integer  :sleep, :default => 22, :null => false
       t.string   :locale
       t.boolean  :active, :default => true, :null => false
     end
