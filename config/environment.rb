@@ -11,7 +11,7 @@ Rails::Initializer.run do |config|
     :secret      => 'e1532a15f8aa3f7cd70e9d423761432fb3cf94a9e787227942e3d8bdd38d3c3e74787e7d5194829f32d5e313337703d9069c9c719bb68a2c51de19f176025e8f'
   }
   config.gem "mislav-will_paginate", :lib => "will_paginate"
-  config.gem "clearance", :lib => "clearance"
+  config.gem "thoughtbot-clearance", :lib => "clearance"
 end
 
 DO_NOT_REPLY = "donotreply@datadyne.socialrange.org" 
