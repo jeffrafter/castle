@@ -4,10 +4,10 @@ module Message
   # as channel requests. If there are no matching channels, then we give up.
   class AddHandler < AbstractHandler
     def run
-      @command = Command.parse(self.message)
+      command = Command.parse(self.message)
       available_channels = self.gateway.region.channels.available(self.user.id)
-      if @command.command == :add
-        return unless add_subscriptions(@command.args, available_channels)
+      if command && command.key == 'add'
+        return unless add_subscriptions(command.args, available_channels)
       else
         return unless add_subscriptions(self.message[:text].split(/\s+/), available_channels)
       end
@@ -16,11 +16,7 @@ module Message
     
     def add_subscriptions(args, available_channels)
       requested_channels = args.map {|arg|
-        if (arg.to_i > 0)
-          available_channels[arg.to_i-1]            
-        else
-          available_channels.select{|c| c.title.downcase == arg.downcase }.first
-        end
+        available_channels.select{|c| c.title.downcase == arg.downcase }.first
       }
       requested_channels.compact!    
       requested_channels.each {|channel|

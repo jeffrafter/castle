@@ -1,9 +1,9 @@
 module Message
   class MoreHandler < AbstractHandler
     def run
-      @command = Command.parse(self.message)
-      return unless @command.command == :more
-      arg = '%' + @command.args.first.compact + '%'
+      command = Command.parse(self.message)
+      return unless command && command.key == 'more'
+      arg = '%' + command.args.first.compact + '%'
       channel = Channel.first(:conditions => ['keywords like ?', arg])
       unless channel
         # that channel does not exist

@@ -1,5 +1,7 @@
 require 'active_record_validations_extension'
 
+class NoGatewayForUserError < RuntimeError; end
+
 class User < ActiveRecord::Base
   include Clearance::App::Models::User
   clear_validations
@@ -19,7 +21,7 @@ class User < ActiveRecord::Base
   def subscriptions_text
     if (self.subscriptions.user.blank?)
       I18n.t(:not_subscribed)
-    elsif   
+    else
       index = 0
       text = I18n.t(:subscriptions) + ' '
       text += self.subscriptions.user.map{|s| "#{s.channel.title}"}.join(", ")
@@ -27,7 +29,8 @@ class User < ActiveRecord::Base
   end
 
   def available_text
-    available = self.gateway.region.channels.available(self.id)
+    raise NoGatewayForUserError unless gateway
+    available = gateway.region.channels.available(self.id)
     return "" if available.blank?
     index = 0
     text = I18n.t(:channels) + ' '

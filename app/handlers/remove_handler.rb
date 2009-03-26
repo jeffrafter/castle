@@ -1,9 +1,9 @@
 module Message
   class RemoveHandler < AbstractHandler
     def run
-      @command = Command.parse(self.message)
-      return unless @command.command == :remove
-      arg = '%' + @command.args.first.compact + '%'
+      command = Command.parse(self.message)
+      return unless command && command.key == 'remove'
+      arg = '%' + command.args.first.compact + '%'
       channel = Channel.first(:conditions => ['keywords like ?', arg])
       unless channel
         # that channel does not exist

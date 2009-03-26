@@ -1,0 +1,24 @@
+<h1>Listing commands</h1>
+
+<table>
+  <tr>
+    <th>Word</th>
+    <th>Key</th>
+    <th>Locale</th>
+  </tr>
+
+<% for command in @commands %>
+  <tr>
+    <td><%=h command.word %></td>
+    <td><%=h command.key %></td>
+    <td><%=h command.locale %></td>
+    <td><%= link_to 'Show', command %></td>
+    <td><%= link_to 'Edit', edit_command_path(command) %></td>
+    <td><%= link_to 'Destroy', command, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New command', new_command_path %>

@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :commands
+
   map.resources :inbox, :as => 'inbox'
   map.resources :outbox, :as => 'outbox'
   map.resources :entries

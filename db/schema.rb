@@ -9,20 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 13) do
-
-  create_table "areas", :force => true do |t|
-    t.string   "name",         :null => false
-    t.integer  "country_code", :null => false
-    t.integer  "area_code",    :null => false
-    t.integer  "region_id",    :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "areas", ["country_code", "area_code"], :name => "index_areas_on_country_code_and_area_code"
-  add_index "areas", ["name"], :name => "index_areas_on_name"
-  add_index "areas", ["region_id"], :name => "index_areas_on_region_id"
+ActiveRecord::Schema.define(:version => 20090326040220) do
 
   create_table "channels", :force => true do |t|
     t.string   "title"
@@ -32,11 +19,22 @@ ActiveRecord::Schema.define(:version => 13) do
     t.datetime "modified_at"
     t.boolean  "active",      :default => true, :null => false
     t.integer  "region_id",                     :null => false
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   add_index "channels", ["region_id", "active", "modified_at"], :name => "index_channels_on_region_id_and_active_and_modified_at"
+
+  create_table "commands", :force => true do |t|
+    t.string   "word",       :null => false
+    t.string   "key",        :null => false
+    t.string   "locale",     :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "commands", ["word", "key", "locale"], :name => "index_commands_on_word_and_key_and_locale"
 
   create_table "conversation_messages", :force => true do |t|
     t.integer "conversation_id"
@@ -73,6 +71,7 @@ ActiveRecord::Schema.define(:version => 13) do
     t.datetime "published_at"
     t.integer  "feed_id",                         :null => false
     t.boolean  "processed",    :default => false, :null => false
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -92,6 +91,7 @@ ActiveRecord::Schema.define(:version => 13) do
     t.string   "checksum"
     t.integer  "interval",      :default => 10,   :null => false
     t.datetime "stale_at"
+    t.datetime "deleted_at"
     t.boolean  "active",        :default => true, :null => false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -108,9 +108,11 @@ ActiveRecord::Schema.define(:version => 13) do
     t.boolean  "active"
     t.string   "api_key",            :limit => 128
     t.datetime "api_key_expires_at"
-    t.integer  "region_id",                                           :null => false
-    t.string   "locale",                            :default => "en", :null => false
-    t.integer  "timezone_offset",                                     :null => false
+    t.integer  "region_id",                                                :null => false
+    t.string   "locale",                            :default => "en",      :null => false
+    t.integer  "timezone_offset",                                          :null => false
+    t.string   "number_format",                     :default => "\\d{10}", :null => false
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -130,21 +132,10 @@ ActiveRecord::Schema.define(:version => 13) do
     t.datetime "sent_at"
     t.datetime "processed_at"
     t.boolean  "handled"
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "keywords", :force => true do |t|
-    t.string   "word",        :null => false
-    t.text     "description"
-    t.string   "language",    :null => false
-    t.integer  "channel_id",  :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "keywords", ["channel_id"], :name => "index_keywords_on_channel_id"
-  add_index "keywords", ["word", "language"], :name => "index_keywords_on_word_and_language"
 
   create_table "outbox", :force => true do |t|
     t.string   "text"
@@ -155,6 +146,7 @@ ActiveRecord::Schema.define(:version => 13) do
     t.datetime "sent_at"
     t.boolean  "receipt"
     t.datetime "received_at"
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -170,6 +162,7 @@ ActiveRecord::Schema.define(:version => 13) do
     t.string   "name",                         :null => false
     t.string   "country",                      :null => false
     t.boolean  "active",     :default => true, :null => false
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -182,6 +175,7 @@ ActiveRecord::Schema.define(:version => 13) do
     t.integer  "channel_id"
     t.integer  "number_per_day", :default => 5
     t.boolean  "want_all",       :default => false
+    t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -203,6 +197,7 @@ ActiveRecord::Schema.define(:version => 13) do
     t.integer  "sleep",                                    :default => 22,    :null => false
     t.string   "locale"
     t.boolean  "active",                                   :default => true,  :null => false
+    t.datetime "deleted_at"
   end
 
   add_index "users", ["email", "encrypted_password"], :name => "index_users_on_email_and_encrypted_password"

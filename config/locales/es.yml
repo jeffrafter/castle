@@ -1,6 +1,4 @@
 es:
-  "yes": "sí"
-  "no": "no"
   unknown_command: "No entiendo. ¿Qué quieres decir?"
   invite: "Usted ha sido invitado a unirse al programa de UNESCO y FIA de noticias por SMS (desarollado por DataDyne.org). Favor de confirmar con 'sí'"
   invalid_number: "Lo siento, ese número no es válido"

@@ -1,9 +1,9 @@
 module Message
   class SleepHandler < AbstractHandler
     def run
-      @command = Command.parse(self.message)
-      return unless @command.command == :sleep
-      hour = @command.args.first.compact
+      command = Command.parse(self.message)
+      return unless command && command.key == 'sleep'
+      hour = command.args.first.compact
       hour = hour.to_i
       if (hour > 0 && hour < 25)
         self.user.sleep = hour

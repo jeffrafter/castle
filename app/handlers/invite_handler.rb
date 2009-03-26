@@ -1,12 +1,13 @@
 module Message
   class InviteHandler < AbstractHandler
     def run
-      @command = Command.parse(self.message)
-      return unless @command.command == :invite
-      return unless @command.args.size == 1
-      number = @command.args.first.compact
+      command = Command.parse(self.message)
+      return unless command
+      return unless command.key == 'invite'
+      return unless command.args.size == 1
+      number = command.args.first.compact
       begin
-        number = Number.validate(number)
+        number = self.gateway.format_number(number)        
       rescue
         reply I18n.t(:invalid_number)
         halt

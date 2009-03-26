@@ -4,6 +4,7 @@ class CreateRegions < ActiveRecord::Migration
       t.string :name, :null => false
       t.string :country, :null => false
       t.boolean :active, :default => true, :null => false
+      t.datetime :deleted_at
       t.timestamps
     end
 

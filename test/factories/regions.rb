@@ -3,6 +3,6 @@ Factory.sequence :region do |n|
 end
 
 Factory.define :region, :class => 'region' do |region|
-  region.name     { Factory.next :region }
-  region.country  { "Texas" }
+  region.name          { Factory.next :region }
+  region.country       { "Texas" }
 end

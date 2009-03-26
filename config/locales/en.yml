@@ -1,6 +1,4 @@
 en:
-  "yes": "yes"
-  "no": "no"
   unknown_command: "What do you mean?"
   invite: "Welcome to the UNESCO/FIA news-by-SMS server (developed by DataDyne.org). Please confirm you are interested by replying YES"
   invalid_number: "Sorry that number is not valid"

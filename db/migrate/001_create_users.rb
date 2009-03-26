@@ -17,6 +17,7 @@ class CreateUsers < ActiveRecord::Migration
       t.integer  :sleep, :default => 22, :null => false
       t.string   :locale
       t.boolean  :active, :default => true, :null => false
+      t.datetime :deleted_at
     end
 
     add_index :users, [:id, :token]

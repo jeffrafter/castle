@@ -1,9 +1,9 @@
 module Message
   class AwakeHandler < AbstractHandler
     def run
-      @command = Command.parse(self.message)
-      return unless @command.command == :awake || @command.command == :wake
-      hour = @command.args.first.compact
+      command = Command.parse(self.message)
+      return unless command && command.key == 'wake'
+      hour = command.args.first.compact
       hour = hour.to_i
       if (hour > 0)
         self.user.awake = hour

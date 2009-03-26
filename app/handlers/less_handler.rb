@@ -1,9 +1,9 @@
 module Message
   class LessHandler < AbstractHandler
     def run
-      @command = Command.parse(self.message)
-      return unless @command.command == :less
-      arg = '%' + @command.args.first.compact + '%'
+      command = Command.parse(self.message)
+      return unless command && command.key == 'less'
+      arg = '%' + command.args.first.compact + '%'
       channel = Channel.first(:conditions => ['keywords like ?', arg])
       unless channel
         # that channel does not exist

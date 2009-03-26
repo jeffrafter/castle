@@ -1,24 +1,17 @@
 class InvalidCommandError < RuntimeError; end
 
-class Command 
-  attr_accessor :number, :command, :text, :args
+class Command < ActiveRecord::Base
+  validates_presence_of :locale, :key, :word
   
-  def initialize(params) 
-    self.number = params[:number]
-    self.text = params[:text]
-    arr = self.text.split(/\s/)    
-    begin
-      self.command = arr.shift
-      self.command = self.command.downcase.to_sym 
-      self.args = self.text.slice("#{self.command}".length + 1, self.text.length)
-      self.args = self.args.split(/\s/) rescue nil   
-    rescue 
-      self.command = nil
-      self.args = []
-    end  
-  end
+  attr_accessor :command, :args
   
   def self.parse(message)
-    Command.new(:number => message.number, :text => message.text)    
+    args = message[:text].split(/\s/)    
+    command = args.shift
+    record = Command.first(:conditions => ['word LIKE ?', '%' + command + '%'])
+    return nil unless record
+    record.command = command
+    record.args = args
+    record
   end
 end

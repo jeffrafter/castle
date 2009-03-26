@@ -47,11 +47,18 @@ module Message
     end
 
     def handle_user_confirmation
-      if @message.text.compact.downcase == I18n.t(:yes)
+      command = Command.parse(@message)
+      if command.blank?
+        reply I18n.t(:invite, :locale => @gateway.locale)      
+      elsif command.key == 'yes'
         reply I18n.t(:join) + ' ' + I18n.t(:help)
         reply @user.available_text
         @user.number_confirmed = true
         @user.save!
+      elsif command.key == 'no'
+        # Do nothing if they say no
+      else
+        reply I18n.t(:invite, :locale => @gateway.locale)      
       end  
       halt  
     end
