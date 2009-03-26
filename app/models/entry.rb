@@ -1,7 +1,6 @@
 class Entry < ActiveRecord::Base
   belongs_to :feed
   validates_presence_of :feed
-  validates_uniqueness_of :url
   named_scope :unprocessed, :conditions => ['processed = ?', false], :include => :feed
 
   # Most recent entries for this channel and user that have not already been delivered 
