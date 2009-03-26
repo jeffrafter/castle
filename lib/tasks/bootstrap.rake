@@ -23,4 +23,31 @@ namespace :db do
       u.subscribe(c.id)
     end  
   end
+  
+  desc "Setup the default commands"
+  task :commands do
+    Command.create(:word => 'yes', :key => 'yes', :locale => 'en')
+    Command.create(:word => 'no', :key => 'no', :locale => 'en')
+    Command.create(:word => 'add', :key => 'add', :locale => 'en')
+    Command.create(:word => 'remove', :key => 'remove', :locale => 'en')
+    Command.create(:word => 'del', :key => 'remove', :locale => 'en')
+    Command.create(:word => 'wake', :key => 'wake', :locale => 'en')
+    Command.create(:word => 'awake', :key => 'wake', :locale => 'en')
+    Command.create(:word => 'sleep', :key => 'sleep', :locale => 'en')
+    Command.create(:word => 'more', :key => 'more', :locale => 'en')
+    Command.create(:word => 'less', :key => 'less', :locale => 'en')
+    Command.create(:word => 'list', :key => 'list', :locale => 'en')
+    Command.create(:word => 'channels', :key => 'channels', :locale => 'en')
+    Command.create(:word => 'help', :key => 'help', :locale => 'en')
+    Command.create(:word => 'invite', :key => 'invite', :locale => 'en')
+    Command.create(:word => 'locale', :key => 'locale', :locale => 'en')
+    Command.create(:word => 'language', :key => 'locale', :locale => 'en')
+    Command.create(:word => 'quit', :key => 'quit', :locale => 'en')
+    Command.create(:word => 'stop', :key => 'quit', :locale => 'en')
+    
+    
+    Command.create(:word => 'sí', :key => 'yes', :locale => 'es')
+    Command.create(:word => 'si', :key => 'yes', :locale => 'es')
+    Command.create(:word => 'no', :key => 'no', :locale => 'es')
+  end
 end
