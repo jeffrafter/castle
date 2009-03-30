@@ -47,7 +47,8 @@ class User < ActiveRecord::Base
   end
   
   def validate
-    self.number = Number.validate(self.number) if self.number
+    g = self.gateway || Gateway.find(self.gateway_id)
+    self.number = g.format_number(self.number)
   rescue InvalidPhoneNumberError
     errors.add(:number, 'is not a valid phone number for this region')
   end
