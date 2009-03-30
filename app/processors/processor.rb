@@ -25,6 +25,8 @@ module Message
     end
     
     def say(text, number)
+      number = @gateway.format_number(number) rescue nil
+      return unless number 
       Outbox.create(:text => text, :number => number, :gateway => @gateway)        
     end
     
