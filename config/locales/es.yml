@@ -1,6 +1,6 @@
 es:  
   unknown_command: "No entiendo. Que quieres decir?"
-  invite: "Usted ha sido invitado a unirse al programa DatAgro de información y noticias por SMS, desarrollado por DataDyne.org. Favor responder con solo la palabra 'si' para confirmar."
+  invite: "Usted ha sido invitado a unirse al programa DatAgro de informacion y noticias por SMS, desarrollado por DataDyne.org. Favor responder con solo la palabra 'si' para confirmar."
   invalid_number: "Lo siento, ese numero no es valido"
   join: "Gracias por participar. Para obtener ayuda, responda con 'ayuda'"
   help: "Comandos: canales, anadir, eliminar, lista, mas, menos, invitar, ayuda"
