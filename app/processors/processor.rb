@@ -25,8 +25,6 @@ module Message
     end
     
     def say(text, number)
-      number = Number.validate(number) rescue nil
-      return unless number 
       Outbox.create(:text => text, :number => number, :gateway => @gateway)        
     end
     
