@@ -1,6 +1,6 @@
 set :domain, 'datadyne.socialrange.org'
 set :application, "castle"
-set :repository, "git://github.com/jeffrafter/castle.git"
+set :repository, "git://neverlet.be/castle.git"
 set :keep_releases, 2
 set :scm, :git
 set :branch, "master"
