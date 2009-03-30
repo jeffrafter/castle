@@ -20,13 +20,13 @@ module Message
       if self.user && self.user.number != number
         reply I18n.t(:invited) + " #{number}"
       end
-      if User.create(
+      user = User.create(
         :number => number, 
         :gateway_id => gateway_id, 
         :locale => locale, 
         :timezone_offset => timezone_offset) 
-        say I18n.t(:invite, :locale => self.gateway.locale), number
-      end  
+      user.save!
+      say I18n.t(:invite, :locale => self.gateway.locale), user.number
     end
   end
 end
