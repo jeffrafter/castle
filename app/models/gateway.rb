@@ -7,7 +7,7 @@ class Gateway < ActiveRecord::Base
   before_create :generate_key
 
   def format_number(number)
-    Number.validate(self.number) if self.number
+    Number.validate(number) if number
     
 #    re = Regexp.new("^#{number_format}$")
 #    number = clean_number(number)
