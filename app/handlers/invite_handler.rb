@@ -7,7 +7,7 @@ module Message
       return unless command.args.length == 1
       number = command.args.first.compact
       begin
-        number = self.gateway.format_number(number)        
+        number = Number.validate(number)        
       rescue
         reply I18n.t(:invalid_number)
         halt

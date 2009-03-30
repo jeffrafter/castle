@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   
   def tell(text)
     raise "This user has no gateway, message could not be sent" unless gateway_id
-    Outbox.create(:gateway_id => gateway_id, :number => number, :text => text)
+    Outbox.create(:gateway_id => gateway_id, :number => self.number, :text => text)
   end
   
   def quiet_hours?
