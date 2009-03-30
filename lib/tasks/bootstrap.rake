@@ -26,6 +26,7 @@ namespace :db do
   
   desc "Setup the default commands"
   task :commands do
+    require File.join(RAILS_ROOT, 'config', 'environment')
     Command.create(:word => 'yes', :key => 'yes', :locale => 'en')
     Command.create(:word => 'no', :key => 'no', :locale => 'en')
     Command.create(:word => 'add', :key => 'add', :locale => 'en')
@@ -49,5 +50,23 @@ namespace :db do
     Command.create(:word => 'sí', :key => 'yes', :locale => 'es')
     Command.create(:word => 'si', :key => 'yes', :locale => 'es')
     Command.create(:word => 'no', :key => 'no', :locale => 'es')
+    Command.create(:word => 'más', :key => 'add', :locale => 'es')
+    Command.create(:word => 'remover', :key => 'remove', :locale => 'es')
+    Command.create(:word => 'sacar', :key => 'remove', :locale => 'es')
+    Command.create(:word => 'eliminar', :key => 'remove', :locale => 'es')
+    Command.create(:word => 'alerta', :key => 'wake', :locale => 'es')
+    Command.create(:word => 'vigilante', :key => 'wake', :locale => 'es')
+    Command.create(:word => 'suspendido', :key => 'sleep', :locale => 'es')
+    Command.create(:word => 'más', :key => 'more', :locale => 'es')
+    Command.create(:word => 'menos', :key => 'less', :locale => 'es')
+    Command.create(:word => 'lista', :key => 'list', :locale => 'es')
+    Command.create(:word => 'fuente', :key => 'channels', :locale => 'es')
+    Command.create(:word => 'ayuda', :key => 'help', :locale => 'es')
+    Command.create(:word => 'invita', :key => 'invite', :locale => 'es')
+    Command.create(:word => 'locale', :key => 'locale', :locale => 'es')
+    Command.create(:word => 'lenguaje', :key => 'locale', :locale => 'es')
+    Command.create(:word => 'salir', :key => 'quit', :locale => 'es')
+    Command.create(:word => 'detener', :key => 'quit', :locale => 'es')
+    Command.create(:word => 'cerrar', :key => 'quit', :locale => 'es')
   end
 end

@@ -5,6 +5,7 @@ class Entry < ActiveRecord::Base
 
   # Most recent entries for this channel and user that have not already been delivered 
   # TODO make this query only grab the latest since the last received item
+  # TODO the joins might alter the limit if an entry is delivered to a user more than once
   named_scope :available, lambda {|user_id, channel_id, limit| {
     :limit => limit,
     :include => :feed, 

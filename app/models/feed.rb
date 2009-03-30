@@ -74,7 +74,7 @@ private
         break
       end
     } if self.checksum
-    items = items[last_entry + 1, entries.size] if last_entry
+    items = items[last_entry + 1, entries.length] if last_entry
     items.each {|entry| store(entry) }
   end    
   

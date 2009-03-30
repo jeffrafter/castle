@@ -4,7 +4,7 @@ module Message
       command = Command.parse(self.message)
       return unless command
       return unless command.key == 'invite'
-      return unless command.args.size == 1
+      return unless command.args.length == 1
       number = command.args.first.compact
       begin
         number = self.gateway.format_number(number)        
