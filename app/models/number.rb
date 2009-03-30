@@ -7,11 +7,11 @@ class Number
   
 private
 
-  def country_code
+  def self.country_code
     56
   end
   
-  def format_number(number)
+  def self.format_number(number)
     raise InvalidPhoneNumberError.new("Invalid number format #{number}") if number == "500" || number == "+5690" || number == "911" || number == "1121611611" || number == "Movistar"
     re = /\+#{country_code}\d{9}/
     number = clean_number(number)      
@@ -19,7 +19,7 @@ private
     number
   end
   
-  def clean_number(number)
+  def self.clean_number(number)
     number = number.gsub(/[^0-9]/, '')
     number = number.gsub(/^#{country_code}/, '')
     number = number.gsub(/^0/, '')
