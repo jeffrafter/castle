@@ -10,8 +10,8 @@
 <% for feed in @feeds %>
   <tr>
     <td width="180px"><%=h feed.title %></td>
-    <td><%=h feed.channel.title %></td>
-    <td><%=h feed.channel.region.name %></td>
+    <td><%=h feed.channel.title rescue 'Channel missing' %></td>
+    <td><%=h feed.channel.region.name rescue 'Region missing' %></td>
     <td><%= link_to 'Show', feed %></td>
     <td><%= link_to 'Edit', edit_feed_path(feed) %></td>
     <td><%= link_to 'Destroy', feed, :confirm => 'Are you sure?', :method => :delete %></td>
