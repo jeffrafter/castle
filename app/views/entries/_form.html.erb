@@ -1,34 +1,34 @@
   <p>
+    <%= f.label :feed_id, 'Feed' %><br />
+    <select name="entry[feed_id]" id="entry_feed_id">
+      <%= options_from_collection_for_select(Feed.all, :id, :title, @entry.feed_id || params[:feed_id])  %>
+    </select>
+  </p>
+  <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </p>
-  <p>
+  <!-- p>
     <%= f.label :url %><br />
     <%= f.text_field :url %>
-  </p>
+  </p -->
   <p>
     <%= f.label :author %><br />
-    <%= f.text_field :author %>
+    <%= f.text_field :author %> (not required)
   </p>
   <p>
     <%= f.label :summary %><br />
-    <%= f.text_field :summary %>
+    <%= f.text_field :summary %> (not required)
   </p>
   <p>
     <%= f.label :content %><br />
-    <%= f.text_area :content %>
+    <%= f.text_area :content, :style => 'height:40px;width:90%'%>
   </p>
-  <p>
+  <!-- p>
     <%= f.label :categories %><br />
     <%= f.text_field :categories %>
   </p>
   <p>
     <%= f.label :published_at %><br />
     <%= f.datetime_select :published_at %>
-  </p>
-  <p>
-    <%= f.label :feed_id, 'Feed' %><br />
-    <select name="entry[feed_id]" id="entry_feed_id">
-      <%= options_from_collection_for_select(Feed.all, :id, :title, @entry.feed_id || params[:feed_id])  %>
-    </select>
-  </p>
+  </p -->

@@ -22,4 +22,8 @@ class UsersController < ApplicationController
   rescue 
     render :text => '', :status => :not_found
   end
+  
+  def index
+    @users = User.paginate(:page => params[:page], :per_page => 10)
+  end
 end

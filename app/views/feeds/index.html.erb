@@ -1,6 +1,6 @@
 <h1>Listing feeds</h1>
 
-<table>
+<table class="index">
   <tr>
     <th>Title</th>
     <th>Channel</th>
@@ -9,7 +9,7 @@
 
 <% for feed in @feeds %>
   <tr>
-    <td><%=h feed.title %></td>
+    <td width="180px"><%=h feed.title %></td>
     <td><%=h feed.channel.title %></td>
     <td><%=h feed.channel.region.name %></td>
     <td><%= link_to 'Show', feed %></td>

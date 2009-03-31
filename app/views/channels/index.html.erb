@@ -1,6 +1,6 @@
 <h1>Listing channels</h1>
 
-<table>
+<table class="index">
   <tr>
     <th>Title</th>
     <th>Region</th>
@@ -9,11 +9,9 @@
 
 <% for channel in @channels %>
   <tr>
-    <td><%=h channel.title %></td>
-    <td><%=h channel.region_id %></td>
+    <td width="180px"><%= link_to channel.title, edit_channel_path(channel) %></td>
+    <td><%=h channel.region.name %></td>
     <td><%=h channel.active %></td>
-    <td><%= link_to 'Show', channel %></td>
-    <td><%= link_to 'Edit', edit_channel_path(channel) %></td>
     <td><%= link_to 'Destroy', channel, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>

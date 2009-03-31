@@ -1,0 +1,23 @@
+<form method="GET">
+  <p>
+    <%= label_tag :number, 'Number' %><br />
+    <%= text_field_tag :number, params[:number] %>
+    <%= submit_tag "Filter" %>
+  </p>
+</form>
+
+<div style="border-top:1px dotted silver">
+  <ul class="entries">
+    <% @messages.each do |message| %>
+      <li class="<%= cycle("even","odd") -%>" >
+        <h3><%= message.number %></h3>
+        <p><%=h message.text %></p>
+        <p>Sent: <%= entry.sent_at %> | Processed: <%= entry.processed_at %> | Handled: <%= entry.handled? ? 'yes' : 'no' %></p>
+      </li>
+    <% end %>
+    <% if @messages.blank? %>
+      <li>There are no messages available.</li>
+    <% end %>
+  </ul>  
+  <%= will_paginate @messages %>
+</div>

@@ -123,3 +123,19 @@ div.pagination {
   float:left;
   padding-bottom:10px;
 }
+
+
+table.index td {
+  border-top:1px solid silver;
+}
+
+table.index th {
+  background: silver;
+  border-bottom:2px solid black;
+  padding:4px;
+}
+
+table.index {
+  border:1px solid black;
+}
+

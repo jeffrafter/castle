@@ -1,11 +1,17 @@
   <p>
+    <%= f.label :channel_id %><br />
+    <select name="feed[channel_id]" id="channel_id">
+      <%= channel_and_region_options(@feed.channel_id || params[:channel_id])  %>
+    </select>  
+  </p>
+  <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
   </p>
-  <p>
+  <!-- p>
     <%= f.label :subtitle %><br />
     <%= f.text_field :subtitle %>
-  </p>
+  </p-->
   <p>
     <%= f.label :feed_url, 'Feed' %><br />
     <%= f.text_field :feed_url %>
@@ -14,13 +20,7 @@
     <%= f.label :url, 'Website' %><br />
     <%= f.text_field :url %>
   </p>
-  <p>
+  <!-- p>
     <%= f.label :description %><br />
     <%= f.text_area :description %>
-  </p>
-  <p>
-    <%= f.label :channel_id %><br />
-    <select name="feed[channel_id]" id="channel_id">
-      <%= channel_and_region_options(@feed.channel_id || params[:channel_id])  %>
-    </select>  
-  </p>
+  </p -->

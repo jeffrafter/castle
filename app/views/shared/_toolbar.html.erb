@@ -1,9 +1,6 @@
 <div id="toolbar" style="border-bottom:1px dotted silver;width:100%;padding-bottom:10px;margin-bottom:20px;">
   <% if signed_in? -%>
-    Hello, <%= current_user.email %>! <%= link_to 'Sign out', logout_path %> |
-    <%= link_to 'Regions', regions_path %> |
-    <%= link_to 'Gateways', gateways_path %> |
-    <%= link_to 'Channels', channels_path %> 
+    Hello, <%= current_user.email %>! <%= link_to 'Sign out', logout_path %>
   <% else -%>
     Hi! Please <%= link_to 'Register', signup_path %> or <%= link_to 'Sign in', login_path %>
   <% end -%>

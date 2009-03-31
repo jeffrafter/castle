@@ -19,12 +19,15 @@
             <ul>
               <li class="leaf"><a class="active" title="Home" href="http://datadyne.org?q=home">Home</a></li>
               <li class="leaf"><a title="About" href="http://datadyne.org?q=about">About</a></li>
-              <li class="leaf"><a title="Information about the EpiSurveyor project" href="http://datadyne.org?q=episurveyor/home">EpiSurveyor</a></li>
-              <li class="leaf"><a title="Services" href="http://datadyne.org?q=services">Services</a></li>
-              <li class="leaf"><a title="Partners" href="http://datadyne.org?q=partners">Partners</a></li>
-              <li class="leaf"><a title="Images of our work, our colleagues, our friends" href="http://datadyne.org?q=image">Images</a></li>
-              <li class="leaf"><a title="Contact" href="http://datadyne.org?q=contact">Contact</a></li>
-              <li class="leaf"><a title="Recommended Reading" href="http://datadyne.org?q=reading">Reading</a></li>
+              <li class="leaf"><%= link_to 'Commands', commands_path %></li>
+              <li class="leaf"><%= link_to 'Regions', regions_path %></li>
+              <li class="leaf"><%= link_to 'Gateways', regions_path %></li>
+              <li class="leaf"><%= link_to 'Channels', regions_path %></li>
+              <li class="leaf"><%= link_to 'Feeds', feeds_path %></li>
+              <li class="leaf"><%= link_to 'Entries', entries_path %></li>
+              <li class="leaf"><%= link_to 'Inbox', '/inbox' %></li>
+              <li class="leaf"><%= link_to 'Outbox', '/outbox' %></li>
+              <li class="leaf"><%= link_to 'Users', users_path %></li>
             </ul>
           </div>
           <a href="http://datadyne.org?q=image"><img alt="Tsunami Victim" src="http://datadyne.org/files/images/SumatraPatient.sidebar.jpg" id="rotate"/></a>  

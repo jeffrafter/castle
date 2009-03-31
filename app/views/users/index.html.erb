@@ -1,0 +1,24 @@
+<h1>Listing users</h1>
+
+<table class="index">
+  <tr>
+    <th>Number</th>
+    <th>Region</th>
+    <th>Gateway</th>
+    <th>Locale</th>
+  </tr>
+
+<% for user in @users %>
+  <tr>
+    <td><%=h user.number %></td>
+    <td><%=h user.gateway.region.name %></td>
+    <td><%=h user.gateway.number %></td>
+    <td><%=h user.locale %></td>
+    <td><%= link_to 'Show', user %></td>
+    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= will_paginate @users %>
+
