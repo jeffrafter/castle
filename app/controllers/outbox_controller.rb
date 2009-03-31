@@ -16,7 +16,7 @@ class OutboxController < ApplicationController
         since = Time.parse(params[:since]) rescue nil
         options = {}
         options[:conditions] = ['updated_at > ?', since] if since
-        @messages = Outbox.all(options)
+        @messages = Outbox.local(@gateway.id).all(options)
         render :xml => @messages.to_xml
       }
     end    
