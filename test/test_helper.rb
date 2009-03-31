@@ -14,7 +14,7 @@ class Test::Unit::TestCase
   def should_send_message_to(number, matcher = nil, &block)
     count = Outbox.count
     yield
-    assert_equal count + 1, Outbox.count
+    assert Outbox.count > count
     message = Outbox.first(:order => 'id DESC')
     assert_equal number, message.number    
     assert_match matcher, message.text if matcher

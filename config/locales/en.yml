@@ -3,6 +3,7 @@ en:
   invite: "Welcome to the UNESCO/FIA news-by-SMS server (developed by DataDyne.org). Please confirm you are interested by replying YES"
   invalid_number: "Sorry that number is not valid"
   join: "Thanks for joining! For help, please respond with the word HELP."
+  join_commands: "For a list of commands at any time, send the word 'help' the system."
   help: "Commands: help, list (list channels), add (add channel), remove (remove channel), more (more msgs)"
   channels: "Channels: "
   subscriptions: "You are subscribed to: "

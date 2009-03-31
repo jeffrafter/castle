@@ -6,6 +6,8 @@ class Channel < ActiveRecord::Base
   
   named_scope :available, lambda {|user_id| {
     :joins => "LEFT OUTER JOIN subscriptions ON subscriptions.user_id = #{user_id} AND subscriptions.channel_id = channels.id", 
-    :conditions => ['subscriptions.id IS NULL']
+    :conditions => ['subscriptions.id IS NULL AND system = ? AND active = ?', false, true]
   }}
+  
+  named_scope :system, :conditions => ['system = ? AND active = ?', true, true]
 end

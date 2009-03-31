@@ -9,18 +9,18 @@ class OutboxControllerTest < ActionController::TestCase
     end    
 
     should "not return messages to an invalid gateway" do
-      get :index, :api_key => 'monkey'
+      get :index, :format => 'xml', :api_key => 'monkey'
     end
 
     should "should return all messages" do
-      get :index, :api_key => @gateway.api_key
+      get :index, :format => 'xml', :api_key => @gateway.api_key
       assert_response :success
       assert_not_nil assigns(:messages)
       assert assigns(:messages).include?(@message)
     end
     
     should "should return all messages since time specified" do
-      get :index, :api_key => @gateway.api_key, :since => Time.now.utc.iso8601
+      get :index, :format => 'xml', :api_key => @gateway.api_key, :since => Time.now.utc.iso8601
       assert_response :success
       assert_not_nil assigns(:messages)
       assert_equal [], assigns(:messages)

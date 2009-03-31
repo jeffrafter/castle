@@ -4,7 +4,7 @@ module Message
       command = Command.parse(self.message)
       return unless command && command.key == 'remove'
       arg = '%' + command.args.first.compact + '%'
-      channel = Channel.first(:conditions => ['keywords like ?', arg])
+      channel = Channel.first(:conditions => ['system = ? AND keywords like ?', false, arg])
       unless channel
         # that channel does not exist
         halt

@@ -9,7 +9,7 @@ class ProcessorTest < ActiveSupport::TestCase
     
     context "message from an unknown user" do
       setup do
-        @message = Factory(:inbox, :text => @text, :number => '3108675309', :gateway => @gateway)
+        @message = Factory(:inbox, :text => @text, :number => '+19519020972', :gateway => @gateway)
       end
       
       should "handle a new message" do 
@@ -27,14 +27,14 @@ class ProcessorTest < ActiveSupport::TestCase
 
     context "message from an unconfirmed user" do
       setup do
-        @user = Factory(:user_with_number, :number_confirmed => false)
+        @user = Factory(:user_with_number, :number => '+19519020972', :number_confirmed => false)
       end    
 
       should "handle a 'yes' message" do
         Command.create(:locale => 'en', :key => 'yes', :word => 'yes')
         Command.create(:locale => 'en', :key => 'no', :word => 'no')
         @message = Factory(:inbox, :text => 'yes', :number => @user.number, :gateway => @gateway)
-        should_send_message_to @message.number, /Thanks/ do
+        should_send_message_to @message.number, /For a list of commands/ do
           assert_no_difference 'User.count' do
             @processor = Message::Processor.new(@message)
             @processor.run
@@ -78,7 +78,7 @@ class ProcessorTest < ActiveSupport::TestCase
     
     context "invite message from a confirmed user" do
       setup do
-        @text = 'invite 14448675309'
+        @text = 'invite +14448675309'
         @user = Factory(:user_with_number)
         @message = Factory(:inbox, :text => @text, :number => @user.number, :gateway => @gateway)
       end    

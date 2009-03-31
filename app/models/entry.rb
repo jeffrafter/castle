@@ -6,13 +6,15 @@ class Entry < ActiveRecord::Base
   # Most recent entries for this channel and user that have not already been delivered 
   # TODO make this query only grab the latest since the last received item
   # TODO the joins might alter the limit if an entry is delivered to a user more than once
-  named_scope :available, lambda {|user_id, channel_id, limit| {
-    :limit => limit,
-    :include => :feed, 
-    :joins => "LEFT OUTER JOIN deliveries ON deliveries.entry_id = entries.id AND deliveries.user_id = #{user_id}", 
-    :conditions => ['feeds.channel_id = ? AND deliveries.id IS NULL', channel_id],
-    :order => 'entries.created_at DESC'       
-  }} 
+  named_scope :available, lambda {|user_id, channel_id, limit|   
+    h = {}
+    h[:include] = :feed 
+    h[:joins] = "LEFT OUTER JOIN deliveries ON deliveries.entry_id = entries.id AND deliveries.user_id = #{user_id}"
+    h[:conditions] = ['feeds.channel_id = ? AND deliveries.id IS NULL', channel_id]
+    h[:order] = 'entries.created_at DESC' 
+    h[:limit] = limit unless limit == :all
+    h      
+  } 
   
   def before_save
     text = "\"#{title}\" #{[summary, content].join(' ')}".compact

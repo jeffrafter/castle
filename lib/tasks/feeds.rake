@@ -15,11 +15,23 @@ namespace :feeds do
   task :deliver do
     require File.join(RAILS_ROOT, 'config', 'environment')
 
-# Way slow version right?
+    # Way slow version right?
     t = Time.now
-    subscriptions = Subscription.all
+    subscriptions = Subscription.all(:include => [:user, :channel])
     subscriptions.each {|sub| Delivery.deliver_to(sub) }
     puts "Delivered to all subscriptions #{Time.now - t} elapsed"
+    
+    # System messages
+    t = Time.now
+    channels = Channel.system
+    users = User.active
+    user.each {|u|
+      channels.each {|c|
+        Delivery.deliver_system_messages_to(u, c) 
+      }
+    }
+    puts "Delivered to all system messages #{Time.now - t} elapsed"
+    
     
 =begin
     subscriptions = Subscription.n eedy  <= n eedy is disabled

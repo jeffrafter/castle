@@ -15,6 +15,7 @@ class GatewayTest < ActiveSupport::TestCase
       @gateway = Factory(:gateway)
     end
 
+=begin
     should "format and clean valid phone numbers" do
       number = "5558675309"
       assert_equal number, @gateway.format_number(number)
@@ -35,7 +36,7 @@ class GatewayTest < ActiveSupport::TestCase
       number = "15558675309"
       assert_equal "5558675309", @gateway.format_number(number)
     end
-    
+=end    
     should "generate key" do
       @gateway.send(:generate_key)
       assert_not_nil @gateway.api_key

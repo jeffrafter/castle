@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
 
   attr_accessible :number, :gateway_id, :locale, :timezone_offset, :sleep, :awake
   
+  named_scope :active, :conditions => ['active = ?', true]
+  
   has_many :conversations
   has_many :subscriptions
   has_many :deliveries

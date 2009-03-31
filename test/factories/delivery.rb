@@ -3,7 +3,7 @@ Factory.sequence :delivery do |n|
 end
 
 Factory.define :delivery, :class => 'delivery' do |delivery|
-  delivery.region      {|delivery| delivery.association(:region) }
+  delivery.entry       {|delivery| delivery.association(:entry) }
   delivery.channel     {|delivery| delivery.association(:channel) }
   delivery.user        {|delivery| delivery.association(:user) }
 end
