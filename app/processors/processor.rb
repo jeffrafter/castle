@@ -52,6 +52,7 @@ module Message
         reply I18n.t(:invite, :locale => @gateway.locale)      
       elsif command.key == 'yes'
         reply I18n.t(:join) + ' ' + I18n.t(:help)
+        reply I18n.t(:join_commands)
         reply @user.available_text
         @user.number_confirmed = true
         @user.save!
