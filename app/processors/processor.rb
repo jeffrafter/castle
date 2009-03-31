@@ -8,7 +8,7 @@ module Message
       @conversation = nil
       @message = message
       @gateway = message.gateway
-      @user = User.find_by_number(@message.number)
+      @user = User.available.find_by_number(@message.number)
     end
     
     def run 

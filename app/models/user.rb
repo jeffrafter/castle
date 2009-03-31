@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   attr_accessible :number, :gateway_id, :locale, :timezone_offset, :sleep, :awake
   
   named_scope :active, :conditions => ['active = ?', true]
+  named_scope :available, :conditions => ['deleted_at IS NULL']
   
   has_many :conversations
   has_many :subscriptions
