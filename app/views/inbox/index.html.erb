@@ -12,7 +12,7 @@
       <li class="<%= cycle("even","odd") -%>" >
         <h3><%= message.number %></h3>
         <p><%=h message.text %></p>
-        <p>Sent: <%= entry.sent_at %> | Processed: <%= entry.processed_at %> | Handled: <%= entry.handled? ? 'yes' : 'no' %></p>
+        <p>Sent: <%= message.sent_at %> | Processed: <%= message.processed_at %> | Handled: <%= message.handled? ? 'yes' : 'no' %></p>
       </li>
     <% end %>
     <% if @messages.blank? %>
