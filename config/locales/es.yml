@@ -1,8 +1,8 @@
 es:  
   unknown_command: "No entiendo. Que quieres decir?"
-  invite: "Ud. ha sido invitado a DatAgro, iniciativa de info y noticias, hecho por DataDyne.org. Favor responder con la palabra 'si' para confirmar.
+  invite: "Ud. ha sido invitado a DatAgro, iniciativa de info y noticias, hecho por DataDyne.org. Favor responder con la palabra 'si' para confirmar."
   invalid_number: "Lo siento, ese numero no es valido"
-  join: "Gracias por su participacion. Para usar el sistema, suscríbase a canales de info. Para una lista de canales, responda con 'canales'."
+  join: "Gracias por su participacion. Para usar el sistema, suscribase a canales de info. Para una lista de canales, responda con 'canales'."
   join_commands: "Para una lista de comandos en cualquier momento, mande la palabra 'ayuda' al sistema."
   help: "Comandos: canales, anadir, eliminar, lista, mas, menos, invitar, ayuda"
   channels: "Canales: "
