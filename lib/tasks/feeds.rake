@@ -31,25 +31,6 @@ namespace :feeds do
       }
     }
     puts "Delivered to all system messages #{Time.now - t} elapsed"
-    
-    
-=begin
-    subscriptions = Subscription.n eedy  <= n eedy is disabled
-    subscriptions.each {|subscription| subscription.delivery_count = subscription.delivery_count.to_i}
-    entries = Entry.unprocessed.all
-    entries.each  do |entry|       
-      puts "[#{Time.now.iso8601}] Processing entry #{entry.checksum}"
-      subscriptions.each do |subscription|
-        next unless entry.feed
-        next unless subscription.channel_id = entry.feed.channel_id
-        next unless subscription.number_per_day > subscription.delivery_count
-        subscription.delivery_count += 1
-        Delivery.deliver(subscription, entry)
-      end  
-      entry.processed = true
-      entry.save!      
-    end    
-=end    
   end
   
   desc "Fetch and deliver"

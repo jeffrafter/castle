@@ -24,12 +24,13 @@ end
 class Feed < ActiveRecord::Base
   belongs_to :channel
   has_many :entries
-  validates_presence_of :feed_url
   named_scope :enabled, :conditions => ['active = ?', true]
   named_scope :stale, lambda {{ :conditions => ['stale_at < ? OR stale_at IS NULL', Time.now] }}
   before_create :setup
     
   def fetch
+    return if feed.blank?
+
     self.stale_at = Time.now + self.interval.minutes
     options = {:on_success => method(:success), :on_failure => method(:failure)}
 # TODO!    
@@ -43,6 +44,8 @@ class Feed < ActiveRecord::Base
 private
 
   def setup   
+    return if feed.blank?
+    
     feed = Feedzirra::Feed.fetch_and_parse(self.feed_url)
     self.title ||= feed.title
     self.url ||= feed.url
