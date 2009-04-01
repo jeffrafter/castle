@@ -11,7 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :regions
   map.resources :commands
   map.resources :feeds
-  map.resources :logs, :as => 'log'
+  map.resources :log, :as => 'log'
 
   map.resources :users, :has_one => [:password, :confirmation]
   map.resource :session, :collection => {:verify => :get}
