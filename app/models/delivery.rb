@@ -12,18 +12,27 @@ class Delivery < ActiveRecord::Base
     return if user.quiet_hours?
     need = subscription.number_per_day - self.delivery_count(subscription)
     return unless need > 0
-    entries = Entry.available(user.id, channel.id, need).reverse!    
+    since = self.last_delivered_entry_id(subscription)
+    entries = Entry.available(user.id, channel.id, since, need).reverse!    
     entries.each {|entry| self.deliver(user.id, channel.id, entry) }
   end
 
   def self.deliver_system_messages_to(user, channel)
     return unless user.active? && channel.active?
     return if user.quiet_hours?
-    entries = Entry.available(user.id, channel.id, :all).reverse!    
+    since = self.last_delivered_entry_id(subscription)
+    entries = Entry.available(user.id, channel.id, since, need).reverse!    
     entries.each {|entry| self.deliver(user.id, channel.id, entry) }        
   end
   
 private
+  def self.last_delivered_entry_id(subscription)
+    Delivery.first(:conditions => [
+      'user_id = ? AND channel_id = ?', 
+      subscription.user_id, 
+      subscription.channel_id],
+      :order => 'entry_id DESC').id rescue 0
+  end    
 
   def self.delivery_count(subscription)
     Delivery.count(:conditions => [

@@ -26,7 +26,7 @@ class EntryTest < ActiveSupport::TestCase
     
     should "limit the results based on limit" do
       assert_equal 5, Entry.count
-      @entries = Entry.available(@user.id, @channel.id, 4)
+      @entries = Entry.available(@user.id, @channel.id, 0, 4)
       assert_equal 4, @entries.length
     end
     
