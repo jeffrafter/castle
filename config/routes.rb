@@ -11,12 +11,12 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :regions
   map.resources :commands
   map.resources :feeds
+  map.resources :logs
 
   map.resources :users, :has_one => [:password, :confirmation]
   map.resource :session, :collection => {:verify => :get}
   map.resources :passwords
 
-  map.signup '/sms', :controller => 'sms', :action => 'index'
   map.signup '/signup', :controller => 'users', :action => 'new'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'

@@ -17,3 +17,4 @@ en:
   wake: "Thanks, we will not send any news messages until {{time}}"
   how_to_wake: "Please enter a number from 1 to 24"
   locale: "You language has been changed to {{language}}"
+  quit: "Sorry to see you go. To join again, reply to this message and a new account will be created."

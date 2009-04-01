@@ -48,9 +48,10 @@ EOF
 
     desc "Symlink shared configurations to current"
     task :localize, :roles => [:app] do
+  		run "mkdir -p #{shared_path}/log"
+      run "ln -nsf #{shared_path}/log #{current_path}/log"
+      run "ln -nsf #{shared_path}/log #{release_path}/log"
       run "ln -nsf #{shared_path}/config/database.yml #{current_path}/config/database.yml"
-      run "ln -nsf #{shared_path}/log/cron_tab.log #{current_path}/log/cron_tab.log"
-      run "ln -nsf #{shared_path}/log/cron_tab.log #{release_path}/log/cron_tab.log"
     end 		      
 
   end  
