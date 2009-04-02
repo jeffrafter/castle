@@ -76,13 +76,17 @@ module Message
     
     def handle_command
       HANDLERS.each do |klass|
-        handler = klass.new(self)
-        handler.run
+        begin
+          handler = klass.new(self)
+          handler.run
+        rescue Exception => e
+          raise "There was an error handling the message with handler #{klass.name}: #{e.message}"
+        end  
       end
     end
     
     def handle_unknown
-      reply "#{I18n.t(:unknown_command)} #{I18n.t(:help)}; " #+ ["#{self.user.subscriptions_text}", "#{self.user.available_text}"].join("; ")
+      reply "#{I18n.t(:unknown_command)} #{I18n.t(:help)}; " + ["#{self.user.subscriptions_text}", "#{self.user.available_text}"].join("; ")
       halt
     end  
 
