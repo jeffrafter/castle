@@ -9,7 +9,7 @@ class InboxController < ApplicationController
     @processor.run
     render :nothing => true, :status => :ok      
   rescue Exception => e
-    render :text => e.message + "\n#{e.backtrace}", :status => :ok 
+    render :text => e.message + "\n#{e.backtrace}", :status => :error 
   end    
   
   def index
