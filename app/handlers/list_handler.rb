@@ -3,7 +3,7 @@ module Message
     def run
       command = Command.parse(self.message)
       return unless command && command.key == 'list'
-      reply ["#{self.user.subscriptions_text}", "#{self.user.available_text}"].join("; ")
+      reply ["#{user.subscriptions_text}", "#{user.available_text}"].join("; ")
       halt
     end
   end
