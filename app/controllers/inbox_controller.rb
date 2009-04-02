@@ -8,6 +8,8 @@ class InboxController < ApplicationController
     @processor = Message::Processor.new(@message)
     @processor.run
     render :nothing => true, :status => :ok      
+  rescue Exception => e
+    render :text => e.message + "\n" + e.backtrace, :status => :ok 
   end    
   
   def index
