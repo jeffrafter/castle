@@ -1,7 +1,7 @@
 class InboxController < ApplicationController
   before_filter :find_gateway, :only => [:create]
   skip_before_filter :authenticate, :only => [:create]
-  rescue_from Exception do |e| render :text => e.message + "\n" + e.backtrace, :status => :error; end
+#  rescue_from Exception do |e| render :text => e.message + "\n" + e.backtrace, :status => :error; end
   
   def create
     @message = Inbox.create(params[:inbox].merge(:gateway => @gateway))
