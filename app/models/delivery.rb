@@ -16,6 +16,9 @@ class Delivery < ActiveRecord::Base
     since = self.last_delivered_entry_id(subscription)
     entries = Entry.available(user.id, channel.id, since, need).reverse!    
     entries.each {|entry| self.deliver(user.id, channel.id, entry) }
+  rescue Exception => e
+    # Bad subscription
+    puts "Could not deliver to subscription: #{e.message}"
   end
 
   def self.deliver_system_messages_to(user, channel)

@@ -1,5 +1,4 @@
 class Channel < ActiveRecord::Base
-  named_scope :enabled, :conditions => ['active = ?', true]
   belongs_to :region
   validates_presence_of :keywords
   has_many :feeds
@@ -9,5 +8,6 @@ class Channel < ActiveRecord::Base
     :conditions => ['subscriptions.id IS NULL AND system = ? AND active = ?', false, true]
   }}
   
+  named_scope :enabled, :conditions => ['active = ?', true]
   named_scope :system, :conditions => ['system = ? AND active = ?', true, true]
 end
