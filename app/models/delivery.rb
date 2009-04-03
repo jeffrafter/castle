@@ -24,7 +24,7 @@ class Delivery < ActiveRecord::Base
   def self.deliver_system_messages_to(user, channel)
     return unless user.active? && channel.active?
     return if user.quiet_hours?
-    entries = Entry.available(user.id, channel.id, 0, need).reverse!    
+    entries = Entry.available(user.id, channel.id, 0, :all).reverse!    
     entries.each {|entry| self.deliver(user.id, channel.id, entry) }        
   end
   
