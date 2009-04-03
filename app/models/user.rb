@@ -22,12 +22,12 @@ class User < ActiveRecord::Base
   belongs_to :gateway
 
   def subscriptions_text
-    if (self.subscriptions.user.blank?)
+    if (self.subscriptions.blank?)
       I18n.t(:not_subscribed)
     else
       index = 0
       text = I18n.t(:subscriptions) + ' '
-      text += self.subscriptions.user.map{|s| "#{s.channel.title}"}.join(", ")
+      text += self.subscriptions.map{|s| "#{s.channel.title}"}.join(", ")
     end  
   end
 

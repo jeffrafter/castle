@@ -92,6 +92,23 @@ class ProcessorTest < ActiveSupport::TestCase
       end      
     end
 
+    context "add message from a confirmed user" do
+      setup do
+        @channel = Factory(:channel)
+        @user = Factory(:user_with_number)
+        @text = "add #{@channel.title}"
+        @message = Factory(:inbox, :text => @text, :number => @user.number, :gateway => @gateway)
+      end    
+
+      should "handle a new message" do 
+        Command.create(:locale => 'en', :key => 'add', :word => 'add')
+        @processor = Message::Processor.new(@message)
+        @processor.run
+      end      
+    end
+
+
+
 =begin    
     context "message from a confirmed user with a waiting interaction" do
       setup do

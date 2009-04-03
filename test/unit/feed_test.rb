@@ -5,7 +5,6 @@ class FeedTest < ActiveSupport::TestCase
     @feed = Factory(:feed)
   end
 
-  should_validate_presence_of :feed_url
   should_belong_to :channel
   should_have_many :entries
   
