@@ -1,9 +1,9 @@
-  <!-- p>
+  <p>
     <%= f.label :feed_id, 'Feed' %><br />
-    <select name="entry[feed_id]" id="entry_feed_id">
-      <%= options_from_collection_for_select(Feed.all, :id, :title, @entry.feed_id || params[:feed_id])  %>
+    <select name="entry[feed_id]" id="entry_feed_id">    
+      <%= options_from_collection_for_select(Feed.all, :id, :title)  %>
     </select>
-  </p-->
+  </p>
   <p>
     <%= f.label :title %><br />
     <%= f.text_field :title %>
