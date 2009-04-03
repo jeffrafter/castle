@@ -25,7 +25,7 @@ namespace :feeds do
     t = Time.now
     channels = Channel.system
     users = User.active
-    user.each {|u|
+    users.each {|u|
       channels.each {|c|
         Delivery.deliver_system_messages_to(u, c) 
       }
