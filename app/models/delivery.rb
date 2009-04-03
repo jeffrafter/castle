@@ -6,8 +6,9 @@ class Delivery < ActiveRecord::Base
   # No delivery, if during quiet hours for this user or they are not active  
   # If the user doesn't need anymore we leave
   def self.deliver_to(subscription)
-    user = subscription.user
-    channel = subscription.channel
+    user = User.find(subscription.user_id)
+    channel = Channel.find(subscription.channel_id)
+    return unless user && channel
     return unless user.active? && channel.active?
     return if user.quiet_hours?
     need = subscription.number_per_day - self.delivery_count(subscription)
