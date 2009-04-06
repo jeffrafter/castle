@@ -21,10 +21,12 @@ class Delivery < ActiveRecord::Base
     puts "Could not deliver to subscription: #{e.message}"
   end
 
+  # Only deliver system messages that have no published date, or that are now
+  # published and that have not been delivered already.
   def self.deliver_system_messages_to(user, channel)
     return unless user.active? && channel.active?
     return if user.quiet_hours?
-    entries = Entry.available(user.id, channel.id, 0, :all).reverse!    
+    entries = Entry.available(user.id, channel.id, 0, :all).all(:conditions => ['published_at IS NULL OR published_at < ?', Time.now]).reverse!    
     entries.each {|entry| self.deliver(user.id, channel.id, entry) }        
   end
   
