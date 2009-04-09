@@ -18,6 +18,8 @@ module Message
         handle_command
         handle_unknown
       end  
+    rescue Exception => e
+      puts "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
     end
     
     def reply(text)
@@ -34,7 +36,7 @@ module Message
       I18n.locale = @user.locale if @user
       handle_new_user unless @user
       handle_deactivated_user unless @user.active?
-      handle_user_confirmation unless @user && @user.number_confirmed?
+      handle_user_confirmation unless @user && @user.number_confirmed?      
     end
     
     def handle_new_user
