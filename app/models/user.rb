@@ -49,12 +49,6 @@ class User < ActiveRecord::Base
     number.blank? || email.present?
   end
   
-  def validate
-    self.number = Number.validate(self.number) if self.number
-  rescue InvalidPhoneNumberError
-    errors.add(:number, 'is not a valid phone number for this region')
-  end
-  
   def subscribe(channel_id)
     subscription = subscriptions.find_by_channel_id(channel_id)
     return if subscription
@@ -75,6 +69,21 @@ class User < ActiveRecord::Base
     hour = Time.now.hour + self.timezone_offset
     hour = 24 + hour if hour < 0
     self.awake > hour || hour > self.sleep
+  end
+  
+  def activate
+    self.active = true
+    self.save
+  end
+
+  def deactivate
+    self.active = false
+    self.save
+  end
+  
+  def confirm
+    self.number_confirmed = true
+    self.save
   end
   
 end
