@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090413143806) do
+ActiveRecord::Schema.define(:version => 20090413184138) do
 
   create_table "channels", :force => true do |t|
     t.string   "title"
@@ -174,11 +174,11 @@ ActiveRecord::Schema.define(:version => 20090413143806) do
   create_table "subscriptions", :force => true do |t|
     t.integer  "user_id"
     t.integer  "channel_id"
-    t.integer  "number_per_day", :default => 5
     t.boolean  "want_all",       :default => false
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "number_per_day", :default => 3
   end
 
   create_table "users", :force => true do |t|
