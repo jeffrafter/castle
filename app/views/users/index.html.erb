@@ -49,7 +49,7 @@
       <%= link_to 'Remove', user, :confirm => 'Are you sure?', :method => :delete %> 
       <%= "| " + link_to('Activate', activate_user_path(user), :method => :post) unless user.active? %> 
       <%= "| " + link_to('Deactivate', deactivate_user_path(user), :method => :post) if user.active? %>
-      <%= "| " + link_to('Confirm', user, :method => :confirm) unless user.number_confirmed? %>
+      <%= "| " + link_to('Confirm', confirm_user_path(user), :method => :post) unless user.number_confirmed? %>
     </td>        
   </tr>
 <% end %>
