@@ -1,6 +1,50 @@
-<h2>Edit user information</h2>
+<style type="text/css">
+  .statistic {
+    padding:8px;
+    width:184px;
+    float:left;
+    border-bottom:1px dotted #AAAAAA;
+  }
+  .number {
+    color:#AAAAAA;
+    font-size:2em;
+    font-weight:normal;
+    padding-bottom:5px;
+    border-bottom:1px dotted #AAAAAA;
+  }
+  .legend {
+    color:maroon;  
+  }
+</style>
+
+<h2>User messages</h2>
+<div style="width:96%;padding:10px">
+  <div class="statistic">
+    <div class="number"><%= @to_user %></div>
+    <div class="legend">Messages Delivered</div>
+  </div>
+  <div class="statistic">
+    <div class="number"><%= @from_user %></div>
+    <div class="legend">Messages From User</div>
+  </div>
+  <div class="statistic">
+    <div class="number"><%= @ratings %></div>
+    <div class="legend">Articles Rated</div>
+  </div>
+  <div style="clear:both;float:none"></div>
+  <br/>
+  <% form_tag "/users/invite", :method => "POST" do %>
+    <label for="invite">Send a message to the user</label><br/>
+    <textarea name="invite" style="width:96%"><%= params[:invite] %></textarea><br>
+    <%= submit_tag "Send" %>
+  <% end %>
+  
+</div>
+
+<h2>User information</h2>
 
 <% form_for @user do |form| %>
   <%= render :partial => '/users/form', :object => form %>
+  <br/>
   <%= form.submit 'Update', :disable_with => 'Please wait...' %>
 <% end %>

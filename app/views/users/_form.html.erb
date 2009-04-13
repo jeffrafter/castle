@@ -1,8 +1,49 @@
 <%= form.error_messages %>
+<p>
+  <%= form.label :active %><br />
+  <%= form.check_box :active %>
+</p>
+<p>
+  <%= form.label :number_confirmed %><br />
+  <%= form.check_box :number_confirmed %>
+</p>
+<p>
+  <%= form.label :email_confirmed %><br />
+  <%= form.check_box :email_confirmed %>
+</p>
+<div class="text_field">
+  <%= form.label :number %>
+  <%= form.text_field :number %>
+</div>
 <div class="text_field">
   <%= form.label :email %>
   <%= form.text_field :email %>
 </div>
+<div class="text_field">
+  <%= form.label :timezone_offset %>
+  <%= form.text_field :timezone_offset %>
+</div>
+<div class="text_field">
+  <%= form.label :awake %>
+  <%= form.text_field :awake %>
+</div>
+<div class="text_field">
+  <%= form.label :sleep %>
+  <%= form.text_field :sleep %>
+</div>
+<div class="text_field">
+  <%= form.label :locale %>
+  <%= form.text_field :locale %>
+</div>
+<div class="text_field">
+  <label for="gateway">Gateway</label>
+  <select name="gateway">
+    <%= options_from_collection_for_select Gateway.all, :id, :number %> 
+  </select>
+</div>
+
+<br/>
+<p>Only fill in thes fields if you would like to modify the website password:</p>
 <div class="password_field">
   <%= form.label :password %>
   <%= form.password_field :password %>

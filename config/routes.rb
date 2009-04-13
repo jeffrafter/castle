@@ -13,7 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feeds
   map.resources :log, :as => 'log'
 
-  map.resources :users, :has_one => [:password, :confirmation]
+  map.resources :users, :has_one => [:password, :confirmation], :member => {:activate => :post, :deactivate => :post, :confirm => :post, :tell => :post}, :collection => {:register => :post, :invite => :post}
   map.resource :session, :collection => {:verify => :get}
   map.resources :passwords
 
