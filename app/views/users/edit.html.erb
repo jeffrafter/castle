@@ -33,9 +33,9 @@
   </div>
   <div style="clear:both;float:none"></div>
   <br/>
-  <% form_tag "/users/invite", :method => "POST" do %>
-    <label for="invite">Send a message to the user</label><br/>
-    <textarea name="invite" style="width:96%"><%= params[:invite] %></textarea><br>
+  <% form_tag tell_user_path(@user), :method => :post do %>
+    <label for="message">Send a message to the user</label><br/>
+    <textarea name="message" style="width:96%"><%= params[:message] %></textarea><br>
     <%= submit_tag "Send" %>
   <% end %>
   

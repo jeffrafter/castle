@@ -70,7 +70,7 @@ class UsersController < ApplicationController
       redirect_to :back
       return
     end
-    @user.tell(params[:text])
+    @user.tell(params[:message])
     redirect_to :back
   end
   
