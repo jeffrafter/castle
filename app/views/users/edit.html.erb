@@ -44,6 +44,19 @@
 <h2>User information</h2>
 
 <% form_for @user do |form| %>
+  <p>
+    <%= form.label :active %>
+    <%= form.check_box :active %>
+  </p>
+  <p>
+    <%= form.label :number_confirmed %>
+    <%= form.check_box :number_confirmed %>
+  </p>
+  <p>
+    <%= form.label :email_confirmed %>
+    <%= form.check_box :email_confirmed %>
+  </p>
+
   <%= render :partial => '/users/form', :object => form %>
   <br/>
   <%= form.submit 'Update', :disable_with => 'Please wait...' %>
