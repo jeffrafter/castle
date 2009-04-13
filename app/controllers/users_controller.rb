@@ -21,7 +21,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     respond_to do |format|
-      format.html
+      format.html { redirect_to users_path }
       format.xml { render :xml => @user }
     end
   rescue ActiveRecord::RecordNotFound => rnf
@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   def index
     conditions = ''
     conditions = ['number LIKE ?', '%' + params[:number] + '%'] unless params[:number].blank?
-    @users = User.paginate(:page => params[:page], :per_page => 10, :conditions => conditions)
+    @users = User.paginate(:page => params[:page], :per_page => 100, :conditions => conditions)
   end
   
   def activate

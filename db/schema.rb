@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090331141144) do
+ActiveRecord::Schema.define(:version => 20090413143806) do
 
   create_table "channels", :force => true do |t|
     t.string   "title"
@@ -199,6 +199,11 @@ ActiveRecord::Schema.define(:version => 20090331141144) do
     t.string   "locale"
     t.boolean  "active",                                   :default => true,  :null => false
     t.datetime "deleted_at"
+    t.string   "name"
+    t.string   "address"
+    t.string   "provider"
+    t.boolean  "prepaid",                                  :default => false
+    t.string   "details"
   end
 
   add_index "users", ["email", "encrypted_password"], :name => "index_users_on_email_and_encrypted_password"

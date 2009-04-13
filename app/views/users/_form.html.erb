@@ -1,14 +1,14 @@
 <%= form.error_messages %>
 <p>
-  <%= form.label :active %><br />
+  <%= form.label :active %>
   <%= form.check_box :active %>
 </p>
 <p>
-  <%= form.label :number_confirmed %><br />
+  <%= form.label :number_confirmed %>
   <%= form.check_box :number_confirmed %>
 </p>
 <p>
-  <%= form.label :email_confirmed %><br />
+  <%= form.label :email_confirmed %>
   <%= form.check_box :email_confirmed %>
 </p>
 <div class="text_field">
@@ -19,6 +19,27 @@
   <%= form.label :email %>
   <%= form.text_field :email %>
 </div>
+<div class="text_field">
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+</div>
+<div class="text_field">
+  <%= form.label :address %>
+  <%= form.text_field :address %>
+</div>
+<div class="text_field">
+  <%= form.label :provider %>
+  <%= form.text_field :provider %>
+</div>
+<p>
+  <%= form.label :prepaid %>
+  <%= form.check_box :prepaid %>
+</p>
+<div class="text_field">
+  <%= form.label :details %>
+  <%= form.text_field :details %>
+</div>
+<br />
 <div class="text_field">
   <%= form.label :timezone_offset %>
   <%= form.text_field :timezone_offset %>
@@ -36,11 +57,13 @@
   <%= form.text_field :locale %>
 </div>
 <div class="text_field">
-  <label for="gateway">Gateway</label>
-  <select name="gateway">
-    <%= options_from_collection_for_select Gateway.all, :id, :number %> 
+  <label for="user_gateway_id">Gateway</label>
+  <select name="user[gateway_id]" id="user_gateway_id">
+    <%= options_from_collection_for_select Gateway.all, :id, :number, @user.gateway.id rescue nil %> 
   </select>
 </div>
+
+
 
 <br/>
 <p>Only fill in thes fields if you would like to modify the website password:</p>
