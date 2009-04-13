@@ -42,8 +42,8 @@
 <% for user in @users %>
   <tr>
     <td><%=link_to user.number, edit_user_path(user) %></td>
-    <td><%=h user.gateway.region.name %></td>
-    <td><%=h user.gateway.number %></td>
+    <td><%=h user.gateway.region.name rescue 'Unknown region' %></td>
+    <td><%=h user.gateway.number rescue '?' %></td>
     <td><%=h user.locale %></td>
     <td>
       <%= link_to 'Remove', user, :confirm => 'Are you sure?', :method => :delete %> 
