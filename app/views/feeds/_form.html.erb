@@ -1,7 +1,7 @@
   <p>
     <%= f.label :channel_id %><br />
     <select name="feed[channel_id]" id="channel_id">
-      <%= channel_and_region_options(@feed.channel_id || params[:channel_id])  %>
+      <%= channel_and_region_options(@feed.channel_id || params[:feed_id])  %>
     </select>  
   </p>
   <p>
