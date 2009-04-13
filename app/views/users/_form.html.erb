@@ -59,6 +59,7 @@
 <div class="text_field">
   <label for="user_gateway_id">Gateway</label>
   <select name="user[gateway_id]" id="user_gateway_id">
+    <option value=''>None</option>
     <%= options_from_collection_for_select(Gateway.all, :id, :number, (@user.gateway.id rescue nil)) %> 
   </select>
 </div>
