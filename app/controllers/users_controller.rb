@@ -42,7 +42,7 @@ class UsersController < ApplicationController
   def index
     conditions = ''
     conditions = ['number LIKE ?', '%' + params[:number] + '%'] unless params[:number].blank?
-    @users = User.paginate(:page => params[:page], :per_page => 100, :conditions => conditions, :order => 'user.email DESC')
+    @users = User.paginate(:page => params[:page], :per_page => 100, :conditions => conditions, :order => 'users.email DESC')
   end
   
   def activate
