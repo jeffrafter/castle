@@ -17,6 +17,22 @@
   }
 </style>
 
+<script type="text/javascript" src="/javascripts/jquery.js"></script>
+<script type="text/javascript">
+  function update() {
+    var content = $('#message');
+    length = (content.val() || '').length;
+    $('#counter').text("" + (160 - length) + " characters remaining");
+    $('#counter').css("color", (160 - length > 0) ? "green" : "red");
+  }
+
+  $(document).ready(function() {
+    $('#message').keyup(function(i) { update(); return true; });
+    update();
+  });
+</script>
+
+
 <h2>User messages</h2>
 <div style="width:96%;padding:10px">
   <div class="statistic">
@@ -34,8 +50,9 @@
   <div style="clear:both;float:none"></div>
   <br/>
   <% form_tag tell_user_path(@user), :method => :post do %>
+    <div id="counter" name="counter" style="float:right;padding-right:4%;"></div>
     <label for="message">Send a message to the user</label><br/>
-    <textarea name="message" style="width:96%"><%= params[:message] %></textarea><br>
+    <textarea name="message" style="width:96%" id="message"><%= params[:message] %></textarea><br>
     <%= submit_tag "Send" %>
   <% end %>
   
