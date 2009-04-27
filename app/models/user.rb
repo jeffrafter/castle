@@ -60,9 +60,10 @@ class User < ActiveRecord::Base
     subscriptions.find_by_channel_id(channel_id).destroy rescue nil
   end
   
-  def tell(text)
+  def tell(text, priority = nil)
+    priority ||= PRIORITY[:none]
     raise "This user has no gateway, message could not be sent" unless gateway_id
-    Outbox.create(:gateway_id => gateway_id, :number => self.number, :text => text)
+    Outbox.create(:gateway_id => gateway_id, :number => self.number, :text => text, :priority => priority)
   end
   
   def quiet_hours?

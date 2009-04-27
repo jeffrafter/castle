@@ -23,11 +23,12 @@ module Message
     end
     
     def reply(text)
-      say(text, @message.number)
+      say(text, @message.number, PRIORITY[:high])
     end
     
-    def say(text, number)
-      Outbox.create(:text => text, :number => number, :gateway => @gateway)        
+    def say(text, number, priority = nil)
+      priority ||= PRIORITY[:low]
+      Outbox.create(:text => text, :number => number, :gateway => @gateway, :priority => priority)        
     end
     
   private

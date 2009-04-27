@@ -3,6 +3,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :inbox, :as => 'inbox'
   map.resources :outbox, :as => 'outbox'
+  map.resources :clickatell, :as => 'clickatell'
   map.resources :entries
   map.resources :channels
   map.resources :keywords

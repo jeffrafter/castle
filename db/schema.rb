@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090413184138) do
+ActiveRecord::Schema.define(:version => 20090427223355) do
 
   create_table "channels", :force => true do |t|
     t.string   "title"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(:version => 20090413184138) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "system",      :default => false
+    t.boolean  "emergency",   :default => false
   end
 
   add_index "channels", ["region_id", "active", "modified_at"], :name => "index_channels_on_region_id_and_active_and_modified_at"
@@ -136,6 +137,7 @@ ActiveRecord::Schema.define(:version => 20090413184138) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "charge",       :default => 0.0
   end
 
   create_table "outbox", :force => true do |t|
@@ -150,6 +152,9 @@ ActiveRecord::Schema.define(:version => 20090413184138) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "priority",    :default => 1
+    t.string   "status"
+    t.float    "charge",      :default => 0.0
   end
 
   create_table "ratings", :force => true do |t|

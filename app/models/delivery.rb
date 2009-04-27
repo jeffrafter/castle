@@ -13,9 +13,11 @@ class Delivery < ActiveRecord::Base
     return if user.quiet_hours?
     need = subscription.number_per_day - self.delivery_count(subscription)
     return unless need > 0
+    last_delivery_time = self.last_delivered_entry_time(subscription.user_id)
+    return if last_delivery_time && (Time.now - last_delivery_time) < 1.hour
     since = self.last_delivered_entry_id(subscription)
     entries = Entry.available(user.id, channel.id, since, need).reverse!    
-    entries.each {|entry| self.deliver(user.id, channel.id, entry) }
+    entries.each {|entry| self.deliver(user.id, channel.id, entry, PRIORITY[:low]) }
   rescue Exception => e
     # Bad subscription
     puts "Could not deliver to subscription: #{e.message}"
@@ -25,12 +27,20 @@ class Delivery < ActiveRecord::Base
   # published and that have not been delivered already.
   def self.deliver_system_messages_to(user, channel)
     return unless user.active? && channel.active?
-    return if user.quiet_hours?
+    return if user.quiet_hours? && !channel.emergency?
+    priority = channel.emergency? ? PRIORITY[:emergency] : PRIORITY[:normal]
     entries = Entry.available(user.id, channel.id, 0, :all).all(:conditions => ['published_at IS NULL OR published_at < ?', Time.now]).reverse!    
-    entries.each {|entry| self.deliver(user.id, channel.id, entry) }        
+    entries.each {|entry| self.deliver(user.id, channel.id, entry, priority) }        
   end
   
 private
+  def self.last_delivered_entry_time(user_id)
+    Delivery.first(:conditions => [
+      'user_id = ?', 
+      subscription.user_id],
+      :order => 'created_at DESC').created_at rescue nil
+  end    
+
   def self.last_delivered_entry_id(subscription)
     Delivery.first(:conditions => [
       'user_id = ? AND channel_id = ?', 
@@ -47,13 +57,14 @@ private
       Time.now - 24.hours])    
   end    
 
-  def self.deliver(user_id, channel_id, entry)
+  def self.deliver(user_id, channel_id, entry, priority = nil)
+    priority ||= PRIORITY[:none]
     ActiveRecord::Base.transaction do
       delivery = Delivery.create(
         :channel_id => channel_id, 
         :user_id => user_id, 
         :entry_id => entry.id)
-      delivery.user.tell(entry.message)  
+      delivery.user.tell(entry.message, priority)  
     end  
   end
     

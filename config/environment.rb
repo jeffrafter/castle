@@ -1,6 +1,15 @@
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.2.2' unless defined? RAILS_GEM_VERSION
 
+# Setup constants for message priority
+PRIORITY = {
+  :emergency => 5,
+  :high => 4,
+  :normal => 3,
+  :low => 2,
+  :none => 1
+}
+
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
