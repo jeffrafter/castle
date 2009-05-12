@@ -41,7 +41,8 @@
 
 <% for user in @users %>
   <tr>
-    <td><%=link_to user.email || '', edit_user_path(user) %></td>
+    <td><%=link_to user.name || user.email || '', edit_user_path(user) %><br/>
+        <%=h user.provider %><%=h(" | " + user.details) unless user.details.blank? %></td>
     <td><%=link_to user.number || '< Unknown >', edit_user_path(user) %></td>
     <td><%=h user.gateway.region.name rescue '?' %></td>
     <td><%=h user.locale %></td>
