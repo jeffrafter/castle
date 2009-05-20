@@ -1,7 +1,7 @@
 class Popular
   def self.populate(region_id)
     # Lookup the channel where we will add these
-    popular = Channel.first(:conditions => ['region_id = ? AND popular = ?', region_id, true])
+    popular = Channel.enabled.first(:conditions => ['region_id = ? AND (popular = ? OR title = ?)', region_id, true, 'Popular'])
     popular_feed = popular.feeds.first rescue nil
     return unless popular && popular_feed
     
@@ -11,7 +11,7 @@ class Popular
       :select => 'region_id, entry_id, count(*) as total', 
       :order => 'count(*) desc', 
       :group => :entry_id, 
-      :conditions => ['region_id = ? AND DATE(created_at) = ?', region_id, Date.yesterday])    
+      :conditions => ['region_id = ? AND DATE(created_at) > ?', region_id, Date.yesterday])    
 
     # Add the to the popular channel
     rated.each{|item|
