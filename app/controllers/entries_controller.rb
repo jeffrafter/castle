@@ -17,5 +17,5 @@ class EntriesController < ApplicationController
   
   def show
     redirect_to entries_path
-  end
+  end  
 end

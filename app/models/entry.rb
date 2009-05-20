@@ -2,6 +2,7 @@ class Entry < ActiveRecord::Base
   belongs_to :feed
   validates_presence_of :feed
   named_scope :unprocessed, :conditions => ['processed = ?', false], :include => :feed
+  attr_accessor :timezone_offset
 
   # Most recent entries for this channel and user that have not already been delivered 
   # TODO make this query only grab the latest since the last received item
@@ -20,7 +21,8 @@ class Entry < ActiveRecord::Base
     return unless self.message.blank?
     text = "#{"\"" + title + "\" " unless title.blank?}#{[summary, content].join(' ')}".compact
     text = text.mb_chars.slice(0..160)
-    self.message = text
+    self.message = text    
+    self.published_at = self.published_at - (self.timezone_offset.to_i).hours rescue nil 
   end
   
 end

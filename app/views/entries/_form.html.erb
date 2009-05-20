@@ -2,8 +2,11 @@
   <script type="text/javascript">
     function update() {
       var content = $('#entry_content');
+      var summary = $('#entry_summary');
       var title = $('#entry_title');
       length = (content.val() || '').length;
+      if (summary.val() && summary.val().length > 0)
+        length += summary.val().length + 1;
       if (title.val() && title.val().length > 0) 
         length += title.val().length + 3;
       $('#counter').text("" + (160 - length) + " characters remaining");
@@ -13,6 +16,7 @@
     $(document).ready(function() {
       $('#entry_title').keyup(function(i) { update(); return true; });
       $('#entry_content').keyup(function(i) { update(); return true; });
+      $('#entry_summary').keyup(function(i) { update(); return true; });
       update();
     });
   </script>
@@ -20,12 +24,12 @@
   <p>
     <%= f.label :feed_id, 'Feed' %><br />
     <select name="entry[feed_id]" id="entry_feed_id">    
-      <%= options_from_collection_for_select(Feed.all, :id, :title)  %>
+      <%= options_from_collection_for_select(Feed.all, :id, :title, params[:feed_id])  %>
     </select>
   </p>
   <p>
     <%= f.label :title %><br />
-    <%= f.text_field :title %> (not required)
+    <%= f.text_field :title %> (not required, if included will be enclosed in quotes)
   </p>
   <!-- p>
     <%= f.label :url %><br />
@@ -33,7 +37,7 @@
   </p -->
   <p>
     <%= f.label :author %><br />
-    <%= f.text_field :author %> (not required)
+    <%= f.text_field :author %> (not required, not currently included in message)
   </p>
   <p>
     <%= f.label :summary %><br />
@@ -47,6 +51,10 @@
   <p>
     <%= f.label :published_at %><br />
     <%= f.datetime_select :published_at %>
+  </p>
+  <p>
+    <%= f.label :timezone_offset %><br />
+    <%= f.text_field :timezone_offset %> (e.g. your current timezone, -5)
   </p>
   <!-- p>
     <%= f.label :categories %><br />
