@@ -11,6 +11,8 @@ HANDLERS = [
   Message::LocaleHandler,
   Message::SleepHandler,
   Message::AwakeHandler,
+  Message::RateHandler,
+  Message::CommentHandler,
   Message::QuitHandler,
   Message::AddHandler
 ]

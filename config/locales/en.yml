@@ -18,3 +18,5 @@ en:
   how_to_wake: "Please enter a number from 1 to 24"
   locale: "You language has been changed to {{language}}"
   quit: "Sorry to see you go. To join again, reply to this message and a new account will be created."
+  rating: "Thanks, your vote has been cast"
+  comment: "Thanks, your comment has been received"

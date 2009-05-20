@@ -1,5 +1,5 @@
 Factory.sequence :number do |n|
-  "+19876543210"
+  "+1987654321#{n}"
 end
 
 Factory.define :user_with_number, :class => 'user' do |user|

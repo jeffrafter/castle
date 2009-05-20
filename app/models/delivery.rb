@@ -2,6 +2,8 @@ class Delivery < ActiveRecord::Base
   belongs_to :entry
   belongs_to :user
   belongs_to :channel
+
+  named_scope :last, :limit => 1, :order_by => 'id DESC'
   
   # No delivery, if during quiet hours for this user or they are not active  
   # If the user doesn't need anymore we leave

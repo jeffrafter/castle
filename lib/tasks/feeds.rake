@@ -10,6 +10,12 @@ namespace :feeds do
       feed.fetch       
     }
   end
+
+  desc "Populate the popular messages from last night"
+  task :popular do
+    require File.join(RAILS_ROOT, 'config', 'environment')
+    Region.all.each {|region| Popular.populate(region.id) }
+  end  
   
   desc "Deliver new messages to the users that need them"
   task :deliver do

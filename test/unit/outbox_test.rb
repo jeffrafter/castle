@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class OutboxTest < Test::Unit::TestCase
+class OutboxTest < ActiveSupport::TestCase
   setup do
     @message = Factory(:outbox)
   end

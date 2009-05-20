@@ -18,3 +18,5 @@ es:
   how_to_wake: "Favor responda este mensaje, con la hora del dia (entre 1 y 24) cuando Ud. desea suspender el envio de mensajes DatAgro"
   locale: "Tu idioma ha cambiado a {{language}}"
   quit: "Lo sentimos, usted va a ver. Para unirse de nuevo, responde a este mensaje y una nueva cuenta sera creada."
+  rating: "Gracias por votar, su voto ha sido contado"
+  comment: "Gracias, que se ha recibido comentario"

@@ -7,7 +7,7 @@ require 'clearance/../../shoulda_macros/clearance'
 
 Dir[File.join(RAILS_ROOT, 'test', 'factories', '**', '*')].each {|f| require f }
 
-class Test::Unit::TestCase
+class ActiveSupport::TestCase
   self.use_transactional_fixtures = true
   self.use_instantiated_fixtures  = false
   

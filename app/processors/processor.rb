@@ -19,7 +19,8 @@ module Message
         handle_unknown
       end  
     rescue Exception => e
-      puts "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
+      Rails.logger.error "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
+      raise 
     end
     
     def reply(text)

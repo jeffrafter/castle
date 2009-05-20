@@ -1,9 +1,10 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserTest < Test::Unit::TestCase
+class UserTest < ActiveSupport::TestCase
   include Clearance::Test::Unit::UserTest
 
-  should_have_many :conversations
+  should_have_many :conversations, :deliveries, :ratings, :conversations
+  should_belong_to :gateway
   
   context "non web users" do
     should "not be required to include their email" do

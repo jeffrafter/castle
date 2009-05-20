@@ -64,10 +64,10 @@ class ProcessorTest < ActiveSupport::TestCase
         @message = Factory(:inbox, :text => @text, :number => @user.number, :gateway => @gateway)
       end    
 
-      should "should fail" do
+      should "fail" do
         should_not_send_message_to @message.number do
           assert_no_difference 'User.count' do
-            assert_raise UserNotActiveError do
+            should_raise UserNotActiveError do
               @processor = Message::Processor.new(@message)
               @processor.run
             end  
@@ -116,7 +116,7 @@ class ProcessorTest < ActiveSupport::TestCase
         @message = Factory(:inbox, :text => @text, :number => @user.number, :gateway => @gateway)
       end    
 
-      should "should create a new message" do
+      should "create a new message" do
         @processor = Message::Processor.new(@message)
       end
     end

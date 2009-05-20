@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class InboxTest < Test::Unit::TestCase
+class InboxTest < ActiveSupport::TestCase
   setup do
     @message = Factory(:inbox)
   end

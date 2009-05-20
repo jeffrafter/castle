@@ -45,6 +45,10 @@ namespace :db do
     Command.create(:word => 'language', :key => 'locale', :locale => 'en')
     Command.create(:word => 'quit', :key => 'quit', :locale => 'en')
     Command.create(:word => 'stop', :key => 'quit', :locale => 'en')
+    Command.create(:word => 'comment', :key => 'comment', :locale => 'en')
+    Command.create(:word => 'rate', :key => 'rate', :locale => 'en')
+    Command.create(:word => 'like', :key => 'rate', :locale => 'en')
+    Command.create(:word => 'fav', :key => 'rate', :locale => 'en')
         
     Command.create(:word => 'sí', :key => 'yes', :locale => 'es')
     Command.create(:word => 'si', :key => 'yes', :locale => 'es')
@@ -68,5 +72,8 @@ namespace :db do
     Command.create(:word => 'salir', :key => 'quit', :locale => 'es')
     Command.create(:word => 'detener', :key => 'quit', :locale => 'es')
     Command.create(:word => 'cerrar', :key => 'quit', :locale => 'es')
+    Command.create(:word => 'gusta', :key => 'rate', :locale => 'es')
+    Command.create(:word => 'gusto', :key => 'rate', :locale => 'es')
+    Command.create(:word => 'comentar', :key => 'comment', :locale => 'es')
   end
 end
