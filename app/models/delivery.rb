@@ -37,9 +37,7 @@ class Delivery < ActiveRecord::Base
   
 private
   def self.last_delivered_entry_time(user_id)
-    Delivery.first(:conditions => [
-      'user_id = ?', 
-      subscription.user_id],
+    Delivery.first(:conditions => ['user_id = ?', user_id],
       :order => 'created_at DESC').created_at rescue nil
   end    
 
