@@ -4,14 +4,14 @@ class Popular
     popular = Channel.enabled.first(:conditions => ['region_id = ? AND (popular = ? OR title = ?)', region_id, true, 'Popular'])
     popular_feed = popular.feeds.first rescue nil
     return unless popular && popular_feed
-    
+
     # Find all of the ratings for yesterday, grouped by entry.id, limit 3
     rated = Rating.all(
       :limit => 3, 
-      :select => 'region_id, entry_id, count(*) as total', 
-      :order => 'count(*) desc', 
+      :select => 'region_id, entry_id, COUNT(*) as total', 
+      :order => 'COUNT(*) desc', 
       :group => :entry_id, 
-      :conditions => ['region_id = ? AND DATE(created_at) > ?', region_id, Date.yesterday])    
+      :conditions => ['region_id = ? AND DATE(created_at) >= ?', region_id, Date.yesterday])    
 
     # Add the to the popular channel
     rated.each{|item|
