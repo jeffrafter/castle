@@ -17,6 +17,7 @@ class OutboxController < ApplicationController
         options = {}
         options[:conditions] = ['updated_at > ?', since] if since
         @messages = Outbox.local(@gateway.id).all(options)
+        render :nothing and return if @messages.blank?
         render :xml => @messages.to_xml
       }
     end    
