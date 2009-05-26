@@ -4,7 +4,7 @@ en:
   invalid_number: "Sorry that number is not valid"
   join: "Thanks for joining! For help, please respond with the word HELP."
   join_commands: "For a list of commands at any time, send the word 'help' the system."
-  help: "Commands: help, list (list channels), add (add channel), remove (remove channel), more (more msgs)"
+  help: "Commands: help, list, add [channel], remove [channel], more [channel], like, comment, wake, sleep, quit"
   channels: "Channels: "
   subscriptions: "You are subscribed to: "
   not_subscribed: "You are not subscribed to any channels"
