@@ -3,8 +3,8 @@ module Message
     def run
       command = Command.parse(self.message)
       return unless command && command.key == 'sleep'
-      hour = command.args.first.compact
-      hour = hour.to_i
+      hour = command.args.first.compact rescue "0"
+      hour = hour.to_i rescue 0
       if (hour > 0 && hour < 25)
         self.user.sleep = hour
         self.user.save!

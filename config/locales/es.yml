@@ -15,7 +15,7 @@ es:
   sleep: "Gracias, no vamos a enviar mensajes despues de las {{time}} horas"
   how_to_sleep: "Favor responda este mensaje, con la  hora del día (entre 1 y 24) en que Ud. desea empezar a recibir los mensajes DATAGRO"
   wake: "Gracias, no vamos a enviar mensajes antes de las {{time}} horas."
-  how_to_wake: "Favor responda este mensaje, con la hora del dia (entre 1 y 24) cuando Ud. desea suspender el envio de mensajes DatAgro"
+  how_to_wake: "Favor responda este mensaje, con la hora del dia (entre 1 y 24) cuando Ud. desea suspender el envio de mensajes DATAGRO"
   locale: "Tu idioma ha cambiado a {{language}}"
   quit: "Lo sentimos, usted va a ver. Para unirse de nuevo, responde a este mensaje y una nueva cuenta sera creada."
   rating: "Gracias por votar, su voto ha sido contado"

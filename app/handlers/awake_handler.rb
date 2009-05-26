@@ -3,8 +3,8 @@ module Message
     def run
       command = Command.parse(self.message)
       return unless command && command.key == 'wake'
-      hour = command.args.first.compact
-      hour = hour.to_i
+      hour = command.args.first.compact rescue "0"
+      hour = hour.to_i rescue 0
       if (hour > 0)
         self.user.awake = hour
         self.user.save!
