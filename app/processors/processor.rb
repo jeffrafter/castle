@@ -90,7 +90,8 @@ module Message
     end
     
     def handle_unknown
-      reply "#{I18n.t(:unknown_command)} #{I18n.t(:help)}; " + ["#{self.user.subscriptions_text}", "#{self.user.available_text}"].join("; ")
+      reply "#{I18n.t(:unknown_command)} #{I18n.t(:help)}"
+      reply ["#{self.user.subscriptions_text}", "#{self.user.available_text}"].join("; ")
       halt
     end  
 

@@ -15,8 +15,10 @@ module Message
     end
     
     def add_subscriptions(args, available_channels)
-      requested_channels = args.map {|arg|
-        available_channels.select{|c| c.title.downcase == arg.downcase }.first
+      requested_channels = []
+      args.each {|arg|
+        re = Regexp.new(arg.downcase)
+        requested_channels << available_channels.select{|c| c.title.downcase =~ re || c.keywords.downcase =~ re }.first
       }
       requested_channels.compact!    
       requested_channels.each {|channel|
