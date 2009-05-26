@@ -16,7 +16,7 @@ class Delivery < ActiveRecord::Base
     need = subscription.number_per_day - self.delivery_count(subscription)
     return unless need > 0
     last_delivery_time = self.last_delivered_entry_time(subscription.user_id)
-    return if last_delivery_time && (Time.now - last_delivery_time) < 1.hour
+    return if last_delivery_time && (Time.now - last_delivery_time) < user.delay.minutes
     since = self.last_delivered_entry_id(subscription)
     entries = Entry.available(user.id, channel.id, since, need).reverse!    
     entries.each {|entry| self.deliver(user.id, channel.id, entry, PRIORITY[:low]) }

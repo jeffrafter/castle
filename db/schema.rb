@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090520164631) do
+ActiveRecord::Schema.define(:version => 20090526163530) do
 
   create_table "channels", :force => true do |t|
     t.string   "title"
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(:version => 20090520164631) do
     t.datetime "deleted_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "delay",                             :default => 60
   end
 
   add_index "gateways", ["api_key", "api_key_expires_at"], :name => "index_gateways_on_api_key_and_api_key_expires_at"
@@ -211,6 +212,7 @@ ActiveRecord::Schema.define(:version => 20090520164631) do
     t.string   "provider"
     t.boolean  "prepaid",                                  :default => false
     t.string   "details"
+    t.integer  "delay",                                    :default => 60
   end
 
   add_index "users", ["email", "encrypted_password"], :name => "index_users_on_email_and_encrypted_password"
