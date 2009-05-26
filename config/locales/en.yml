@@ -1,6 +1,6 @@
 en:
   unknown_command: "What do you mean?"
-  invite: "Welcome to the UNESCO/FIA news-by-SMS server (developed by DataDyne.org). Please confirm you are interested by replying YES"
+  invite: "Welcome to DatAgro, the SMS-based application designed to increase the productivity of Latin American Farming Collectives. Confirm you want SMSs by sending YES"
   invalid_number: "Sorry that number is not valid"
   join: "Thanks for joining! For help, please respond with the word HELP."
   join_commands: "For a list of commands at any time, send the word 'help' the system."
