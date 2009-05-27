@@ -32,8 +32,10 @@ class Delivery < ActiveRecord::Base
     return if user.quiet_hours? && !channel.emergency?
     priority = channel.emergency? ? PRIORITY[:emergency] : PRIORITY[:normal]
     entries = Entry.available(user.id, channel.id, 0, :all).all(
-      :conditions => ['(published_at IS NULL OR published_at < ?) AND (created_at > ? OR published_at > ?)', 
-        Time.now, user.created_at, user.created_at]).reverse!    
+      :conditions => ['(published_at IS NULL OR published_at < ?)', Time.now]).reverse!    
+#    entries = Entry.available(user.id, channel.id, 0, :all).all(
+#      :conditions => ['(published_at IS NULL OR published_at < ?) AND (created_at > ? OR published_at > ?)', 
+#        Time.now, user.created_at, user.created_at]).reverse!    
     entries.each {|entry| self.deliver(user.id, channel.id, entry, priority) }        
   end
   
