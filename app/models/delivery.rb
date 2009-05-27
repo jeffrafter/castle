@@ -62,7 +62,7 @@ private
   end    
 
   def self.deliver(user_id, channel_id, entry, priority = nil)
-    priority ||= PRIORITY[:none]
+    priority ||= PRIORITY[:none]    
     ActiveRecord::Base.transaction do
       delivery = Delivery.create(
         :channel_id => channel_id, 
@@ -70,6 +70,8 @@ private
         :entry_id => entry.id)
       delivery.user.tell(entry.message, priority)  
     end  
+  rescue Exception => e
+    puts e.message  
   end
     
 end
