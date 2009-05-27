@@ -28,6 +28,7 @@ class Delivery < ActiveRecord::Base
   # Only deliver system messages that have no published date, or that are now
   # published and that have not been delivered already.
   def self.deliver_system_messages_to(user, channel)
+    return unless user.gateway.region_id == channel.region_id rescue return
     return unless user.active? && channel.active?
     return if user.quiet_hours? && !channel.emergency?
     priority = channel.emergency? ? PRIORITY[:emergency] : PRIORITY[:normal]
