@@ -34,5 +34,12 @@ class ActiveSupport::TestCase
   rescue Exception => e
     assert e.kind_of?(opts[:kind_of]), opts[:message] || "should raise exception of type #{opts[:kind_of]}, but got #{e.class} instead" if opts[:kind_of]
   end
+
+  def should_not_raise(&block)
+    yield block
+  rescue Exception => e
+    flunk "should not raise an exception, but raised #{e.class} with message #{e.message}"
+  end
+    
     
 end

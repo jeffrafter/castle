@@ -8,6 +8,5 @@ class Rating < ActiveRecord::Base
   def validate
     channel = self.entry.feed.channel rescue nil
     errors.add(:entry, "Entry must belong to a channel") unless channel
-    errors.add(:entry, "You cannot rate system entries") if channel.system?
   end
 end
