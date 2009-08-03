@@ -39,7 +39,5 @@ class ActiveSupport::TestCase
     yield block
   rescue Exception => e
     flunk "should not raise an exception, but raised #{e.class} with message #{e.message}"
-  end
-    
-    
+  end      
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090526163530) do
+ActiveRecord::Schema.define(:version => 20090727202501) do
 
   create_table "channels", :force => true do |t|
     t.string   "title"
@@ -191,7 +191,7 @@ ActiveRecord::Schema.define(:version => 20090526163530) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.boolean  "email_confirmed",                          :default => false, :null => false
+    t.boolean  "email_confirmed",                          :default => false,                 :null => false
     t.string   "encrypted_password",        :limit => 40
     t.string   "salt",                      :limit => 40
     t.string   "token",                     :limit => 128
@@ -199,13 +199,13 @@ ActiveRecord::Schema.define(:version => 20090526163530) do
     t.string   "remember_token"
     t.datetime "remember_token_expires_at"
     t.string   "number"
-    t.boolean  "number_confirmed",                         :default => false, :null => false
+    t.boolean  "number_confirmed",                         :default => false,                 :null => false
     t.integer  "gateway_id"
-    t.integer  "timezone_offset",                          :default => 0,     :null => false
-    t.integer  "awake",                                    :default => 8,     :null => false
-    t.integer  "sleep",                                    :default => 22,    :null => false
+    t.integer  "timezone_offset",                          :default => 0,                     :null => false
+    t.integer  "awake",                                    :default => 8,                     :null => false
+    t.integer  "sleep",                                    :default => 22,                    :null => false
     t.string   "locale"
-    t.boolean  "active",                                   :default => true,  :null => false
+    t.boolean  "active",                                   :default => true,                  :null => false
     t.datetime "deleted_at"
     t.string   "name"
     t.string   "address"
@@ -213,6 +213,8 @@ ActiveRecord::Schema.define(:version => 20090526163530) do
     t.boolean  "prepaid",                                  :default => false
     t.string   "details"
     t.integer  "delay",                                    :default => 60
+    t.datetime "created_at",                               :default => '2009-08-02 23:14:49'
+    t.datetime "updated_at",                               :default => '2009-08-02 23:14:49'
   end
 
   add_index "users", ["email", "encrypted_password"], :name => "index_users_on_email_and_encrypted_password"

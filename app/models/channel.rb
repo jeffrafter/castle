@@ -10,4 +10,14 @@ class Channel < ActiveRecord::Base
   
   named_scope :enabled, :conditions => ['active = ?', true]
   named_scope :system, :conditions => ['system = ? AND active = ?', true, true]
+  
+  def activate
+    self.active = true
+    self.save
+  end
+
+  def deactivate
+    self.active = false
+    self.save
+  end
 end

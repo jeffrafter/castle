@@ -2,8 +2,6 @@ class Delivery < ActiveRecord::Base
   belongs_to :entry
   belongs_to :user
   belongs_to :channel
-
-  named_scope :last, :limit => 1, :order_by => 'id DESC'
   
   # No delivery, if during quiet hours for this user or they are not active  
   # If the user doesn't need anymore we leave
@@ -18,11 +16,11 @@ class Delivery < ActiveRecord::Base
     last_delivery_time = self.last_delivered_entry_time(subscription.user_id)
     return if last_delivery_time && (Time.now - last_delivery_time) < user.delay.minutes
     since = self.last_delivered_entry_id(subscription)
-    entries = Entry.available(user.id, channel.id, since, need).reverse!    
+    entries = Entry.available(user.id, channel.id, since, 1)
     entries.each {|entry| self.deliver(user.id, channel.id, entry, PRIORITY[:low]) }
   rescue Exception => e
     # Bad subscription
-    puts "Could not deliver to subscription: #{e.message}"
+    Rails.logger.error "Could not deliver to subscription: #{e.message}"
   end
 
   # Only deliver system messages that have no published date, or that are now
@@ -33,13 +31,10 @@ class Delivery < ActiveRecord::Base
     return if user.quiet_hours? && !channel.emergency?
     priority = channel.emergency? ? PRIORITY[:emergency] : PRIORITY[:normal]
     entries = Entry.available(user.id, channel.id, 0, :all).all(
-      :conditions => ['(published_at IS NULL OR published_at < ?) AND (entries.created_at > ?)', Time.now, user.created_at]).reverse!    
-#    entries = Entry.available(user.id, channel.id, 0, :all).all(
-#      :conditions => ['(published_at IS NULL OR published_at < ?) AND (created_at > ? OR published_at > ?)', 
-#        Time.now, user.created_at, user.created_at]).reverse!    
+      :conditions => ['(published_at IS NULL OR published_at < ?) AND (entries.created_at >= ?)', Time.now, user.created_at])
     entries.each {|entry| self.deliver(user.id, channel.id, entry, priority) }        
   rescue Exception => e
-    puts "Could not deliver system messages to user #{user.id}: #{e.message}"
+    Rails.logger.error "Could not deliver system messages to user #{user.id}: #{e.message}"
   end
   
 private
@@ -74,7 +69,7 @@ private
       delivery.user.tell(entry.message, priority)  
     end  
   rescue Exception => e
-    puts e.message  
+    Rails.logger.error "Could not deliver message to user #{user_id}: #{e.message}"
   end
     
 end

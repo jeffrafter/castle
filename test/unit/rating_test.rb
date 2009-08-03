@@ -15,10 +15,9 @@ class RatingTest < ActiveSupport::TestCase
       @entry = Factory(:entry, :feed => @feed)          
     end
 
-    should "not allow ratings for entries on system channels" do
+    should "allow ratings" do
       @rating = Factory.build(:rating, :entry => @entry)
-      assert !@rating.valid?
-      assert_not_nil @rating.errors.on(:entry)
+      assert @rating.valid?
     end
   end  
 end
