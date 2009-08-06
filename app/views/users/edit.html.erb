@@ -58,6 +58,14 @@
   
 </div>
 
+<h2>User subscriptions</h2>
+<ul>
+  <% @user.subscriptions.each do |subscription| %>
+    <li><%=h subscription.channel.region.name + ' - ' + subscription.channel.title rescue "Unknown channel or region" -%></li>
+  <% end %>  
+  <% if @user.subscriptions.blank? %><li>The user is not subscribed to any channels at this time</li><% end %>
+</ul>
+
 <h2>User information</h2>
 
 <% form_for @user do |form| %>

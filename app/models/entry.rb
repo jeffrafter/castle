@@ -22,7 +22,9 @@ class Entry < ActiveRecord::Base
     text = "#{"\"" + title + "\" " unless title.blank?}#{[summary, content].join(' ')}".compact
     text = text.mb_chars.slice(0..160)
     self.message = text    
-    self.published_at = self.published_at - (self.timezone_offset.to_i).hours rescue nil 
+    feed = Feed.find(self.feed_id, :include => {:channel => {:region => :gateways}})
+    gateway = feed.channel.region.gateways.first rescue nil
+    self.published_at = self.published_at - (gateway.timezone_offset.to_i).hours rescue nil 
   end
   
 end
