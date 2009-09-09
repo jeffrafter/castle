@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090727202501) do
+ActiveRecord::Schema.define(:version => 20090803195419) do
 
   create_table "channels", :force => true do |t|
     t.string   "title"
@@ -61,6 +61,12 @@ ActiveRecord::Schema.define(:version => 20090727202501) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "deliveries", ["channel_id"], :name => "index_deliveries_on_channel_id"
+  add_index "deliveries", ["created_at"], :name => "index_deliveries_on_created_at"
+  add_index "deliveries", ["entry_id", "channel_id", "user_id", "created_at"], :name => "index_deliveries_on_entry_id_and_channel_id_and_user_id_and_created_at"
+  add_index "deliveries", ["entry_id"], :name => "index_deliveries_on_entry_id"
+  add_index "deliveries", ["user_id"], :name => "index_deliveries_on_user_id"
 
   create_table "entries", :force => true do |t|
     t.string   "title"

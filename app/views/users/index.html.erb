@@ -1,17 +1,6 @@
 
 <h1>Users</h1>
 
-<% form_tag "/users/invite", :method => "POST" do %>
-  <label for="invite">Send an invite to:</label><br/>
-  <input type="text" name="invite" value="<%= params[:invite] %>" />
-  <label for="gateway">Gateway: </label>
-  <select name="gateway">
-    <%= options_from_collection_for_select Gateway.all, :id, :number %> 
-  </select>
-  <%= submit_tag "Invite" %>
-<% end %>
-<br/>
-
 <% form_tag "/users/register", :method => "POST" do %>
   <label for="register">Register (no confirm):</label><br/>
   <input type="text" name="register" value="<%= params[:register] %>" />
