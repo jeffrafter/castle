@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20090803195419) do
+ActiveRecord::Schema.define(:version => 20090909165511) do
 
   create_table "channels", :force => true do |t|
     t.string   "title"
@@ -219,12 +219,14 @@ ActiveRecord::Schema.define(:version => 20090803195419) do
     t.boolean  "prepaid",                                  :default => false
     t.string   "details"
     t.integer  "delay",                                    :default => 60
-    t.datetime "created_at",                               :default => '2009-08-02 23:14:49'
-    t.datetime "updated_at",                               :default => '2009-08-02 23:14:49'
+    t.datetime "created_at",                               :default => '2009-07-31 09:13:05'
+    t.datetime "updated_at",                               :default => '2009-07-31 09:13:05'
+    t.string   "confirmation_token",        :limit => 128
   end
 
   add_index "users", ["email", "encrypted_password"], :name => "index_users_on_email_and_encrypted_password"
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["id", "confirmation_token"], :name => "index_users_on_id_and_confirmation_token"
   add_index "users", ["id", "salt"], :name => "index_users_on_id_and_salt"
   add_index "users", ["id", "token"], :name => "index_users_on_id_and_token"
   add_index "users", ["number"], :name => "index_users_on_number"

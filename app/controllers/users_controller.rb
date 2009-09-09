@@ -1,7 +1,6 @@
-class UsersController < ApplicationController
+class UsersController < Clearance::UsersController
   skip_before_filter :authenticate, [:new, :create, :verify]
   resource_controller
-  include Clearance::App::Controllers::UsersController
 
   def edit
     @user = User.find(params[:id])

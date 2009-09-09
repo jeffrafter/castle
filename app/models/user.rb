@@ -3,7 +3,7 @@ require 'active_record_validations_extension'
 class NoGatewayForUserError < RuntimeError; end
 
 class User < ActiveRecord::Base
-  include Clearance::App::Models::User
+  include Clearance::User
   clear_validations
   validates_presence_of :password, :if => :password_required?
   validates_confirmation_of :password, :if => :password_required?

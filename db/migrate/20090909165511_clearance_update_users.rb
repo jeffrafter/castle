@@ -1,0 +1,15 @@
+class ClearanceUpdateUsers < ActiveRecord::Migration
+  def self.up
+    change_table(:users) do |t|
+      t.string :confirmation_token, :limit => 128
+    end
+
+    add_index :users, [:id, :confirmation_token]
+  end
+
+  def self.down
+    change_table(:users) do |t|
+      t.remove :confirmation_token
+    end
+  end
+end
