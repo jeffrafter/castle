@@ -20,9 +20,6 @@ class ProcessorTest < ActiveSupport::TestCase
           end  
         end  
       end
-      
-      should "not handle interactions"
-      should "not handle commands"
     end
 
     context "message from an unconfirmed user" do
@@ -53,9 +50,6 @@ class ProcessorTest < ActiveSupport::TestCase
           end  
         end  
       end
-
-      should "not handle interactions"
-      should "not handle commands"
     end
 
     context "message from a deactivated user" do
@@ -105,22 +99,6 @@ class ProcessorTest < ActiveSupport::TestCase
         @processor = Message::Processor.new(@message)
         @processor.run
       end      
-    end
-
-
-
-=begin    
-    context "message from a confirmed user with a waiting interaction" do
-      setup do
-        @user = Factory(:user_with_number)
-        @message = Factory(:inbox, :text => @text, :number => @user.number, :gateway => @gateway)
-      end    
-
-      should "create a new message" do
-        @processor = Message::Processor.new(@message)
-      end
-    end
-=end    
-    
+    end    
   end  
 end

@@ -11,9 +11,6 @@ class RatingHandlerTest < ActiveSupport::TestCase
     end
     
     context "when no deliveries have been made" do
-      setup do
-      end
-      
       should "not add a rating" do 
         should_not_send_message_to @message.number do
           assert_no_difference 'Rating.count' do

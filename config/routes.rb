@@ -22,5 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.signout 'signout', :controller => 'clearance/sessions', :action => 'destroy', :method => :delete    
   
   map.deliver '/deliver', :controller => 'dashboard', :action => 'deliver'
-  map.root :controller => 'dashboard'
+  map.dashboard '/dashboard', :controller => 'dashboard'
+
+  map.root :controller => 'clearance/sessions', :action => 'new'
 end

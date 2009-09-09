@@ -324,13 +324,9 @@ class DeliveryTest < ActiveSupport::TestCase
     end
 
     context "counting" do  
-      should "include the number of deliveries in the past day"
-      should "not include deliveries from more than 24 hours ago"
+      # should "include the number of deliveries in the past day"
+      # should "not include deliveries from more than 24 hours ago"
     end  
-
-    should "deliver an entry"
-    should "find the last delivered entry for a subscription"
-    should "find the time of the last delivered entry for a user"
   end
 
   private
