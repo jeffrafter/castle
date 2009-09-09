@@ -11,7 +11,19 @@ class User < ActiveRecord::Base
   validates_uniqueness_of :email, :case_sensitive => false, :if => :email_required?
   validates_format_of :email, :with => %r{.+@.+\..+}, :if => :email_required?
 
-  attr_accessible :number, :number_confirmed, :email, :name, :address, :details, :provider, :prepaid, :gateway_id, :locale, :timezone_offset, :sleep, :awake
+  attr_accessible :number, 
+    :number_confirmed, 
+    :email, 
+    :name, 
+    :address, 
+    :details, 
+    :provider, 
+    :prepaid, 
+    :gateway_id, 
+    :locale, 
+    :timezone_offset, 
+    :sleep, 
+    :awake
   
   named_scope :active, :conditions => ['active = ?', true]
   named_scope :available, :conditions => ['deleted_at IS NULL']

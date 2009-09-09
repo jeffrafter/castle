@@ -5,7 +5,6 @@ class InvalidApiKeyError < RuntimeError; end
 class ApplicationController < ActionController::Base
   include Clearance::Authentication
   protect_from_forgery
-  before_filter :authenticate
   helper :all
 
   rescue_from ActiveRecord::RecordNotFound do |e| render :text => e.message, :status => :not_found; end

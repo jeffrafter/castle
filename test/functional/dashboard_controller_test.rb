@@ -5,7 +5,7 @@ class DashboardControllerTest < ActionController::TestCase
     public_context do
       should "require login to view and return that the response was unauthorized" do       
         get :index
-        assert_response(401)     
+        assert_response :redirect     
       end
     end
     

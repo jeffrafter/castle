@@ -1,7 +1,4 @@
 class UsersController < Clearance::UsersController
-  skip_before_filter :authenticate, [:new, :create, :verify]
-  resource_controller
-
   def edit
     @user = User.find(params[:id])
     @from_user = Inbox.count(:conditions => ['number = ?', @user.number])

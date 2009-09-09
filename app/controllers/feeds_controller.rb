@@ -1,4 +1,5 @@
 class FeedsController < ApplicationController
+  before_filter :redirect_to_root, :unless => :signed_in?
   resource_controller  
   def show
     @feed = Feed.find(params[:id])

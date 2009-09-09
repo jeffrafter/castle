@@ -14,13 +14,13 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :feeds
   map.resources :log, :as => 'log'
 
-  map.resources :users, :has_one => [:password, :confirmation], :member => {:activate => :post, :deactivate => :post, :confirm => :post, :tell => :post}, :collection => {:register => :post, :invite => :post}
-  map.resource :session, :collection => {:verify => :get}
-  map.resources :passwords
+  map.resources :users, :member => {:activate => :post, :deactivate => :post, :confirm => :post, :tell => :post}, :collection => {:register => :post, :invite => :post}
 
-  map.signup '/signup', :controller => 'users', :action => 'new'
-  map.login '/login', :controller => 'sessions', :action => 'new'
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+  # I don't like underscores
+  map.signup  'signup', :controller => 'clearance/users', :action => 'new'
+  map.signin 'signin', :controller => 'clearance/sessions', :action => 'new'
+  map.signout 'signout', :controller => 'clearance/sessions', :action => 'destroy', :method => :delete    
+  
   map.deliver '/deliver', :controller => 'dashboard', :action => 'deliver'
   map.root :controller => 'dashboard'
 end

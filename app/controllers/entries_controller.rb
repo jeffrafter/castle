@@ -1,5 +1,6 @@
 class EntriesController < ApplicationController
   before_filter :set_locale
+  before_filter :redirect_to_root, :unless => :signed_in?
 
   def set_locale
     I18n.locale = params[:locale] || 'en'

@@ -1,5 +1,5 @@
 class DashboardController < ApplicationController
-  before_filter :authenticate
+  before_filter :redirect_to_root, :unless => :signed_in?
   
   def deliver
     subscriptions = Subscription.all
