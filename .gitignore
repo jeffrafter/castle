@@ -4,3 +4,4 @@ config/database.yml
 doc
 notes
 backup
+coverage

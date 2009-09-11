@@ -19,7 +19,8 @@ class Entry < ActiveRecord::Base
   
   def before_save
     return unless self.message.blank?
-    text = "#{"\"" + title + "\" " unless title.blank?}#{[summary, content].join(' ')}".compact
+    from = '[' + feed.channel.title + '] ' rescue ''
+    text = "#{from}] #{"\"" + title + "\" " unless title.blank?}#{[summary, content].join(' ')}".compact
     text = text.mb_chars.slice(0..160)
     self.message = text    
     feed = Feed.find(self.feed_id, :include => {:channel => {:region => :gateways}})
