@@ -11,7 +11,7 @@ class OutboxController < ApplicationController
       }  
       format.xml {
         find_gateway
-        since = Time.parse(params[:since]) rescue nil
+        since = Time.zone.parse(params[:since]) rescue nil
         options = {}
         options[:conditions] = ['updated_at > ?', since] if since
         @messages = Outbox.local(@gateway.id).all(options)

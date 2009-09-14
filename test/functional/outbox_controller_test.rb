@@ -20,7 +20,7 @@ class OutboxControllerTest < ActionController::TestCase
     end
     
     should "should return all messages since time specified" do
-      get :index, :format => 'xml', :api_key => @gateway.api_key, :since => Time.now.utc.iso8601
+      get :index, :format => 'xml', :api_key => @gateway.api_key, :since => Time.zone.now.iso8601
       assert_response :success
       assert_not_nil assigns(:messages)
       assert_equal [], assigns(:messages)

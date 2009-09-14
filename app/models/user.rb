@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   end
   
   def quiet_hours?
-    hour = Time.now.hour + self.timezone_offset
+    hour = Time.zone.now.hour + self.timezone_offset
     hour = 24 + hour if hour < 0
     self.awake > hour || hour > self.sleep
   end
@@ -98,6 +98,11 @@ class User < ActiveRecord::Base
   def confirm
     self.number_confirmed = true
     self.save
+  end
+  
+  def start_of_day(time = Time.zone.now)
+    user_time = time + self.timezone_offset.hours
+    time - (user_time.hour.hours + user_time.min.minutes + user_time.sec.seconds)
   end
   
 end

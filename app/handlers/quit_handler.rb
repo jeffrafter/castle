@@ -3,7 +3,7 @@ module Message
     def run
       command = Command.parse(self.message)
       return unless command && command.key == 'quit'
-      self.user.deleted_at = Time.now
+      self.user.deleted_at = Time.zone.now
       self.user.save
       reply I18n.t(:quit)
       halt

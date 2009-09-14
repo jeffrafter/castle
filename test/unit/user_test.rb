@@ -10,4 +10,15 @@ class UserTest < ActiveSupport::TestCase
       assert @user.errors.on(:email).blank?
     end
   end
+  
+  context "time zones" do
+    setup do      
+      Time.zone.stubs(:now).returns(Time.zone.parse("12:00")+13.hours)        
+      @user = Factory(:user_with_number, :timezone_offset => "-7") 
+    end
+    
+    should "find the start of day in the user's time zone" do
+      assert_equal 7, @user.start_of_day.hour
+    end
+  end
 end

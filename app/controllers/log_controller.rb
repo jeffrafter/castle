@@ -4,7 +4,7 @@ class LogController < ApplicationController
   
   def create
     kind = (params[:log][:kind] || 'default')
-    filename = File.join(RAILS_ROOT, 'log', @gateway.api_key, kind, Time.now.strftime("%Y%m%dT%H:%M:%S.log"))
+    filename = File.join(RAILS_ROOT, 'log', @gateway.api_key, kind, Time.zone.now.strftime("%Y%m%dT%H:%M:%S.log"))
     FileUtils.mkpath(File.dirname(filename))
     File.open(filename, 'w') do |file|
       file.write(params[:log][:text])

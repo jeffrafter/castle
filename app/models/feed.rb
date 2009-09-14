@@ -25,7 +25,7 @@ class Feed < ActiveRecord::Base
   belongs_to :channel
   has_many :entries
   named_scope :enabled, :conditions => ['active = ?', true]
-  named_scope :stale, lambda {{ :conditions => ['stale_at < ? OR stale_at IS NULL', Time.now] }}
+  named_scope :stale, lambda {{ :conditions => ['stale_at < ? OR stale_at IS NULL', Time.zone.now] }}
   before_create :setup
     
   def fetch

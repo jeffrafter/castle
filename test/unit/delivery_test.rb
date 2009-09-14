@@ -10,7 +10,7 @@ class DeliveryTest < ActiveSupport::TestCase
   context "Delivery system" do
     context "for news messages" do      
       setup do
-        time = Time.parse("12:00")
+        time = Time.zone.parse("12:00")
         Time.stubs(:now).returns(time)
         @user = Factory(:user_with_number)
         @channel = Factory(:channel)
@@ -57,7 +57,7 @@ class DeliveryTest < ActiveSupport::TestCase
             
       should "not deliver during a users quiet hours" do
         should_not_deliver_entry @entry.id do
-          time = Time.parse("3:00")
+          time = Time.zone.parse("3:00")
           Time.stubs(:now).returns(time)
           Delivery.deliver_to(@subscription)
         end  
@@ -81,7 +81,7 @@ class DeliveryTest < ActiveSupport::TestCase
         Delivery.deliver_to(@subscription)
         assert_equal 1, Delivery.delivery_count(@subscription)
         # Later that day...
-        time = Time.parse("14:00")
+        time = Time.zone.parse("14:00")
         Time.stubs(:now).returns(time)        
         @entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
         should_not_deliver_entry @entry.id do
@@ -93,7 +93,7 @@ class DeliveryTest < ActiveSupport::TestCase
         Delivery.deliver_to(@subscription)
         assert_equal 1, Delivery.delivery_count(@subscription)
         # Later that day...
-        time = Time.parse("14:00")
+        time = Time.zone.parse("14:00")
         Time.stubs(:now).returns(time)        
         Delivery.deliver_to(@subscription)
         assert_equal 1, Delivery.delivery_count(@subscription)
@@ -102,7 +102,7 @@ class DeliveryTest < ActiveSupport::TestCase
       should "not deliver messages if a message was delivered to this subscription recently" do
         Delivery.deliver_to(@subscription)
         # One minute later...
-        time = Time.parse("12:01")
+        time = Time.zone.parse("12:01")
         Time.stubs(:now).returns(time)        
         @entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
         should_not_deliver_entry @entry.id do
@@ -113,7 +113,7 @@ class DeliveryTest < ActiveSupport::TestCase
       should "not deliver messages if a message was delivered to another subscription recently" do
         Delivery.deliver_to(@subscription)
         # One minute later...
-        time = Time.parse("12:01")
+        time = Time.zone.parse("12:01")
         Time.stubs(:now).returns(time)        
         @channel = Factory(:channel)
         @feed = Factory(:feed, :channel => @channel)
@@ -127,7 +127,7 @@ class DeliveryTest < ActiveSupport::TestCase
       should "not deliver messages if a message was delivered to a system channel recently" do
         Delivery.deliver_to(@subscription)
         # One minute later...
-        time = Time.parse("12:01")
+        time = Time.zone.parse("12:01")
         Time.stubs(:now).returns(time)        
         @channel = Factory(:channel)
         @feed = Factory(:feed, :channel => @channel)
@@ -141,7 +141,7 @@ class DeliveryTest < ActiveSupport::TestCase
       should "deliver messages if it has been longer than the users delay since the last message" do
         Delivery.deliver_to(@subscription)
         # One hour later...
-        time = Time.parse("13:00")
+        time = Time.zone.parse("13:00")
         Time.stubs(:now).returns(time)        
         @entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
         should_send_message_to @user.number, /Muertos los monkeys/ do
@@ -165,7 +165,7 @@ class DeliveryTest < ActiveSupport::TestCase
       end
       
       should "only deliver one message at a time and it should be the most recent" do
-        time = Time.parse("12:01")
+        time = Time.zone.parse("12:01")
         Time.stubs(:now).returns(time)                
         @another_entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
         should_deliver_entry @another_entry.id do
@@ -176,7 +176,7 @@ class DeliveryTest < ActiveSupport::TestCase
       end
 
       should "not deliver an entry if it is older than one they have already received" do
-        time = Time.parse("12:01")
+        time = Time.zone.parse("12:01")
         Time.stubs(:now).returns(time)                
         @another_entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
         Delivery.deliver(@user.id, @channel.id, @another_entry, PRIORITY[:low])
@@ -193,7 +193,7 @@ class DeliveryTest < ActiveSupport::TestCase
     
     context "for system messages" do
       setup do
-        time = Time.parse("12:00")
+        time = Time.zone.parse("12:00")
         Time.stubs(:now).returns(time)        
         @user = Factory(:user_with_number)
         @channel = Factory(:channel, :region => @user.gateway.region, :system => true)
@@ -235,7 +235,7 @@ class DeliveryTest < ActiveSupport::TestCase
 
       should "not deliver during a users quiet hours" do
         should_not_deliver_entry @entry.id do
-          time = Time.parse("3:00")
+          time = Time.zone.parse("3:00")
           Time.stubs(:now).returns(time)
           Delivery.deliver_system_messages_to(@user, @channel)
         end  
@@ -243,7 +243,7 @@ class DeliveryTest < ActiveSupport::TestCase
       
       should "deliver during a users quiet hours if it is an emergency" do
         should_send_message_to @user.number, /Viva los monkeys/ do
-          time = Time.parse("3:00")
+          time = Time.zone.parse("3:00")
           Time.stubs(:now).returns(time)
           @channel = Factory(:channel, :region => @user.gateway.region, :system => true, :emergency => true)
           @feed = Factory(:feed, :channel => @channel)
@@ -279,7 +279,7 @@ class DeliveryTest < ActiveSupport::TestCase
       should "not delay system messages" do
         Delivery.deliver_system_messages_to(@user, @channel)
         # One minute later...
-        time = Time.parse("12:01")
+        time = Time.zone.parse("12:01")
         Time.stubs(:now).returns(time)
         @another_entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!', :published_at => nil)
         should_deliver_entry @another_entry.id do
@@ -289,7 +289,7 @@ class DeliveryTest < ActiveSupport::TestCase
       
       should "not deliver entries that were created before the user joined" do
         # One minute later...
-        time = Time.parse("12:01")
+        time = Time.zone.parse("12:01")
         Time.stubs(:now).returns(time)
         @new_user = Factory(:user_with_number)
         should_not_deliver_entry @entry.id do
@@ -324,8 +324,57 @@ class DeliveryTest < ActiveSupport::TestCase
     end
 
     context "counting" do  
-      # should "include the number of deliveries in the past day"
-      # should "not include deliveries from more than 24 hours ago"
+      setup do
+        @time = Time.zone.parse("12:00")
+        Time.stubs(:now).returns(@time)        
+        @user = Factory(:user_with_number)
+        @channel = Factory(:channel, :region => @user.gateway.region)
+        @feed = Factory(:feed, :channel => @channel)
+        @subscription = Factory(:subscription, :user => @user, :channel => @channel)
+        @entry = Factory(:entry, :feed => @feed, :message => 'Viva los monkeys!', :published_at => nil)
+        Delivery.deliver(@user.id, @channel.id, @entry, PRIORITY[:low])        
+      end  
+
+      should "include the delivery" do
+        assert_equal 1, Delivery.send(:delivery_count, @subscription)
+      end
+      
+      should "include multiple deliveries" do
+        @another_entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
+        Delivery.deliver(@user.id, @channel.id, @another_entry, PRIORITY[:low])        
+        assert_equal 2, Delivery.send(:delivery_count, @subscription)
+      end
+      
+      should "not include deliveries from more than 24 hours ago" do
+        Time.stubs(:now).returns(@time-25.hours)        
+        @another_entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
+        Delivery.deliver(@user.id, @channel.id, @another_entry, PRIORITY[:low])        
+        Time.stubs(:now).returns(@time)        
+        assert_equal 1, Delivery.send(:delivery_count, @subscription)
+      end   
+
+      should "not include deliveries from other subscriptions" do
+        @another_channel = Factory(:channel, :region => @user.gateway.region)
+        @another_feed = Factory(:feed, :channel => @another_channel)
+        @another_entry = Factory(:entry, :feed => @another_feed, :message => 'Muertos los monkeys!')
+        Delivery.deliver(@user.id, @another_channel.id, @another_entry, PRIORITY[:low])        
+        assert_equal 1, Delivery.send(:delivery_count, @subscription)
+      end
+      
+      should "not include deliveries to other users" do
+        @another_user = Factory(:user_with_number, :gateway => @user.gateway)
+        Delivery.deliver(@another_user.id, @channel.id, @entry, PRIORITY[:low])        
+        assert_equal 1, Delivery.send(:delivery_count, @subscription)
+      end
+      
+      should "reset the number of deliveries each day in the timezone of the user" do
+        # User lives at my house
+        @user.update_attributes!(:timezone_offset => "-7") 
+        # It is tomorrow UTC
+        Time.stubs(:now).returns(@time+13.hours)        
+        # I should still have one delivery today
+        assert_equal 1, Delivery.send(:delivery_count, @subscription)
+      end
     end  
   end
 

@@ -6,7 +6,7 @@ class Gateway < ActiveRecord::Base
 
 private   
   def generate_key
-    self.api_key ||= Digest::SHA512.hexdigest("--#{Time.now.utc.to_s}--#{number}--")
+    self.api_key ||= Digest::SHA512.hexdigest("--#{Time.zone.now.utc.to_s}--#{number}--")
     self.api_key_expires_at = nil              
   end
 end
