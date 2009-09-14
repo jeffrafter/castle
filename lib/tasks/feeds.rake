@@ -6,7 +6,7 @@ namespace :feeds do
     require File.join(RAILS_ROOT, 'config', 'environment')
     feeds = Feed.enabled.stale.all
     feeds.each {|feed| 
-      puts "[#{Time.now.iso8601}] Checking for updates to #{feed.feed_url}"
+      puts "[#{Time.zone.now.iso8601}] Checking for updates to #{feed.feed_url}"
       feed.fetch       
     }
   end
@@ -21,14 +21,8 @@ namespace :feeds do
   task :deliver do
     require File.join(RAILS_ROOT, 'config', 'environment')
 
-    # Way slow version right?
-    t = Time.now
-    subscriptions = Subscription.all(:include => [:user, :channel])
-    subscriptions.each {|sub| Delivery.deliver_to(sub) }
-    puts "Delivered to all subscriptions #{Time.now - t} elapsed"
-    
     # System messages
-    t = Time.now
+    t = Time.zone.now
     channels = Channel.system
     users = User.active
     users.each {|u|
@@ -36,7 +30,13 @@ namespace :feeds do
         Delivery.deliver_system_messages_to(u, c) 
       }
     }
-    puts "Delivered to all system messages #{Time.now - t} elapsed"
+    puts "Delivered to all system messages #{Time.zone.now - t} elapsed"
+
+    # Way slow version right?
+    t = Time.zone.now
+    subscriptions = Subscription.all(:include => [:user, :channel])
+    subscriptions.each {|sub| Delivery.deliver_to(sub) }
+    puts "Delivered to all subscriptions #{Time.zone.now - t} elapsed"    
   end
   
   desc "Fetch and deliver"
