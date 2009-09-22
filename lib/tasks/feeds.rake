@@ -11,19 +11,13 @@ namespace :feeds do
     }
   end
 
-  desc "Populate the popular messages from last night"
-  task :popular do
-    require File.join(RAILS_ROOT, 'config', 'environment')
-    Region.all.each {|region| Popular.populate(region.id) }
-  end  
-  
   desc "Deliver new messages to the users that need them"
   task :deliver do
     require File.join(RAILS_ROOT, 'config', 'environment')
 
     # System messages
     t = Time.zone.now
-    channels = Channel.system
+    channels = Channel.system.all
     users = User.active
     users.each {|u|
       channels.each {|c|
@@ -31,6 +25,13 @@ namespace :feeds do
       }
     }
     puts "Delivered to all system messages #{Time.zone.now - t} elapsed"
+    
+    # Popular
+    t = Time.zone.now
+    users.each {|u|
+      Delivery.deliver_popular_messages_to(u) 
+    }
+    
 
     # Way slow version right?
     t = Time.zone.now

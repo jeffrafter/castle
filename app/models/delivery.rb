@@ -37,6 +37,20 @@ class Delivery < ActiveRecord::Base
     Rails.logger.error "Could not deliver system messages to user #{user.id}: #{e.message}"
   end
   
+  # Find the oldest popular message needed for this user
+  def self.deliver_popular_messages_to(user)
+    return if user.quiet_hours?
+    # Should popular messages wait?
+    # last_delivery_time = self.last_delivered_entry_time(subscription.user_id)
+    # return if last_delivery_time && (Time.zone.now - last_delivery_time) < user.delay.minutes
+    popular = Popular.first(:include => :entry,
+      :join => 'deliveries ON deliveries.entry_id = popular.entry_id AND deliveries.user_id = #{user.id}', 
+      :conditions => 'deliveries.entry_id IS NULL', 
+      :limit => 1)
+    return unless popular    
+    self.deliver(user.id, popular.channel_id, popular.entry, PRIORITY[:normal])    
+  end
+  
 private
   def self.last_delivered_entry_time(user_id)
     Delivery.first(:conditions => ['user_id = ?', user_id],

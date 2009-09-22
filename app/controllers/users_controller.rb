@@ -89,4 +89,27 @@ class UsersController < Clearance::UsersController
     redirect_to users_path
   end
 
+  def update
+    @user = User.find(params[:id])
+    respond_to do |format|
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to users_url }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @user.errors.to_xml }
+      end
+    end
+  end
+
+    
+  def destroy
+    @user = ::Page.find(params[:id])
+    @user.destroy
+    respond_to do |format|
+      format.html { redirect_to users_url }
+      format.xml  { head :ok }
+    end
+  end
+
 end
