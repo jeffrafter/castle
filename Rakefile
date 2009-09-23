@@ -8,7 +8,7 @@ require 'rake/testtask'
 require 'rake/rdoctask'
 
 require 'tasks/rails'
-require 'shoulda/tasks'
+#require 'shoulda/tasks'
 
 require 'rcov/rcovtask'
 
@@ -34,3 +34,4 @@ namespace :test do
     task :coverage => "test:coverage:#{target}"
   end  
 end
+
