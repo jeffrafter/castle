@@ -47,7 +47,7 @@ class Delivery < ActiveRecord::Base
     region_id = user.gateway.region_id
     popular = Popular.first(:include => :entry,
       :joins => "LEFT JOIN deliveries ON deliveries.entry_id = popular.entry_id AND deliveries.user_id = #{user.id} " +
-               "INNER JOIN channels ON channels.id == popular.channel_id AND channels.region_id = #{region_id}", 
+               "INNER JOIN channels ON channels.id = popular.channel_id AND channels.region_id = #{region_id}", 
       :conditions => 'deliveries.entry_id IS NULL', 
       :limit => 1)
     return unless popular    
