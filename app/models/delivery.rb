@@ -44,7 +44,8 @@ class Delivery < ActiveRecord::Base
     # Should popular messages wait?
     # last_delivery_time = self.last_delivered_entry_time(subscription.user_id)
     # return if last_delivery_time && (Time.zone.now - last_delivery_time) < user.delay.minutes
-    region_id = user.gateway.region_id
+    region_id = user.gateway.region_id rescue nil
+    return unless region_id
     popular = Popular.first(:include => :entry,
       :joins => "LEFT JOIN deliveries ON deliveries.entry_id = popular.entry_id AND deliveries.user_id = #{user.id} " +
                "INNER JOIN channels ON channels.id = popular.channel_id AND channels.region_id = #{region_id}", 
