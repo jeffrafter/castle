@@ -48,6 +48,13 @@ class DeliveryTest < ActiveSupport::TestCase
         end  
       end
       
+      should "not deliver to unconfirmed users" do
+        should_not_deliver_entry @entry.id do
+          @user.update_attributes(:number_confirmed => false)
+          Delivery.deliver_to(@subscription)
+        end  
+      end
+      
       should "not deliver to subscriptions for inactive channels" do
         should_not_deliver_entry @entry.id do
           @channel.deactivate
@@ -191,6 +198,59 @@ class DeliveryTest < ActiveSupport::TestCase
       end
     end
     
+    context "for popular messages" do
+      setup do
+        time = Time.zone.parse("12:00")
+        Time.stubs(:now).returns(time)        
+        @user = Factory(:user_with_number)
+        @channel = Factory(:channel, :region => @user.gateway.region, :system => true)
+        @feed = Factory(:feed, :channel => @channel)
+        @entry = Factory(:entry, :feed => @feed, :message => 'Viva los monkeys!', :published_at => nil)
+        @popular = Factory(:popular, :entry => @entry, :channel => @channel)
+      end
+
+      should "deliver to users" do
+        should_send_message_to @user.number, /Viva los monkeys/ do
+          should_deliver_entry @entry.id do
+            Delivery.deliver_popular_messages_to(@user)
+          end  
+        end  
+      end
+
+      should "not deliver to inactive users" do
+        should_not_deliver_entry @entry.id do
+          @user.deactivate
+          Delivery.deliver_popular_messages_to(@user)
+        end  
+      end
+      
+      should "not deliver to unconfirmed users" do
+        should_not_deliver_entry @entry.id do
+          @user.update_attributes(:number_confirmed => false)
+          Delivery.deliver_popular_messages_to(@user)
+        end  
+      end
+      
+      should "not deliver messages that belong to other regions to users" do
+        # Don't include the region here and it will be created
+        @channel = Factory(:channel, :system => true, :emergency => true)
+        @feed = Factory(:feed, :channel => @channel)
+        @entry = Factory(:entry, :feed => @feed, :message => 'Viva los monkeys!', :published_at => nil)
+        @popular = Factory(:popular, :entry => @entry, :channel => @channel)
+        should_not_deliver_entry @entry.id do
+          Delivery.deliver_popular_messages_to(@user)
+        end  
+      end
+
+      should "not deliver during a users quiet hours" do
+        should_not_deliver_entry @entry.id do
+          time = Time.zone.parse("3:00")
+          Time.stubs(:now).returns(time)
+          Delivery.deliver_popular_messages_to(@user)
+        end  
+      end
+    end    
+    
     context "for system messages" do
       setup do
         time = Time.zone.parse("12:00")
@@ -212,6 +272,13 @@ class DeliveryTest < ActiveSupport::TestCase
       should "not deliver to inactive users" do
         should_not_deliver_entry @entry.id do
           @user.deactivate
+          Delivery.deliver_system_messages_to(@user, @channel)
+        end  
+      end
+      
+      should "not deliver to unconfirmed users" do
+        should_not_deliver_entry @entry.id do
+          @user.update_attributes(:number_confirmed => false)
           Delivery.deliver_system_messages_to(@user, @channel)
         end  
       end

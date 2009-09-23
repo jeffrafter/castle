@@ -9,7 +9,7 @@ class Delivery < ActiveRecord::Base
     user = User.find(subscription.user_id)
     channel = Channel.find(subscription.channel_id)
     return unless user && channel
-    return unless user.active? && channel.active?
+    return unless user.active? && user.number_confirmed? && channel.active?
     return if user.quiet_hours?
     need = subscription.number_per_day - self.delivery_count(subscription)
     return unless need > 0
@@ -27,7 +27,7 @@ class Delivery < ActiveRecord::Base
   # published and that have not been delivered already.
   def self.deliver_system_messages_to(user, channel)
     return unless user.gateway.region_id == channel.region_id
-    return unless user.active? && channel.active?
+    return unless user.active? && user.number_confirmed? && channel.active?
     return if user.quiet_hours? && !channel.emergency?
     priority = channel.emergency? ? PRIORITY[:emergency] : PRIORITY[:normal]
     entries = Entry.available(user.id, channel.id, 0, :all).all(
@@ -39,12 +39,15 @@ class Delivery < ActiveRecord::Base
   
   # Find the oldest popular message needed for this user
   def self.deliver_popular_messages_to(user)
+    return unless user.active? && user.number_confirmed?
     return if user.quiet_hours?
     # Should popular messages wait?
     # last_delivery_time = self.last_delivered_entry_time(subscription.user_id)
     # return if last_delivery_time && (Time.zone.now - last_delivery_time) < user.delay.minutes
+    region_id = user.gateway.region_id
     popular = Popular.first(:include => :entry,
-      :join => 'deliveries ON deliveries.entry_id = popular.entry_id AND deliveries.user_id = #{user.id}', 
+      :joins => "LEFT JOIN deliveries ON deliveries.entry_id = popular.entry_id AND deliveries.user_id = #{user.id} " +
+               "INNER JOIN channels ON channels.id == popular.channel_id AND channels.region_id = #{region_id}", 
       :conditions => 'deliveries.entry_id IS NULL', 
       :limit => 1)
     return unless popular    

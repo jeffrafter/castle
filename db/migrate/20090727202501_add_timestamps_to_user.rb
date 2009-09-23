@@ -1,7 +1,7 @@
 class AddTimestampsToUser < ActiveRecord::Migration
   def self.up
-    add_column :users, :created_at, :datetime, :default => Time.now
-    add_column :users, :updated_at, :datetime, :default => Time.now
+    add_column :users, :created_at, :datetime
+    add_column :users, :updated_at, :datetime
   end
 
   def self.down
