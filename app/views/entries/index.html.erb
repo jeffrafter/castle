@@ -17,8 +17,8 @@
   <ul class="entries">
     <% @entries.each do |entry| %>
       <li class="<%= cycle("even","odd") -%>" >
-        <p><%= link_to entry.id, entry %>: <%=h entry.messaage %><br/>
-           <%= link_to entry.published_at entry %></p>
+        <p><strong><%=h entry.message %></strong><br/>
+           <%= link_to entry.published_at || entry.created_at, entry %> (<%= link_to entry.id, entry %>)</p>
       </li>
     <% end %>
     <% if @entries.blank? %>
