@@ -15,8 +15,4 @@ class EntriesController < ApplicationController
       @entries = Entry.paginate(:page => params[:page], :per_page => 10, :order => 'created_at DESC')
     end      
   end
-  
-  def show
-    redirect_to entries_path
-  end  
 end
