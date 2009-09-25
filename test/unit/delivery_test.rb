@@ -108,8 +108,8 @@ class DeliveryTest < ActiveSupport::TestCase
 
       should "not deliver messages if a message was delivered to this subscription recently" do
         Delivery.deliver_to(@subscription)
-        # One minute later...
-        time = Time.zone.parse("12:01")
+        # Ten minutes later...
+        time = Time.zone.parse("12:10")
         Time.stubs(:now).returns(time)        
         @entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
         should_not_deliver_entry @entry.id do
@@ -119,8 +119,8 @@ class DeliveryTest < ActiveSupport::TestCase
       
       should "not deliver messages if a message was delivered to another subscription recently" do
         Delivery.deliver_to(@subscription)
-        # One minute later...
-        time = Time.zone.parse("12:01")
+        # Ten minutes later...
+        time = Time.zone.parse("12:10")
         Time.stubs(:now).returns(time)        
         @channel = Factory(:channel)
         @feed = Factory(:feed, :channel => @channel)
@@ -187,6 +187,8 @@ class DeliveryTest < ActiveSupport::TestCase
         Time.stubs(:now).returns(time)                
         @another_entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
         Delivery.deliver(@user.id, @channel.id, @another_entry, PRIORITY[:low])
+        time = Time.zone.parse("14:00")
+        Time.stubs(:now).returns(time)                
         should_not_deliver_entry @entry.id do
           Delivery.deliver_to(@subscription)
         end          

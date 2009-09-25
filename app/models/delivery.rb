@@ -14,7 +14,7 @@ class Delivery < ActiveRecord::Base
     need = subscription.number_per_day - self.delivery_count(subscription)
     return unless need > 0
     last_delivery_time = self.last_delivered_entry_time(subscription.user_id)
-    return if last_delivery_time && (Time.zone.now - last_delivery_time) < user.delay.minutes
+    return if last_delivery_time && ((Time.zone.now - last_delivery_time) / 1.minute) < user.delay
     since = self.last_delivered_entry_id(subscription)
     entries = Entry.available(user.id, channel.id, since, 1)
     entries.each {|entry| self.deliver(user.id, channel.id, entry, PRIORITY[:low]) }
@@ -42,8 +42,6 @@ class Delivery < ActiveRecord::Base
     return unless user.active? && user.number_confirmed? && user.gateway && user.gateway.region_id
     return if user.quiet_hours?
     # Should popular messages wait?
-    # last_delivery_time = self.last_delivered_entry_time(subscription.user_id)
-    # return if last_delivery_time && (Time.zone.now - last_delivery_time) < user.delay.minutes
     popular = Popular.first(:include => :entry,
       :joins => "LEFT JOIN deliveries ON deliveries.entry_id = popular.entry_id AND deliveries.user_id = #{user.id} " +
                "INNER JOIN channels ON channels.id = popular.channel_id AND channels.region_id = #{user.gateway.region_id}", 

@@ -28,8 +28,7 @@ class EntriesControllerTest < ActionController::TestCase
 
       should "show entry" do
         get :show, :id => @entry.id
-        assert_response :redirect
-        assert_redirected_to entries_path
+        assert_response :success
       end
 
       should "get edit" do
