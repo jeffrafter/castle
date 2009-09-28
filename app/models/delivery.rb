@@ -13,14 +13,20 @@ class Delivery < ActiveRecord::Base
     return if user.quiet_hours?
     need = subscription.number_per_day - self.delivery_count(subscription)
     return unless need > 0
-    last_delivery_time = self.last_delivered_entry_time(subscription.user_id)
-    return if last_delivery_time && ((Time.zone.now - last_delivery_time) / 1.minute) < user.delay
+    return if recent_delivery?(user)
     since = self.last_delivered_entry_id(subscription)
     entries = Entry.available(user.id, channel.id, since, 1)
     entries.each {|entry| self.deliver(user.id, channel.id, entry, PRIORITY[:low]) }
   rescue Exception => e
     # Bad subscription
     Rails.logger.error "Could not deliver to subscription: #{e.message}"
+  end
+  
+  def self.recent_delivery?(user)
+    last_delivery_time = self.last_delivered_entry_time(user.id)
+    return false unless last_delivery_time
+    minutes_since_last_delivery = ((Time.zone.now - last_delivery_time) / 1.minute)
+    minutes_since_last_delivery < user.delay
   end
 
   # Only deliver system messages that have no published date, or that are now
