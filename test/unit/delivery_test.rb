@@ -443,8 +443,28 @@ class DeliveryTest < ActiveSupport::TestCase
         Time.stubs(:now).returns(@time+13.hours)        
         # I should still have one delivery today
         assert_equal 1, Delivery.send(:delivery_count, @subscription)
-      end
+      end            
     end  
+    
+    context "ordering" do
+      setup do
+        @time = Time.zone.parse("12:00")
+        Time.stubs(:now).returns(@time)        
+        @user = Factory(:user_with_number)
+        @channel = Factory(:channel, :region => @user.gateway.region)
+        @feed = Factory(:feed, :channel => @channel)
+        @subscription = Factory(:subscription, :user => @user, :channel => @channel)
+        @entry = Factory(:entry, :feed => @feed, :message => 'Viva los monkeys!', :published_at => nil)
+        @another_entry = Factory(:entry, :feed => @feed, :message => 'Muertos los monkeys!')
+        Delivery.deliver(@user.id, @channel.id, @another_entry, PRIORITY[:low])        
+      end  
+
+      should "find the last delivered entry" do
+        since = Delivery.last_delivered_entry_id(@subscription)        
+        assert_equal @another_entry.id, since
+        assert_not_equal Delivery.last.id, since
+      end
+    end
   end
 
   private

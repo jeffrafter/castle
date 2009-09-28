@@ -15,7 +15,7 @@ class Delivery < ActiveRecord::Base
     return unless need > 0
     return if recent_delivery?(user)
     since = self.last_delivered_entry_id(subscription)
-    entries = Entry.available(user.id, channel.id, since, 1)
+    entries = Entry.available(user.id, channel.id, since, 1).all
     entries.each {|entry| self.deliver(user.id, channel.id, entry, PRIORITY[:low]) }
   rescue Exception => e
     # Bad subscription
@@ -36,8 +36,7 @@ class Delivery < ActiveRecord::Base
     return unless user.active? && user.number_confirmed? && channel.active?
     return if user.quiet_hours? && !channel.emergency?
     priority = channel.emergency? ? PRIORITY[:emergency] : PRIORITY[:normal]
-    entries = Entry.available(user.id, channel.id, 0, :all).all(
-      :conditions => ['(published_at IS NULL OR published_at < ?) AND (entries.created_at >= ?)', Time.zone.now, user.created_at])
+    entries = Entry.available(user.id, channel.id, 0, :all).all(:conditions => ['(published_at IS NULL OR published_at < ?) AND (entries.created_at >= ?)', Time.zone.now, user.created_at])
     entries.each {|entry| self.deliver(user.id, channel.id, entry, priority) }        
   rescue Exception => e
     Rails.logger.error "Could not deliver system messages to user #{user.id}: #{e.message}"
@@ -70,7 +69,7 @@ private
       'user_id = ? AND channel_id = ?', 
       subscription.user_id, 
       subscription.channel_id],
-      :order => 'entry_id DESC').id rescue 0
+      :order => 'entry_id DESC').entry_id rescue 0
   end    
 
   def self.delivery_count(subscription)
