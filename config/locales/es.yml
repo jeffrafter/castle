@@ -12,7 +12,7 @@ es:
   available_channels: "Canales: "
   how_to_subscribe: "Para suscribirse, responder con el nombre del canal"
   unsubscribed: "Suscripcion a {{title}} cancelada. Para deshacer, responder con 'agregar {{keyword}}'."
-  subscribed: "Suscrito a {{title}}, para deshacer responder con eliminar {{keyword}}'."
+  subscribed: "Suscrito a {{title}}, para deshacer responder con 'eliminar {{keyword}}'."
   sleep: "Gracias, no vamos a enviar mensajes despues de las {{time}} horas"
   how_to_sleep: "Favor responda este mensaje, con la  hora del día (entre 1 y 24) en que Ud. desea empezar a recibir los mensajes DATAGRO"
   wake: "Gracias, no vamos a enviar mensajes antes de las {{time}} horas."
