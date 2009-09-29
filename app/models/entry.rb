@@ -21,7 +21,7 @@ class Entry < ActiveRecord::Base
     return unless self.message.blank?
     from = '[' + feed.channel.title + '] ' rescue ''
     text = "#{from}#{"\"" + title + "\" " unless title.blank?}#{[summary, content].join(' ')}".compact
-    text = text.mb_chars.slice(0..160)
+    text = text.mb_chars.slice(0..SMS_LIMIT)
     self.message = text    
     feed = Feed.find(self.feed_id, :include => {:channel => {:region => :gateways}})
     gateway = feed.channel.region.gateways.first rescue nil

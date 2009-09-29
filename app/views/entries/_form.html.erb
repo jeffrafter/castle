@@ -9,8 +9,8 @@
         length += summary.val().length + 1;
       if (title.val() && title.val().length > 0) 
         length += title.val().length + 3;
-      $('#counter').text("" + (160 - length) + " characters remaining");
-      $('#counter').css("color", (160 - length > 0) ? "green" : "red");
+      $('#counter').text("" + (SMS_LIMIT - length) + " characters remaining");
+      $('#counter').css("color", (SMS_LIMIT - length > 0) ? "green" : "red");
     }
 
     $(document).ready(function() {

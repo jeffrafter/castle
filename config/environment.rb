@@ -26,6 +26,7 @@ end
 
 DO_NOT_REPLY = "donotreply@datadyne.socialrange.org" 
 PROJECT_NAME = "News for Cell Phones"
+SMS_LIMIT    = 140
 
 # For cron tasks
 require 'whenever'
