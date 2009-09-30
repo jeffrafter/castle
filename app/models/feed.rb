@@ -17,7 +17,12 @@ module Feedzirra
         s.gsub!(/^\s+/, "")
         s
       end
-    end      
+    end
+    
+    # moved this method from jeff's gem to here, in order to use the official gem        
+    def checksum
+      Digest::MD5.hexdigest("#{title}--#{url}--#{summary}--#{content}")
+    end
   end
 end
 
@@ -29,10 +34,10 @@ class Feed < ActiveRecord::Base
   before_create :setup
     
   def fetch
-    options = {:on_success => method(:success), :on_failure => method(:failure)}
-# TODO!    
+    options = {:on_success => method(:success), :on_failure => method(:failure), :timeout => 30}
+# TODO!
 #    options[:if_modified_since] = self.last_modified if self.last_modified
-#    options[:if_none_match] = self.etag if self.etag      
+#    options[:if_none_match] = self.etag if self.etag
     feed = Feedzirra::Feed.fetch_and_parse(self.feed_url, options)
   rescue Exception => e
     puts "Failure fetching feed: #{e.message}"    
