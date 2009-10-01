@@ -33,11 +33,11 @@ class Feed < ActiveRecord::Base
   named_scope :stale, lambda {{ :conditions => ['stale_at < ? OR stale_at IS NULL', Time.zone.now] }}
   before_create :setup
     
+  # TODO! Google feeds seem to mess these up, maybe the latest feedzirra fixes
+  #   options[:if_modified_since] = self.last_modified if self.last_modified
+  #   options[:if_none_match] = self.etag if self.etag
   def fetch
     options = {:on_success => method(:success), :on_failure => method(:failure), :timeout => 30}
-# TODO!
-#    options[:if_modified_since] = self.last_modified if self.last_modified
-#    options[:if_none_match] = self.etag if self.etag
     feed = Feedzirra::Feed.fetch_and_parse(self.feed_url, options)
   rescue Exception => e
     puts "Failure fetching feed: #{e.message}"    
@@ -46,8 +46,7 @@ class Feed < ActiveRecord::Base
 private
 
   def setup   
-    return if feed_url.blank?
-    
+    return if feed_url.blank?    
     feed = Feedzirra::Feed.fetch_and_parse(self.feed_url)
     self.title ||= feed.title
     self.url ||= feed.url
@@ -70,18 +69,13 @@ private
     puts "No updates available or failed to parse: #{params.to_yaml}"
   end
 
+  # Process all of the items in order after the last known item 
   def process(items)
-    # Process all of the items in order after the last known item 
-    last_entry = nil
-    items.each_with_index{|entry,index|
-      if entry.checksum == self.checksum
-        last_entry = index
-        break
-      end
-    } if self.checksum
-    items = items[last_entry + 1, entries.length] if last_entry
-    items.each {|entry| store(entry) }
-  end    
+    found = false
+    to_process = items.select {|item| found ||= (item.checksum == self.checksum) }
+    to_process.blank? ? to_process = items : to_process.shift
+    to_process.each {|entry| store(entry) }
+  end
   
   def store(entry)
     checksum = entry.checksum  
