@@ -35,7 +35,7 @@ namespace :feeds do
 
     # Way slow version right?
     t = Time.zone.now
-    subscriptions = Subscription.all(:include => [:user, {:channel => :feed}])
+    subscriptions = Subscription.all(:include => [:user, {:channel => :feeds}])
     subscriptions.each {|sub| Delivery.deliver_to(sub) }
     puts "Delivered to all subscriptions #{Time.zone.now - t} elapsed"    
   end
