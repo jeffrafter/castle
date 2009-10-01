@@ -30,6 +30,7 @@ class DeliveryTest < ActiveSupport::TestCase
       should "not deliver to subscriptions for missing users" do
         should_not_deliver_entry @entry.id do
           @user.destroy
+          @subscription.reload
           Delivery.deliver_to(@subscription)
         end  
       end
@@ -37,6 +38,7 @@ class DeliveryTest < ActiveSupport::TestCase
       should "not deliver to subscriptions for missing channels" do
         should_not_deliver_entry @entry.id do
           @channel.destroy
+          @subscription.reload
           Delivery.deliver_to(@subscription)
         end  
       end

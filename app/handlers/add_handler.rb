@@ -5,7 +5,7 @@ module Message
   class AddHandler < AbstractHandler
     def run
       command = Command.parse(self.message)
-      available_channels = self.gateway.region.channels.available(self.user.id)
+      available_channels = self.gateway.region.channels.available(self.user.id).all
       if command && command.key == 'add'
         return unless add_subscriptions(command.args, available_channels)
       else

@@ -6,8 +6,8 @@ class Delivery < ActiveRecord::Base
   # No delivery, if during quiet hours for this user or they are not active  
   # If the user doesn't need anymore we leave
   def self.deliver_to(subscription)
-    user = User.find(subscription.user_id)
-    channel = Channel.find(subscription.channel_id)
+    user = subscription.user
+    channel = subscription.channel
     return unless user && channel
     return unless user.active? && user.number_confirmed? && channel.active?
     return if user.quiet_hours?
@@ -15,8 +15,8 @@ class Delivery < ActiveRecord::Base
     return unless need > 0
     return if recent_delivery?(user)
     since = self.last_delivered_entry_id(subscription)
-    entries = Entry.available(user.id, channel.id, since, 1).all
-    entries.each {|entry| self.deliver(user.id, channel.id, entry, PRIORITY[:low]) }
+    entry = Entry.last(:conditions => ["id > ? AND feed_id IN (?)", since, channel.feeds.map(&:id)])
+    self.deliver(user.id, channel.id, entry, PRIORITY[:low]) if entry
   rescue Exception => e
     # Bad subscription
     Rails.logger.error "Could not deliver to subscription: #{e.message}"
