@@ -3,7 +3,7 @@ require 'feedzirra'
 # sanitize logic moved to String class
 class String
   def sanitize_with_strip
-    s = self.gsub(/\>/, "> ")
+    s = self.sanitize_without_strip
     s = Dryopteris.strip_tags(s)
     s.gsub!(/\xA0/," ") # &nbsp;
     s.gsub!(/[\r\n]/," ")
@@ -14,7 +14,7 @@ class String
     s.gsub!(/\s([\.\?\!])/, '\1')
     s.gsub!(/\s+$/, "")
     s.gsub!(/^\s+/, "")
-    sanitize_without_strip
+    s
   end
   alias_method_chain :sanitize, :strip
 end
@@ -59,7 +59,7 @@ private
   end          
 
   def success(url, feed)
-    puts "Successfully parsed feed"
+    logger.debug "Successfully parsed feed"
     feed.sanitize_entries!
     self.etag = feed.etag
     self.last_modified = feed.last_modified        
