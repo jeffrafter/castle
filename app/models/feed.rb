@@ -1,24 +1,26 @@
 require 'feedzirra'
 
+# sanitize logic moved to String class
+class String
+  def sanitize_with_strip
+    s = self.gsub(/\>/, "> ")
+    s = Dryopteris.strip_tags(s)
+    s.gsub!(/\xA0/," ") # &nbsp;
+    s.gsub!(/[\r\n]/," ")
+    s.gsub!(/\s\s+/," ")
+    s.gsub!(/ : /,": ")
+    s.gsub!(/ - /,"-")
+    s.gsub!(/ \/ /,"/")
+    s.gsub!(/\s([\.\?\!])/, '\1')
+    s.gsub!(/\s+$/, "")
+    s.gsub!(/^\s+/, "")
+    sanitize_without_strip
+  end
+  alias_method_chain :sanitize, :strip
+end
+
 module Feedzirra
   module FeedEntryUtilities
-    module Sanitize
-      def sanitize
-        s = self.gsub(/\>/, "> ")
-        s = Dryopteris.strip_tags(s)
-        s.gsub!(/\xA0/," ") # &nbsp;
-        s.gsub!(/[\r\n]/," ")
-        s.gsub!(/\s\s+/," ")
-        s.gsub!(/ : /,": ")
-        s.gsub!(/ - /,"-")
-        s.gsub!(/ \/ /,"/")
-        s.gsub!(/\s([\.\?\!])/, '\1')
-        s.gsub!(/\s+$/, "")
-        s.gsub!(/^\s+/, "")
-        s
-      end
-    end
-    
     # moved this method from jeff's gem to here, in order to use the official gem        
     def checksum
       Digest::MD5.hexdigest("#{title}--#{url}--#{summary}--#{content}")
