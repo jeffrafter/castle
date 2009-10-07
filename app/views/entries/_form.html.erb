@@ -4,13 +4,13 @@
       var content = $('#entry_content');
       var summary = $('#entry_summary');
       var title = $('#entry_title');
-      length = (content.val() || '').length;
+      var length = (content.val() || '').length;
       if (summary.val() && summary.val().length > 0)
         length += summary.val().length + 1;
       if (title.val() && title.val().length > 0) 
         length += title.val().length + 3;
-      $('#counter').text("" + (SMS_LIMIT - length) + " characters remaining");
-      $('#counter').css("color", (SMS_LIMIT - length > 0) ? "green" : "red");
+      $('#counter').text("" + (<%= SMS_LIMIT %> - length) + " characters remaining");
+      $('#counter').css("color", (<%= SMS_LIMIT %> - length > 0) ? "green" : "red");
     }
 
     $(document).ready(function() {
