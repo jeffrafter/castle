@@ -11,9 +11,9 @@ class Delivery < ActiveRecord::Base
     return unless user && channel
     return unless user.active? && user.number_confirmed? && channel.active?
     return if user.quiet_hours?
+    return if recent_delivery?(user)
     need = subscription.number_per_day - self.delivery_count(subscription)
     return unless need > 0
-    return if recent_delivery?(user)
     since = self.last_delivered_entry_id(subscription)
     entry = Entry.last(:conditions => ["id > ? AND feed_id IN (?)", since, channel.feeds.map(&:id)])
     self.deliver(user.id, channel.id, entry, PRIORITY[:low]) if entry

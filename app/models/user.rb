@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   validates_presence_of :email, :if => :email_required?
   validates_uniqueness_of :email, :case_sensitive => false, :if => :email_required?
   validates_format_of :email, :with => %r{.+@.+\..+}, :if => :email_required?
+  validates_uniqueness_of :number
 
   attr_accessible :number, 
     :number_confirmed, 

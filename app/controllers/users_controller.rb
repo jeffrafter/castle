@@ -3,7 +3,7 @@ class UsersController < Clearance::UsersController
     @user = User.find(params[:id])
     @from_user = Inbox.count(:conditions => ['number = ?', @user.number])
     @to_user = Outbox.count(:conditions => ['number = ?', @user.number])
-    @ratings = 0
+    @ratings = User.ratings.count
     respond_to do |format|
       format.html
       format.xml { render :xml => @user }
@@ -104,7 +104,7 @@ class UsersController < Clearance::UsersController
 
     
   def destroy
-    @user = ::Page.find(params[:id])
+    @user = User.find(params[:id])
     @user.destroy
     respond_to do |format|
       format.html { redirect_to users_url }
