@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091001173456) do
+ActiveRecord::Schema.define(:version => 20091023193615) do
 
   create_table "channels", :force => true do |t|
     t.string   "title"
@@ -125,6 +125,8 @@ ActiveRecord::Schema.define(:version => 20091001173456) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "delay",                             :default => 60
+    t.string   "textmagic_username"
+    t.string   "textmagic_password"
   end
 
   add_index "gateways", ["api_key", "api_key_expires_at"], :name => "index_gateways_on_api_key_and_api_key_expires_at"
@@ -163,7 +165,10 @@ ActiveRecord::Schema.define(:version => 20091001173456) do
     t.integer  "priority",    :default => 1
     t.string   "status"
     t.float    "charge",      :default => 0.0
+    t.integer  "identifier"
   end
+
+  add_index "outbox", ["identifier"], :name => "index_outbox_on_identifier"
 
   create_table "popular", :force => true do |t|
     t.integer  "channel_id", :null => false

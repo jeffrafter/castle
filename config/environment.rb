@@ -22,6 +22,7 @@ Rails::Initializer.run do |config|
   config.gem "mislav-will_paginate", :lib => "will_paginate"
   config.gem "thoughtbot-clearance", :lib => "clearance"
   config.gem "jeffrafter-resource_controller", :lib => "resource_controller"
+  config.gem "textmagic"
 end
 
 DO_NOT_REPLY = "donotreply@datadyne.socialrange.org" 

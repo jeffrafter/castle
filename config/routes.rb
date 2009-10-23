@@ -24,5 +24,8 @@ ActionController::Routing::Routes.draw do |map|
   map.deliver '/deliver', :controller => 'dashboard', :action => 'deliver'
   map.dashboard '/dashboard', :controller => 'dashboard'
 
+  map.callback '/:api_id/textmagic/callback', :controller => 'textmagic', :action => 'callback', :method => :post
+  map.textmagic '/:api_id/textmagic', :controller => 'textmagic', :action => 'create', :method => :post
+
   map.root :controller => 'clearance/sessions', :action => 'new'
 end
