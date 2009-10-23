@@ -9,6 +9,7 @@ class TextmagicController < ApplicationController
     outbox.save!
     render :nothing => true
   rescue Exception => e
+     Rails.logger.error "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
     render :text => e.message + "\n#{e.backtrace}", :status => :error
   end      
   
@@ -25,6 +26,7 @@ class TextmagicController < ApplicationController
     @processor.run
     render :nothing => true, :status => :ok      
   rescue Exception => e
+    Rails.logger.error "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
     render :text => e.message + "\n#{e.backtrace}", :status => :error 
   end
 end
