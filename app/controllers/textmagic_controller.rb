@@ -14,7 +14,8 @@ class TextmagicController < ApplicationController
   end      
   
   def create
-    render(:nothing => true, :status => :ok) and return if params[:from].blank?
+    raise "#{params}"
+#    render(:nothing => true, :status => :ok) and return if params[:from].blank?
 
     # Not currently using params[:identifier]
     @message = Inbox.create(
