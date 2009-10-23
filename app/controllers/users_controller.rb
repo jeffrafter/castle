@@ -3,7 +3,7 @@ class UsersController < Clearance::UsersController
     @user = User.find(params[:id])
     @from_user = Inbox.count(:conditions => ['number = ?', @user.number])
     @to_user = Outbox.count(:conditions => ['number = ?', @user.number])
-    @ratings = User.ratings.count
+    @ratings = @user.ratings.count
     respond_to do |format|
       format.html
       format.xml { render :xml => @user }
