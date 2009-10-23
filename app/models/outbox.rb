@@ -5,9 +5,9 @@ class Outbox < ActiveRecord::Base
   belongs_to :gateway
   validates_presence_of :number, :gateway, :text  
   named_scope :local, lambda {|gateway_id| { :conditions => ['gateway_id = ?', gateway_id]}}
-  after_create :send
+  after_create :deliver
   
-  def send
+  def deliver
     if gateway.textmagic_username.present?
       begin
         api = TextMagic::API.new(gateway.textmagic_username, gateway.textmagic_password)

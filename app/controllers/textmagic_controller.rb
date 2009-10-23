@@ -9,7 +9,7 @@ class TextmagicController < ApplicationController
     outbox.save!
     render :nothing => true
   rescue Exception => e
-    render :text => e.message + "\n#{e.backtrace}"
+    render :text => e.message + "\n#{e.backtrace}", :status => :error
   end      
   
   def create
