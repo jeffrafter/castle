@@ -1,7 +1,8 @@
 class TextmagicController < ApplicationController
   # When setting up the callback you need to include the api_id param!
+  skip_before_filter :verify_authenticity_token
   before_filter :find_gateway
-
+ 
   def callback
     raise "Invalid message" unless outbox = Outbox.find_by_identifier(params[:message_id])
     outbox.status = params[:status]
