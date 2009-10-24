@@ -14,7 +14,8 @@ class TextmagicController < ApplicationController
   end      
   
   def create
-    raise "#{params}"
+    Rails.logger.fatal "#{params} Error attempting to process message"
+    raise "BANNNNNNNNNNNNNNNNNNNNNNNNNG"
 =begin
     render(:nothing => true, :status => :ok) and return if params[:from].blank?
 
