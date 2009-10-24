@@ -26,8 +26,8 @@ class TextmagicController < ApplicationController
     @processor = Message::Processor.new(@message)
     @processor.run
     render :nothing => true, :status => :ok      
-  rescue Exception => e
-    Rails.logger.error "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
-    render :text => e.message + "\n#{e.backtrace}", :status => :error 
+#  rescue Exception => e
+#    Rails.logger.error "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
+#    render :text => e.message + "\n#{e.backtrace}", :status => :error 
   end
 end
