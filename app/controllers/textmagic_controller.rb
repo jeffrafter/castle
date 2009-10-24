@@ -2,7 +2,7 @@ class TextmagicController < ApplicationController
   # When setting up the callback you need to include the api_id param!
   skip_before_filter :verify_authenticity_token
   before_filter :find_gateway
- 
+
   def callback
     raise "Invalid message" unless outbox = Outbox.find_by_identifier(params[:message_id])
     outbox.status = params[:status]
@@ -15,9 +15,6 @@ class TextmagicController < ApplicationController
   end      
   
   def create
-    Rails.logger.fatal "#{params} Error attempting to process message"
-    raise "BANNNNNNNNNNNNNNNNNNNNNNNNNG"
-=begin
     render(:nothing => true, :status => :ok) and return if params[:from].blank?
 
     # Not currently using params[:identifier]
@@ -32,6 +29,5 @@ class TextmagicController < ApplicationController
   rescue Exception => e
     Rails.logger.error "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
     render :text => e.message + "\n#{e.backtrace}", :status => :error 
-=end    
   end
 end
