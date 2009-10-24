@@ -6,7 +6,7 @@ class TextmagicController < ApplicationController
   def callback
     raise "Invalid message" unless outbox = Outbox.find_by_identifier(params[:message_id])
     outbox.status = params[:status]
-    outbox.charge = params[:charge]
+    outbox.charge = params[:credits_cost]
     outbox.save!
     render :nothing => true
   rescue Exception => e
@@ -21,7 +21,7 @@ class TextmagicController < ApplicationController
     @message = Inbox.create(
       :gateway => @gateway,
       :sent_at => Time.zone.at(params[:timestamp].to_i), 
-      :number => params[:from],
+      :number => "+#{params[:from].gsub(/[^0-9]/,'')}",
       :text => params[:text])                                  
     @processor = Message::Processor.new(@message)
     @processor.run
