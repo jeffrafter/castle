@@ -15,7 +15,8 @@ class TextmagicController < ApplicationController
   
   def create
     raise "#{params}"
-#    render(:nothing => true, :status => :ok) and return if params[:from].blank?
+=begin
+    render(:nothing => true, :status => :ok) and return if params[:from].blank?
 
     # Not currently using params[:identifier]
     @message = Inbox.create(
@@ -26,8 +27,9 @@ class TextmagicController < ApplicationController
     @processor = Message::Processor.new(@message)
     @processor.run
     render :nothing => true, :status => :ok      
-#  rescue Exception => e
-#    Rails.logger.error "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
-#    render :text => e.message + "\n#{e.backtrace}", :status => :error 
+  rescue Exception => e
+    Rails.logger.error "Error attempting to process message #{e.message} (#{e.backtrace.join("\n")}"
+    render :text => e.message + "\n#{e.backtrace}", :status => :error 
+=end    
   end
 end
